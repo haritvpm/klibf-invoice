@@ -56,9 +56,11 @@
             </div>
             <div class="form-group">
                 <label class="required" for="invoice_list_id">{{ trans('cruds.invoiceItem.fields.invoice_list') }}</label>
-                <select class="form-control select2 {{ $errors->has('invoice_list') ? 'is-invalid' : '' }}" name="invoice_list_id" id="invoice_list_id" required>
+                <input type="hidden" name="invoice_list_id" value= {{ $invoiceItem->invoice_list->id }} >
+
+                <select class="form-control  {{ $errors->has('invoice_list') ? 'is-invalid' : '' }}" name="invoice_list_id" id="invoice_list_id" required>
                     @foreach($invoice_lists as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('invoice_list_id') ? old('invoice_list_id') : $invoiceItem->invoice_list->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option disabled value="{{ $id }}" {{ (old('invoice_list_id') ? old('invoice_list_id') : $invoiceItem->invoice_list->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('invoice_list'))

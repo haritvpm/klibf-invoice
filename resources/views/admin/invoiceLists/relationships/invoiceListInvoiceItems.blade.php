@@ -18,7 +18,7 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-invoiceListInvoiceItems">
                 <thead>
                     <tr>
-                        <th width="10">
+                        <th >
 
                         </th>
                         <th>
@@ -27,23 +27,24 @@
                         <th>
                             {{ trans('cruds.invoiceItem.fields.publisher') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.invoiceItem.fields.amount') }}
-                        </th>
+                        
                         <th>
                             {{ trans('cruds.invoiceItem.fields.bill_number') }}
                         </th>
                         <th>
                             {{ trans('cruds.invoiceItem.fields.bill_date') }}
                         </th>
-                        <th>
+                        <!-- <th>
                             {{ trans('cruds.invoiceItem.fields.invoice_list') }}
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
+                        </th> -->
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.amount') }}
                         </th>
                         <th>
                             &nbsp;
@@ -62,26 +63,27 @@
                             <td>
                                 {{ $invoiceItem->publisher->name ?? '' }}
                             </td>
-                            <td>
-                                {{ $invoiceItem->amount ?? '' }}
-                            </td>
+                           
                             <td>
                                 {{ $invoiceItem->bill_number ?? '' }}
                             </td>
                             <td>
                                 {{ $invoiceItem->bill_date ?? '' }}
                             </td>
-                            <td>
+                            <!-- <td>
                                 {{ $invoiceItem->invoice_list->institution_name ?? '' }}
-                            </td>
-                            <td>
+                            </td> -->
+                            <!-- <td>
                                 {{ $invoiceItem->invoice_list->number ?? '' }}
-                            </td>
+                            </td> -->
                             <td>
+                                {{ $invoiceItem->amount ?? '' }}
+                            </td>
+                            <!-- <td>
                                 @if($invoiceItem->invoice_list)
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
-                            </td>
+                            </td> -->
                             <td>
                                 @can('invoice_item_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.invoice-items.show', $invoiceItem->id) }}">

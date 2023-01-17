@@ -18,7 +18,7 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-memberInvoiceLists">
                 <thead>
                     <tr>
-                        <th width="10">
+                        <th >
 
                         </th>
                         <th>
@@ -33,18 +33,18 @@
                         <th>
                             {{ trans('cruds.invoiceList.fields.institution_name') }}
                         </th>
-                        <th>
+                  <!--       <th>
                             {{ trans('cruds.invoiceList.fields.amount_allotted') }}
                         </th>
                         <th>
                             {{ trans('cruds.invoiceList.fields.remarks') }}
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             {{ trans('cruds.invoiceList.fields.member') }}
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             {{ trans('cruds.member.fields.constituency') }}
-                        </th>
+                        </th> -->
                         <th>
                             &nbsp;
                         </th>
@@ -53,7 +53,7 @@
                 <tbody>
                     @foreach($invoiceLists as $key => $invoiceList)
                         <tr data-entry-id="{{ $invoiceList->id }}">
-                            <td>
+                            <td >
 
                             </td>
                             <td>
@@ -68,18 +68,18 @@
                             <td>
                                 {{ $invoiceList->institution_name ?? '' }}
                             </td>
-                            <td>
+                          <!--   <td>
                                 {{ $invoiceList->amount_allotted ?? '' }}
                             </td>
                             <td>
                                 {{ $invoiceList->remarks ?? '' }}
-                            </td>
-                            <td>
+                            </td> -->
+                            <!-- <td>
                                 {{ $invoiceList->member->name ?? '' }}
                             </td>
                             <td>
                                 {{ $invoiceList->member->constituency ?? '' }}
-                            </td>
+                            </td> -->
                             <td>
                                 @can('invoice_list_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.invoice-lists.show', $invoiceList->id) }}">

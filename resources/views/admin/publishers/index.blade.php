@@ -3,7 +3,7 @@
 @can('publisher_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.publishers.create') }}">
+            <a class="btn btn-dark" href="{{ route('admin.publishers.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.publisher.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">

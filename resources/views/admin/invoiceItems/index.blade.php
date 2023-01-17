@@ -3,7 +3,7 @@
 @can('invoice_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.invoice-items.create') }}">
+            <a class="btn btn-dark" href="{{ route('admin.invoice-items.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.invoiceItem.title_singular') }}
             </a>
         </div>
@@ -19,7 +19,7 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-InvoiceItem">
                 <thead>
                     <tr>
-                        <th width="10">
+                        <th >
 
                         </th>
                         <th>
@@ -28,9 +28,7 @@
                         <th>
                             {{ trans('cruds.invoiceItem.fields.publisher') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.invoiceItem.fields.amount') }}
-                        </th>
+                       
                         <th>
                             {{ trans('cruds.invoiceItem.fields.bill_number') }}
                         </th>
@@ -40,11 +38,14 @@
                         <th>
                             {{ trans('cruds.invoiceItem.fields.invoice_list') }}
                         </th>
-                        <th>
+                   <!--      <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
                         </th>
                         <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
+                        </th> -->
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.amount') }}
                         </th>
                         <th>
                             &nbsp;
@@ -63,9 +64,7 @@
                             <td>
                                 {{ $invoiceItem->publisher->name ?? '' }}
                             </td>
-                            <td>
-                                {{ $invoiceItem->amount ?? '' }}
-                            </td>
+                           
                             <td>
                                 {{ $invoiceItem->bill_number ?? '' }}
                             </td>
@@ -75,13 +74,16 @@
                             <td>
                                 {{ $invoiceItem->invoice_list->institution_name ?? '' }}
                             </td>
-                            <td>
+                      <!--       <td>
                                 {{ $invoiceItem->invoice_list->number ?? '' }}
                             </td>
                             <td>
                                 @if($invoiceItem->invoice_list)
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
+                            </td> -->
+                            <td>
+                                {{ $invoiceItem->amount ?? '' }}
                             </td>
                             <td>
                                 @can('invoice_item_show')

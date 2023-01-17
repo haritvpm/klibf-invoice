@@ -12,10 +12,11 @@
         {{ trans('global.create') }} {{ trans('cruds.invoiceList.title_singular') }}
     </div>
 
-    <div class="card-body">
+    <div class="card-body ">
         <form method="POST" action="{{ route("admin.invoice-lists.store") }}" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
+            <div class="row">
+            <div class="form-group col-md-2">
                 <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
                 <input class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" type="number" name="number" id="number" value="{{ old('number', '') }}" step="1">
                 @if($errors->has('number'))
@@ -25,7 +26,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
                 @foreach(App\Models\InvoiceList::INSTITUTION_TYPE_RADIO as $key => $label)
                     <div class="form-check {{ $errors->has('institution_type') ? 'is-invalid' : '' }}">
@@ -40,7 +41,9 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.institution_type_helper') }}</span>
             </div>
-            <div class="form-group">
+         
+
+            <div class="form-group col-md-7">
                 <label class="required" for="institution_name">{{ trans('cruds.invoiceList.fields.institution_name') }}</label>
                 <input class="form-control {{ $errors->has('institution_name') ? 'is-invalid' : '' }}" type="text" name="institution_name" id="institution_name" value="{{ old('institution_name', '') }}" required>
                 @if($errors->has('institution_name'))
@@ -49,6 +52,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.institution_name_helper') }}</span>
+            </div>
             </div>
            <!--  <div class="form-group">
                 <label for="amount_allotted">{{ trans('cruds.invoiceList.fields.amount_allotted') }}</label>
@@ -75,8 +79,9 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
             </div>
+           
 
-            <table class="table table-bordered">
+    <table class="table table-bordered">
     <thead>
        <tr>
            <th scope="col">Publisher</th>
@@ -115,7 +120,7 @@
             </td>
           
           
-           <td><input type="text" name="amount[]" class="form-control amount" ></td>
+           <td><input  class="form-control amount"  type="text" name="amount[]" required ></td>
         
         <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
          </tr>
@@ -180,7 +185,7 @@
                 var  tr = $(this).parent().parent();
                 tr.find('.amount').focus();
            }
-           else  if($(this).val() >= 10) {
+           else  if($(this).val() >= 10 && $(this).val() <= 17) {
                 $(this).val( $(this).val() + '/01/2023')
                 var  tr = $(this).parent().parent();
 

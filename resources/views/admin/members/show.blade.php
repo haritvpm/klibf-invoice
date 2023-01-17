@@ -50,22 +50,8 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#member_invoice_lists" role="tab" data-toggle="tab">
-                {{ trans('cruds.invoiceList.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="member_invoice_lists">
-            @includeIf('admin.members.relationships.memberInvoiceLists', ['invoiceLists' => $member->memberInvoiceLists])
-        </div>
-    </div>
-</div>
+
+     @includeIf('admin.members.relationships.memberInvoiceLists', ['invoiceLists' => $member->memberInvoiceLists])
+
 
 @endsection
