@@ -88,7 +88,10 @@
            <th scope="col">Bill No</th>
            <th scope="col">Bill Date</th>
            <th scope="col">Amount</th>
-           <th scope="col"><a class="addRow"><i class="fa fa-plus"></i></a></th>
+           <th scope="col">
+           <button type="button"  class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> 
+           <!-- <a class="addRow"><i class="fa fa-plus"></i></a> -->
+        </th>
          </tr>
        </thead>
        <tbody>
@@ -115,8 +118,7 @@
             <td>
             <input class="form-control bill-date  {{ $errors->has('bill_date') ? 'is-invalid' : '' }}" type="text" 
             name="bill_date[]"  value="{{ old('bill_date[]') }}" required>
-
-            
+           
             </td>
           
           
@@ -237,8 +239,8 @@
 '\n' +
 '            \n' +
 '            </td>\n' +
-'           <td><input type="text" name="amount[]" class="form-control amount" ></td>\n' +
-'<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
+'           <td><input type="text" name="amount[]" class="form-control amount" required></td>\n' +
+'<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
 '         </tr>\n' ;
             $('tbody').append(addRow);
         };
