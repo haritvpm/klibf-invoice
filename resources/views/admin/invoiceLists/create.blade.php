@@ -132,7 +132,7 @@
          <td></td>
          <td></td>
         
-         <td><b>Total</b></td>
+         <td><b class="total-label">Total</b></td>
          <td><b class="total"></b></td>
          <td></td>
         </tr>
@@ -202,12 +202,16 @@
         });
 
         function total(){
-            var total = 0;
+            let total = 0;
+            let items = 0;
             $('.amount').each(function (i,e) {
                 var amount =$(this).val()-0;
                 total += amount;
+                items++;
             })
+
             $('.total').html(total);
+            $('.total-label').html('Total (' + items + ')' );
         }
        
         $('.addRow').on('click', function () {

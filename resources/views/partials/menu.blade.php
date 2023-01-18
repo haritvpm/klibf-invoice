@@ -71,7 +71,7 @@
         @can('member_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.members.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/members") || request()->is("admin/members/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.member.title') }}
@@ -81,7 +81,7 @@
         @can('publisher_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.publishers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/publishers") || request()->is("admin/publishers/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.publisher.title') }}
@@ -91,17 +91,17 @@
         @can('invoice_list_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.invoice-lists.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-lists") || request()->is("admin/invoice-lists/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-file-invoice-dollar c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.invoiceList.title') }}
+                     <span style='color:lightgreen;'>   {{ trans('cruds.invoiceList.title') }} </span>
                 </a>
             </li>
         @endcan
         @can('invoice_item_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-dollar c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.invoiceItem.title') }}
@@ -109,14 +109,14 @@
             </li>
         @endcan
     
-        <li class="c-sidebar-nav-item">
+       <!--  <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">
 
                 </i>
                 {{ trans('global.logout') }}
             </a>
-        </li>
+        </li> -->
     </ul>
 
 </div>
