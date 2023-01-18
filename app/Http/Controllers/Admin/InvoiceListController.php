@@ -29,7 +29,13 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+       // $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        
+        $members = Member::get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
+            return [$x->id => $x->name . ' (' .$x->constituency . ')'];
+        })
+        ->prepend(trans('global.pleaseSelect'), '');
+
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.invoiceLists.create', compact('members', 'publishers'));

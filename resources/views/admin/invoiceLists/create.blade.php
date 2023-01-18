@@ -16,7 +16,7 @@
         <form method="POST" action="{{ route("admin.invoice-lists.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
-            <div class="form-group col-md-2">
+          <!--   <div class="form-group col-md-2">
                 <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
                 <input class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" type="number" name="number" id="number" value="{{ old('number', '') }}" step="1">
                 @if($errors->has('number'))
@@ -25,7 +25,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
-            </div>
+            </div> -->
             <div class="form-group col-md-3">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
                 @foreach(App\Models\InvoiceList::INSTITUTION_TYPE_RADIO as $key => $label)
@@ -111,7 +111,7 @@
 
             <td>
             <input class="form-control bill-number {{ $errors->has('bill_number') ? 'is-invalid' : '' }}" type="text" 
-            name="bill_number[]"  value="{{ old('bill_number[]', '') }}" required>
+            name="bill_number[]"  value="{{ old('bill_number[]', '') }}" required autocomplete="off">
 
             </td>
 
@@ -122,7 +122,7 @@
             </td>
           
           
-           <td><input  class="form-control amount"  type="text" name="amount[]" required ></td>
+           <td><input  class="form-control amount"  type="text" name="amount[]" required autocomplete="off"></td>
         
         <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
          </tr>
