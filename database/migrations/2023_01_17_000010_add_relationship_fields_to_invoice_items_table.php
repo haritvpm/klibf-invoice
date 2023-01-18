@@ -13,6 +13,10 @@ class AddRelationshipFieldsToInvoiceItemsTable extends Migration
             $table->foreign('publisher_id', 'publisher_fk_7889313')->references('id')->on('publishers');
             $table->unsignedBigInteger('invoice_list_id')->nullable();
             $table->foreign('invoice_list_id', 'invoice_list_fk_7889330')->references('id')->on('invoice_lists');
+
+       
+
+
         });
     }
 }

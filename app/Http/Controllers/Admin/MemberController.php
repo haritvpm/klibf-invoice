@@ -11,6 +11,9 @@ use App\Models\Member;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Exports\InvoicesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class MemberController extends Controller
 {
@@ -21,6 +24,9 @@ class MemberController extends Controller
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $members = Member::all();
+
+           
+       
 
         return view('admin.members.index', compact('members'));
     }
@@ -76,5 +82,11 @@ class MemberController extends Controller
         Member::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function export() 
+    {
+       // return Excel::download(new MembersExport, 'klibf.xlsx');
+        return (new InvoicesExport())->download('klibf.xlsx');
     }
 }

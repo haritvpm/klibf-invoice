@@ -15,7 +15,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a class="btn btn-primary" href="{{ route('admin.members.export') }}">
+                     Download Report
+                    </a>
+
                 </div>
             </div>
         </div>

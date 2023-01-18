@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('members/destroy', 'MemberController@massDestroy')->name('members.massDestroy');
     Route::post('members/parse-csv-import', 'MemberController@parseCsvImport')->name('members.parseCsvImport');
     Route::post('members/process-csv-import', 'MemberController@processCsvImport')->name('members.processCsvImport');
+    Route::get('members/export', 'MemberController@export', 'export')->name('members.export');;
     Route::resource('members', 'MemberController');
 
     // Publisher
@@ -44,6 +45,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Invoice List
     Route::delete('invoice-lists/destroy', 'InvoiceListController@massDestroy')->name('invoice-lists.massDestroy');
     Route::resource('invoice-lists', 'InvoiceListController');
+
+
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
