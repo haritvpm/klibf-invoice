@@ -4,8 +4,9 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use App\Models\Member;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class InvoicesPerMonthSheet implements FromCollection, WithTitle
+class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 {
     private $title;
  
@@ -191,6 +192,20 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle
         return$this->All($members);
     }
 
+    public function headings(): array
+    {
+        if($this->title == 'MLA-Amount')
+            return [ "MLA", "Constituency", 'Amount'];
+
+        if($this->title == 'MLA-Publisher')  
+            return ["Sl.No.", "MLA", "Constituency", 'Publisher', 'Amount'];
+
+        if($this->title == 'Publisher-Amount')  
+            return [ 'Publisher',  'Amount'];
+        
+     
+        return ["Sl.No.", "MLA", "Constituency",'School/College',  'Library', 'Publisher', 'Bill No.', 'Bill Date', 'Amount'];
+    }
     /**
      * @return string
      */
