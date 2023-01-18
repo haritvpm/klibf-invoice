@@ -25,9 +25,9 @@
                         <th>
                             {{ trans('cruds.invoiceList.fields.id') }}
                         </th>
-                        <th>
+                        <!-- <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
-                        </th>
+                        </th> -->
                         <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
                         </th>
@@ -60,9 +60,9 @@
                             <td>
                                 {{ $invoiceList->id ?? '' }}
                             </td>
-                            <td>
+                            <!-- <td>
                                 {{ $invoiceList->number ?? '' }}
-                            </td>
+                            </td> -->
                             <td>
                                 {{ App\Models\InvoiceList::INSTITUTION_TYPE_RADIO[$invoiceList->institution_type] ?? '' }}
                             </td>
