@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-@can('invoice_item_create')
+<!-- @can('invoice_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-dark" href="{{ route('frontend.invoice-items.create') }}">
@@ -11,7 +11,7 @@
             </a>
         </div>
     </div>
-@endcan
+@endcan -->
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.invoiceItem.title_singular') }} {{ trans('global.list') }}

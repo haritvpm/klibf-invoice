@@ -20,8 +20,11 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceLists = InvoiceList::with(['member'])->get();
+        $invoiceLists = InvoiceList::with(['member'])
+                            ->withSum('invoiceListInvoiceItems', 'amount')
+                            ->get();
 
+     
         return view('frontend.invoiceLists.index', compact('invoiceLists'));
     }
 

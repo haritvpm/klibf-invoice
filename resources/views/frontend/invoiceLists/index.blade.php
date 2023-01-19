@@ -14,7 +14,7 @@
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.invoiceList.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.invoiceList.title_singular')  }}
     </div>
 
     <div class="card-body">
@@ -43,9 +43,10 @@
                         </th> -->
                         <th>
                             {{ trans('cruds.invoiceList.fields.member') }}
+                            <!-- {{ $invoiceList->member->constituency ?? '' }} -->
                         </th>
                         <th>
-                            {{ trans('cruds.member.fields.constituency') }}
+                            Sum
                         </th>
                         <th>
                             &nbsp;
@@ -75,10 +76,12 @@
                                 {{ $invoiceList->remarks ?? '' }}
                             </td> -->
                             <td>
-                                {{ $invoiceList->member->name ?? '' }}
+                                {{ $invoiceList->member->name ?? '' }} 
+                                
                             </td>
                             <td>
-                                {{ $invoiceList->member->constituency ?? '' }}
+                     
+                                {{ $invoiceList->invoice_list_invoice_items_sum_amount ?? '' }}
                             </td>
                             <td>
                                 @can('invoice_list_show')

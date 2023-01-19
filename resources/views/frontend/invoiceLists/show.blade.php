@@ -26,14 +26,14 @@
                             {{ $invoiceList->id }}
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
                         </th>
                         <td>
                             {{ $invoiceList->number }}
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
@@ -71,7 +71,8 @@
                             {{ trans('cruds.invoiceList.fields.member') }}
                         </th>
                         <td>
-                            {{ $invoiceList->member->name ?? '' }}
+                            {{ $invoiceList->member->name ?? '' }}, 
+                            {{ $invoiceList->member->constituency ?? '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -85,7 +86,15 @@
     </div>
 </div>
 
- 
+@can('invoice_item_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('frontend.invoice-items.create', ['list-id'=>$invoiceList]) }}">
+                {{ trans('global.add') }} {{ trans('cruds.invoiceItem.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
     
  @includeIf('frontend.invoiceLists.relationships.invoiceListInvoiceItems', ['invoiceItems' => $invoiceList->invoiceListInvoiceItems])
      

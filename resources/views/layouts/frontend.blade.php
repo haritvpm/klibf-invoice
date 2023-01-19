@@ -57,14 +57,14 @@
                                     @endcan
                                   
                             </li>
-                            <li>
+                           <!--  <li>
                             @can('invoice_item_access')
                                         <a class="dropdown-item" href="{{ route('frontend.invoice-items.index') }}">
                                             {{ trans('cruds.invoiceItem.title') }}
                                         </a>
                                     @endcan
 
-                            </li>
+                            </li> -->
 
                         @endguest
                     </ul>

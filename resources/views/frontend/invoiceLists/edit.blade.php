@@ -90,6 +90,7 @@
     </div>
 </div>
 
+@includeIf('frontend.invoiceLists.relationships.invoiceListInvoiceItems', ['invoiceItems' => $invoiceList->invoiceListInvoiceItems])
 
 </div>
     </div>

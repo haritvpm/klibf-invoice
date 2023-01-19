@@ -24,14 +24,21 @@ class InvoiceItemController extends Controller
         return view('frontend.invoiceItems.index', compact('invoiceItems'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         abort_if(Gate::denies('invoice_item_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $invoice_lists = InvoiceList::pluck('institution_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
+        
+        //if adding to existing list, 
+        if ($request->has('list-id')) {
+            $invoice_lists = InvoiceList::where('id', $request->input('list-id'))
+                ->pluck('institution_name', 'id');
+           
+        }
+      
         return view('frontend.invoiceItems.create', compact('invoice_lists', 'publishers'));
     }
 
@@ -39,18 +46,28 @@ class InvoiceItemController extends Controller
     {
         $invoiceItem = InvoiceItem::create($request->all());
 
-        return redirect()->route('frontend.invoice-items.index');
+      //  return redirect()->route('frontend.invoice-items.index');
+
+        $invoiceList = $invoiceItem->invoice_list()->first();
+        return view('frontend.invoiceLists.show', compact('invoiceList'));
     }
 
     public function edit(InvoiceItem $invoiceItem)
     {
         abort_if(Gate::denies('invoice_item_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoice_lists = InvoiceList::pluck('institution_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+       // $invoice_lists = InvoiceList::pluck('institution_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+
 
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $invoiceItem->load('invoice_list', 'publisher');
+
+       
+        $invoice_lists = InvoiceList::where('id',$invoiceItem->invoice_list->id )
+                ->pluck('institution_name', 'id');
+               
 
         return view('frontend.invoiceItems.edit', compact('invoiceItem', 'invoice_lists', 'publishers'));
     }
@@ -59,7 +76,12 @@ class InvoiceItemController extends Controller
     {
         $invoiceItem->update($request->all());
 
-        return redirect()->route('frontend.invoice-items.index');
+        //prevent user from viewing list item page
+        
+      //  return redirect()->route('frontend.invoice-items.index');
+        $invoiceList = $invoiceItem->invoice_list()->first();
+        return view('frontend.invoiceLists.show', compact('invoiceList'));
+
     }
 
     public function show(InvoiceItem $invoiceItem)
