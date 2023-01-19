@@ -48,6 +48,12 @@
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
                         </th> -->
                         <th>
+                                {{ trans('cruds.invoiceItem.fields.gross') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.invoiceItem.fields.discount') }}
+                            </th>
+                        <th>
                             {{ trans('cruds.invoiceItem.fields.amount') }}
                         </th>
                         <th>
@@ -85,6 +91,12 @@
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
                             </td> -->
+                            <td>
+                                            {{ $invoiceItem->gross ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $invoiceItem->discount ?? '' }}
+                                        </td>
                             <td>
                                 {{ $invoiceItem->amount ?? '' }}
                             </td>

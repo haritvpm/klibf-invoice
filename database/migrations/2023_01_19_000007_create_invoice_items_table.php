@@ -10,9 +10,11 @@ class CreateInvoiceItemsTable extends Migration
     {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('amount', 15, 2);
             $table->string('bill_number');
             $table->date('bill_date');
+            $table->decimal('gross', 15, 2)->nullable();
+            $table->decimal('discount', 15, 2)->nullable();
+            $table->decimal('amount', 15, 2);
             $table->timestamps();
         });
     }

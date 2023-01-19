@@ -22,6 +22,22 @@ class UpdatePublisherRequest extends FormRequest
                 'required',
                 'unique:publishers,name,' . request()->route('publisher')->id,
             ],
+            'address' => [
+                'string',
+                'nullable',
+            ],
+            'account_no' => [
+                'string',
+                'nullable',
+            ],
+            'ifsc' => [
+                'string',
+                'nullable',
+            ],
+            'bank_name' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

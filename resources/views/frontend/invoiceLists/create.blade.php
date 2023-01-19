@@ -20,6 +20,20 @@
     <div class="card-body ">
         <form method="POST" action="{{ route("frontend.invoice-lists.store") }}" enctype="multipart/form-data">
             @csrf
+            <div class="form-group">
+                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
+                <select data-live-search="true" class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
+                    @foreach($members as $id => $entry)
+                        <option value="{{ $id }}" {{ old('member_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('member'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('member') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
+            </div>
             <div class="row">
           <!--   <div class="form-group col-md-2">
                 <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
@@ -31,6 +45,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
             </div> -->
+
             <div class="form-group col-md-3">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
                 @foreach(App\Models\InvoiceList::INSTITUTION_TYPE_RADIO as $key => $label)
@@ -70,20 +85,7 @@
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.amount_allotted_helper') }}</span>
             </div> -->
           
-            <div class="form-group">
-                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
-                <select data-live-search="true" class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
-                    @foreach($members as $id => $entry)
-                        <option value="{{ $id }}" {{ old('member_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('member'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('member') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
-            </div>
+          
            
 
     <table class="table table-bordered">
@@ -93,10 +95,7 @@
            <th scope="col">Bill No</th>
            <th scope="col">Bill Date</th>
            <th scope="col">Amount</th>
-           <th scope="col">
-      
-           <!-- <a class="addRow"><i class="fa fa-plus"></i></a> -->
-        </th>
+           <th scope="col"></th>
          </tr>
        </thead>
        <tbody>
@@ -156,11 +155,13 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
             </div> -->
-<div class='mt-5'></div>
+
+            <div class='mt-5'></div>
+
+
             <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
+                <button  class="btn btn-danger" type="submit" name="action" value="save"  > {{ trans('global.save') }}</button>
+                <button  class="btn btn-primary" type="submit" name="action" value="saveandnew"  > {{ trans('global.save') }} and New</button>
             </div>
         </form>
     </div>

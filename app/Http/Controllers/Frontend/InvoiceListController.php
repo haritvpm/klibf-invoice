@@ -39,6 +39,8 @@ class InvoiceListController extends Controller
         })
         ->prepend(trans('global.pleaseSelect'), '');
 
+        
+        
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('frontend.invoiceLists.create', compact('members', 'publishers'));
@@ -46,9 +48,8 @@ class InvoiceListController extends Controller
 
     public function store(StoreInvoiceListRequest $request)
     {
-       // dd( $request);
-
-        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id',    ));
+      
+        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
        
         $publisher_ids = $request->get('publisher_id');
         $bill_numbers = $request->get('bill_number');
@@ -67,10 +68,14 @@ class InvoiceListController extends Controller
         }
 
         $invoiceList->invoiceListInvoiceItems()->saveMany($invoiceitems);
-
-      
  
-        return redirect()->route('frontend.invoice-lists.index')->with('message','Invoice for ' . $invoiceList->institution_name . ' (ID:' . $invoiceList->id . ') created successfully');;
+       if($request->action == 'saveandnew'){
+            return redirect()->route('frontend.invoice-lists.create')
+            ->with('message','Invoice for ' . $invoiceList->institution_name . ' (ID:' . $invoiceList->id . ') created successfully')
+            ->withInput($request->only('member_id'));
+       }
+
+       return redirect()->route('frontend.invoice-lists.index')->with('message','Invoice for ' . $invoiceList->institution_name . ' (ID:' . $invoiceList->id . ') created successfully');;
     }
 
     public function edit(InvoiceList $invoiceList)
@@ -88,7 +93,28 @@ class InvoiceListController extends Controller
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)
     {
-        $invoiceList->update($request->all());
+        $invoiceList->invoiceListInvoiceItems()->delete();
+
+        $invoiceList->update($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
+
+        $publisher_ids = $request->get('publisher_id');
+        $bill_numbers = $request->get('bill_number');
+        $bill_dates = $request->get('bill_date');
+        $amounts = $request->get('amount');
+        
+        $invoiceitems = [];
+      
+        foreach ($publisher_ids as $i => $publisher_id) {
+            $invoiceitems[] = new InvoiceItem([
+                'publisher_id' => $publisher_id,
+                'bill_number' => $bill_numbers[$i],
+                'bill_date' => $bill_dates[$i],
+                'amount' => $amounts[$i],
+            ]);
+        }
+
+        $invoiceList->invoiceListInvoiceItems()->saveMany($invoiceitems);
+              
 
         return redirect()->route('frontend.invoice-lists.index');
     }

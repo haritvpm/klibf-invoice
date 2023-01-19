@@ -25,6 +25,8 @@ class InvoiceItem extends Model
         'amount',
         'bill_number',
         'bill_date',
+        'gross',
+        'discount',
         'invoice_list_id',
         'created_at',
         'updated_at',

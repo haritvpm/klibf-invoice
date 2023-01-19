@@ -38,9 +38,9 @@
                         <th>
                             {{ trans('cruds.invoiceItem.fields.amount') }}
                         </th>
-                        <th>
+                       <!--  <th>
                             &nbsp;
-                        </th>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +76,7 @@
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
                             </td> -->
-                            <td>
+                           <!--  <td>
                                 @can('invoice_item_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('frontend.invoice-items.show', $invoiceItem->id) }}">
                                         {{ trans('global.view') }}
@@ -97,7 +97,7 @@
                                     </form>
                                 @endcan
 
-                            </td>
+                            </td> -->
 
                         </tr>
                     @endforeach

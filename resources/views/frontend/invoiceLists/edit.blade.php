@@ -23,6 +23,21 @@
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
             </div> -->
             <div class="form-group">
+                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
+                <select class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
+                    @foreach($members as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('member_id') ? old('member_id') : $invoiceList->member->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('member'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('member') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
+            </div>
+
+            <div class="form-group">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
                 @foreach(App\Models\InvoiceList::INSTITUTION_TYPE_RADIO as $key => $label)
                     <div class="form-check {{ $errors->has('institution_type') ? 'is-invalid' : '' }}">
@@ -67,21 +82,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
             </div> -->
-            <div class="form-group">
-                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
-                <select class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
-                    @foreach($members as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('member_id') ? old('member_id') : $invoiceList->member->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('member'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('member') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
-            </div>
-
+           
             <table class="table table-bordered">
     <thead>
        <tr>
@@ -89,18 +90,14 @@
            <th scope="col">Bill No</th>
            <th scope="col">Bill Date</th>
            <th scope="col">Amount</th>
-           <th scope="col">
-      
-           <!-- <a class="addRow"><i class="fa fa-plus"></i></a> -->
-        </th>
+           <th scope="col"></th>
          </tr>
        </thead>
        <tbody>
 
        @foreach($invoiceList->invoiceListInvoiceItems as $key => $invoiceItem)
-       <tr>
-            <td><input  type="hidden" name="id[]"  value="{{$invoiceItem->id }}" ></td>
-
+       <tr id="rowinitial-{{$loop->index}}" class="dynamic-added">
+           
              <td>
                 
                  <select data-live-search="true" class="form-control publisher " 
@@ -130,7 +127,7 @@
            <td><input  class="form-control amount"  type="text" name="amount[]"  value="{{$invoiceItem->amount }}" required autocomplete="off"></td>
         
            @unless ($loop->first)
-             <td><button type="button" name="remove" id="'+i+'" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> 
+             <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> 
             @endunless
        
          </tr>
@@ -162,7 +159,6 @@
     </div>
 </div>
 
-@includeIf('frontend.invoiceLists.relationships.invoiceListInvoiceItems', ['invoiceItems' => $invoiceList->invoiceListInvoiceItems])
 
 </div>
     </div>
@@ -178,9 +174,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var i=1;  
-
-
-     
+    
 
         $('tbody').delegate('.publisher', 'change', function () {
             var  tr = $(this).parent().parent();
