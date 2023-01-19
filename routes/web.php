@@ -69,6 +69,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('users', 'UsersController');
 
     // Member
+    Route::get('members/export', 'MemberController@export', 'export')->name('members.export');;
     Route::delete('members/destroy', 'MemberController@massDestroy')->name('members.massDestroy');
     Route::resource('members', 'MemberController');
 

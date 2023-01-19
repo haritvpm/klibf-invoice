@@ -96,8 +96,12 @@ class InvoiceListController extends Controller
         abort_if(Gate::denies('invoice_list_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $invoiceList->load('member', 'invoiceListInvoiceItems');
+        $invoiceListInvoiceItems = $invoiceList->invoiceListInvoiceItems;
 
-        return view('frontend.invoiceLists.show', compact('invoiceList'));
+        $totalsum = $invoiceListInvoiceItems->sum('amount');
+
+      
+        return view('frontend.invoiceLists.show', compact('invoiceList', 'totalsum'));
     }
 
     public function destroy(InvoiceList $invoiceList)

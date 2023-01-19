@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @can('publisher_create')
+           <!--  @can('publisher_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
                         <a class="btn btn-success" href="{{ route('frontend.publishers.create') }}">
@@ -15,7 +15,7 @@
                         @include('csvImport.modal', ['model' => 'Publisher', 'route' => 'admin.publishers.parseCsvImport'])
                     </div>
                 </div>
-            @endcan
+            @endcan -->
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.publisher.title_singular') }} {{ trans('global.list') }}
@@ -32,9 +32,9 @@
                                     <th>
                                         {{ trans('cruds.publisher.fields.name') }}
                                     </th>
-                                    <th>
+                                  <!--   <th>
                                         &nbsp;
-                                    </th>
+                                    </th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,7 +46,7 @@
                                         <td>
                                             {{ $publisher->name ?? '' }}
                                         </td>
-                                        <td>
+                                       <!--  <td>
                                             @can('publisher_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.publishers.show', $publisher->id) }}">
                                                     {{ trans('global.view') }}
@@ -68,7 +68,7 @@
                                             @endcan
 
                                         </td>
-
+ -->
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -12,7 +12,7 @@
         <form method="POST" action="{{ route("frontend.invoice-lists.update", [$invoiceList->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
-            <div class="form-group">
+           <!--  <div class="form-group">
                 <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
                 <input class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" type="number" name="number" id="number" value="{{ old('number', $invoiceList->number) }}" step="1">
                 @if($errors->has('number'))
@@ -21,7 +21,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
                 @foreach(App\Models\InvoiceList::INSTITUTION_TYPE_RADIO as $key => $label)
@@ -57,7 +57,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.amount_allotted_helper') }}</span>
             </div> -->
-            <div class="form-group">
+          <!--   <div class="form-group">
                 <label for="remarks">{{ trans('cruds.invoiceList.fields.remarks') }}</label>
                 <textarea class="form-control {{ $errors->has('remarks') ? 'is-invalid' : '' }}" name="remarks" id="remarks">{{ old('remarks', $invoiceList->remarks) }}</textarea>
                 @if($errors->has('remarks'))
@@ -66,7 +66,7 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
                 <select class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>

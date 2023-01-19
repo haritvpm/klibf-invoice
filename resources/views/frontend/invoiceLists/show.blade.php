@@ -75,6 +75,17 @@
                             {{ $invoiceList->member->constituency ?? '' }}
                         </td>
                     </tr>
+
+                    <tr>
+                        <th>
+                            Total Amount
+                        </th>
+                        <td>
+                     
+                            {{ $totalsum  ?? '' }}
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
            <!--  <div class="form-group">

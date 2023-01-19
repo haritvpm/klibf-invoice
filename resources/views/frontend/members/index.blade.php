@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @can('member_create')
+          <!--   @can('member_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
                         <a class="btn btn-success" href="{{ route('frontend.members.create') }}">
@@ -15,7 +15,7 @@
                         @include('csvImport.modal', ['model' => 'Member', 'route' => 'admin.members.parseCsvImport'])
                     </div>
                 </div>
-            @endcan
+            @endcan -->
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.member.title_singular') }} {{ trans('global.list') }}
@@ -35,9 +35,9 @@
                                     <th>
                                         {{ trans('cruds.member.fields.constituency') }}
                                     </th>
-                                    <th>
+                                    <!-- <th>
                                         &nbsp;
-                                    </th>
+                                    </th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +52,7 @@
                                         <td>
                                             {{ $member->constituency ?? '' }}
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             @can('member_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.members.show', $member->id) }}">
                                                     {{ trans('global.view') }}
@@ -73,7 +73,7 @@
                                                 </form>
                                             @endcan
 
-                                        </td>
+                                        </td> -->
 
                                     </tr>
                                 @endforeach

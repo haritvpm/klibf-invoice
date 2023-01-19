@@ -14,7 +14,11 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <!-- {{ __('You are logged in!') }} -->
+
+                    <a class="btn btn-primary" href="{{ route('frontend.members.export') }}">
+                     Download Report
+                    </a>
                 </div>
             </div>
         </div>
