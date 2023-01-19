@@ -125,7 +125,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member->name;
             $detail['constituency'] = $member->constituency;
-            $detail['amount'] = number_format($mla_amount) ;
+            $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 
           }
