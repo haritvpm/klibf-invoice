@@ -1,5 +1,13 @@
 @extends('layouts.frontend')
 @section('content')
+
+<style>
+
+/* .select2-search { background-color: #00f; } */
+/* .select2-search input { background-color: #00f; } */
+.select2-results { background-color: #DAF7A6; }
+
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -86,7 +94,7 @@
            <th scope="col">Bill Date</th>
            <th scope="col">Amount</th>
            <th scope="col">
-           <button type="button"  class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> 
+      
            <!-- <a class="addRow"><i class="fa fa-plus"></i></a> -->
         </th>
          </tr>
@@ -126,7 +134,7 @@
        </tbody>
        <tfoot>
         <tr>
-         <td></td>
+         <td>     <button type="button"  class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> </td>
          <td></td>
         
          <td><b class="total-label">Total</b></td>
@@ -148,7 +156,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
             </div> -->
-
+<div class='mt-5'></div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
@@ -216,6 +224,7 @@
        
         $('.addRow').on('click', function () {
             addRow();
+            total();
         });
 
         function addRow() {
