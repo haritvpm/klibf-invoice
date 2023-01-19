@@ -36,7 +36,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['sl.'] = $inv_index;
                     $detail['mla'] = $member->name;
                     $detail['constituency'] = $member->constituency;
-                    $detail['school/college'] =  $invoiceList->institution_type == 'school' ||  $invoiceList->institution_type == 'college' ? $invoiceList->institution_name : '' ;
+                    $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
+                    $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
                     $detail['publisher'] =  $invoice->publisher->name ;
                     $detail['bill_number'] =  $invoice->bill_number ;
@@ -214,7 +215,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.", "MLA", "Constituency",'School/College',  'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount'];
+        return ["Sl.No.", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount'];
     }
     /**
      * @return string
