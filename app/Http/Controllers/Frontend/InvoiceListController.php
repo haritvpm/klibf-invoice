@@ -54,6 +54,8 @@ class InvoiceListController extends Controller
         $publisher_ids = $request->get('publisher_id');
         $bill_numbers = $request->get('bill_number');
         $bill_dates = $request->get('bill_date');
+        $grosss = $request->get('gross');
+        $discounts = $request->get('discount');
         $amounts = $request->get('amount');
         
         $invoiceitems = [];
@@ -63,6 +65,8 @@ class InvoiceListController extends Controller
                 'publisher_id' => $publisher_id,
                 'bill_number' => $bill_numbers[$i],
                 'bill_date' => $bill_dates[$i],
+                'gross' => $grosss[$i],
+                'discount' => $discounts[$i],
                 'amount' => $amounts[$i],
             ]);
         }
@@ -101,7 +105,9 @@ class InvoiceListController extends Controller
         $bill_numbers = $request->get('bill_number');
         $bill_dates = $request->get('bill_date');
         $amounts = $request->get('amount');
-        
+        $grosss = $request->get('gross');
+        $discounts = $request->get('discount');
+
         $invoiceitems = [];
       
         foreach ($publisher_ids as $i => $publisher_id) {
@@ -109,6 +115,8 @@ class InvoiceListController extends Controller
                 'publisher_id' => $publisher_id,
                 'bill_number' => $bill_numbers[$i],
                 'bill_date' => $bill_dates[$i],
+                'gross' => $grosss[$i],
+                'discount' => $discounts[$i],
                 'amount' => $amounts[$i],
             ]);
         }

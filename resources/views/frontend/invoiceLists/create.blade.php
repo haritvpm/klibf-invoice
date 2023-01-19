@@ -94,7 +94,9 @@
            <th scope="col">Publisher</th>
            <th scope="col">Bill No</th>
            <th scope="col">Bill Date</th>
-           <th scope="col">Amount</th>
+           <th scope="col">Gross</th>
+           <th scope="col">Discount</th>
+           <th scope="col">NetAmount</th>
            <th scope="col"></th>
          </tr>
        </thead>
@@ -121,12 +123,14 @@
 
             <td>
             <input class="form-control bill-date  {{ $errors->has('bill_date') ? 'is-invalid' : '' }}" type="text" 
-            name="bill_date[]"  value="{{ old('bill_date[]') }}" required>
+            name="bill_date[]"  value="{{ old('bill_date[]') }}" required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">
            
             </td>
           
           
-           <td><input  class="form-control amount"  type="text" name="amount[]" required autocomplete="off"></td>
+            <td><input  class="form-control "  type="number" name="gross[]" required autocomplete="off"></td>
+            <td><input  class="form-control "  type="number" name="discount[]" required autocomplete="off"></td>
+           <td><input  class="form-control amount"  type="number" name="amount[]" required autocomplete="off"></td>
         
         <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
          </tr>
@@ -134,6 +138,8 @@
        <tfoot>
         <tr>
          <td>     <button type="button"  class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> </td>
+         <td></td>
+         <td></td>
          <td></td>
         
          <td><b class="total-label">Total</b></td>
@@ -249,11 +255,13 @@
 '            </td>\n' +
 '\n' +
 '            <td>\n' +
-'            <input class="form-control bill-date " type="text" name="bill_date[]" value="{{ old('bill_date[]') }}" required>\n' +
+'            <input class="form-control bill-date " type="text" name="bill_date[]" value="{{ old('bill_date[]') }}" required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">\n' +
 '\n' +
 '            \n' +
 '            </td>\n' +
-'           <td><input type="text" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
+'           <td><input type="number" name="gross[]" class="form-control " required autocomplete="off"></td>\n' +
+'           <td><input type="number" name="discount[]" class="form-control" required autocomplete="off"></td>\n' +
+'           <td><input type="number" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
 '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
 '         </tr>\n' ;
             $('tbody').append(addRow);

@@ -41,6 +41,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['publisher'] =  $invoice->publisher->name ;
                     $detail['bill_number'] =  $invoice->bill_number ;
                     $detail['bill_date'] =  $invoice->bill_date ;
+                    $detail['gross'] =  $invoice->gross ;
+                    $detail['discount'] =  $invoice->discount ;
                     $detail['amount'] =  $invoice->amount ;
                                                        
                     array_push($report,$detail ) ;
@@ -140,6 +142,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         $report = [];
         
         $pub_amounts = array();
+        $pub_gross = array();
+        $pub_discount = array();
 
         foreach($members as  $member) {
          
@@ -150,8 +154,12 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
               
                     if(array_key_exists( $invoice->publisher->name,$pub_amounts)){
                         $pub_amounts[ $invoice->publisher->name] += $invoice->amount;
+                        $pub_gross[ $invoice->publisher->name] += $invoice->gross;
+                        $pub_discount[ $invoice->publisher->name] += $invoice->discount;
                     } else {
                         $pub_amounts[ $invoice->publisher->name] =  $invoice->amount;
+                        $pub_gross[ $invoice->publisher->name] = $invoice->gross;
+                        $pub_discount[ $invoice->publisher->name] = $invoice->discount;
                     }
             
                 }
@@ -165,6 +173,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             
          //   $detail['sl.'] = $index++;
             $detail['publisher'] =  $key ;
+            $detail['gross'] =  $pub_gross[$key];
+            $detail['discount'] =  $pub_discount[$key];
             $detail['amount'] =  $pub_amount;
 
             array_push($report,$detail ) ;
@@ -201,10 +211,10 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return ["Sl.No.", "MLA", "Constituency", 'Publisher', 'Amount'];
 
         if($this->title == 'Publisher-Amount')  
-            return [ 'Publisher',  'Amount'];
+            return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.", "MLA", "Constituency",'School/College',  'Library', 'Publisher', 'Bill No.', 'Bill Date', 'Amount'];
+        return ["Sl.No.", "MLA", "Constituency",'School/College',  'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount'];
     }
     /**
      * @return string
