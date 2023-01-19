@@ -78,10 +78,12 @@ class InvoiceListController extends Controller
         abort_if(Gate::denies('invoice_list_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $invoiceList->load('member');
+        $invoiceList->load('invoiceListInvoiceItems');
 
-        return view('frontend.invoiceLists.edit', compact('invoiceList', 'members'));
+        return view('frontend.invoiceLists.edit', compact('invoiceList', 'members', 'publishers'));
     }
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)

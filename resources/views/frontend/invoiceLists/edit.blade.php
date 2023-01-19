@@ -81,6 +81,78 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
             </div>
+
+            <table class="table table-bordered">
+    <thead>
+       <tr>
+           <th scope="col">Publisher</th>
+           <th scope="col">Bill No</th>
+           <th scope="col">Bill Date</th>
+           <th scope="col">Amount</th>
+           <th scope="col">
+      
+           <!-- <a class="addRow"><i class="fa fa-plus"></i></a> -->
+        </th>
+         </tr>
+       </thead>
+       <tbody>
+
+       @foreach($invoiceList->invoiceListInvoiceItems as $key => $invoiceItem)
+       <tr>
+            <td><input  type="hidden" name="id[]"  value="{{$invoiceItem->id }}" ></td>
+
+             <td>
+                
+                 <select data-live-search="true" class="form-control publisher " 
+                 name="publisher_id[]"  required>
+                    @foreach($publishers as $id => $entry)
+                        <option value="{{ $id }}" {{ $invoiceItem->publisher_id == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                      
+                    
+            </td>
+
+
+            <td>
+            <input class="form-control bill-number {{ $errors->has('bill_number') ? 'is-invalid' : '' }}" type="text" 
+            name="bill_number[]"  value="{{$invoiceItem->bill_number }}" required autocomplete="off">
+
+            </td>
+
+            <td>
+            <input class="form-control bill-date  {{ $errors->has('bill_date') ? 'is-invalid' : '' }}" type="text" 
+            name="bill_date[]"  value="{{$invoiceItem->bill_date }}" required>
+           
+            </td>
+          
+          
+           <td><input  class="form-control amount"  type="text" name="amount[]"  value="{{$invoiceItem->amount }}" required autocomplete="off"></td>
+        
+           @unless ($loop->first)
+             <td><button type="button" name="remove" id="'+i+'" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> 
+            @endunless
+       
+         </tr>
+       @endforeach
+       <!--  -->
+          
+       </tbody>
+
+       <tfoot>
+        <tr>
+         <td>     <button type="button"  class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> </td>
+         <td></td>
+        
+         <td><b class="total-label">Total</b></td>
+         <td><b class="total"></b></td>
+         <td></td>
+        </tr>
+       </tfoot>
+
+    </table>
+
+
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
@@ -96,4 +168,112 @@
     </div>
 </div>
 
+@endsection
+
+
+
+@section('scripts')
+@parent
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var i=1;  
+
+
+     
+
+        $('tbody').delegate('.publisher', 'change', function () {
+            var  tr = $(this).parent().parent();
+            tr.find('.bill-number').focus();
+        })
+        $('tbody').delegate('.publisher', 'change', function () {
+           
+        });
+       
+        $('tbody').delegate('.bill-date', 'keyup', function () {
+           if($(this).val() == 9){
+                $(this).val('09/01/2023')
+                var  tr = $(this).parent().parent();
+                tr.find('.amount').focus();
+           }
+           else  if($(this).val() >= 10 && $(this).val() <= 17) {
+                $(this).val( $(this).val() + '/01/2023')
+                var  tr = $(this).parent().parent();
+
+                tr.find('.amount').focus();
+           }
+        });
+
+        $('tbody').delegate('.amount', 'keyup', function () {
+         
+            total();
+           
+        });
+
+        function total(){
+            let total = 0;
+            let items = 0;
+            $('.amount').each(function (i,e) {
+                var amount =$(this).val()-0;
+                total += amount;
+                items++;
+            })
+
+            $('.total').html(total);
+            $('.total-label').html('Total (' + items + ')' );
+        }
+       
+        $('.addRow').on('click', function () {
+            addRow();
+            total();
+        });
+
+        function addRow() {
+            i++;  
+            var addRow = ' <tr id="row'+i+'" class="dynamic-added">\n' +
+'             <td>\n' +
+'                \n' +
+'                 <select class="form-control publisher  " \n' +
+'                 name="publisher_id[]"  required>\n' +
+'                    @foreach($publishers as $id => $entry)\n' +
+'                        <option value="{{ $id }}" {{ old('publisher_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>\n' +
+'                    @endforeach\n' +
+'                </select>\n' +
+'                      \n' +
+'                    \n' +
+'            </td>\n' +
+'\n' +
+'            <td>\n' +
+'            <input class="form-control bill-number" type="text" name="bill_number[]"  value="{{ old('bill_number[]', '') }}" required autocomplete="off">\n' +
+'\n' +
+'            </td>\n' +
+'\n' +
+'            <td>\n' +
+'            <input class="form-control bill-date " type="text" name="bill_date[]" value="{{ old('bill_date[]') }}" required>\n' +
+'\n' +
+'            \n' +
+'            </td>\n' +
+'           <td><input type="text" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
+'<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
+'         </tr>\n' ;
+            $('tbody').append(addRow);
+        };
+       
+       /*  $('.remove').live('click', function () {
+            var l =$('tbody tr').length;
+            if(l==1){
+                alert('you cant delete last one')
+            }else{
+                $(this).parent().parent().remove();
+            }
+        }); */
+
+        $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+           total();
+      });  
+
+    });
+</script>
 @endsection
