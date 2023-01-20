@@ -19,7 +19,7 @@ class InvoiceItemController extends Controller
     {
         abort_if(Gate::denies('invoice_item_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceItems = InvoiceItem::with(['invoice_list', 'publisher'])->get();
+        $invoiceItems = InvoiceItem::with(['invoice_list', 'publisher', 'created_by'])->get();
 
         return view('frontend.invoiceItems.index', compact('invoiceItems'));
     }
@@ -62,7 +62,7 @@ class InvoiceItemController extends Controller
 
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $invoiceItem->load('invoice_list', 'publisher');
+        $invoiceItem->load('invoice_list', 'publisher', 'created_by');
 
        
         $invoice_lists = InvoiceList::where('id',$invoiceItem->invoice_list->id )
@@ -88,7 +88,7 @@ class InvoiceItemController extends Controller
     {
         abort_if(Gate::denies('invoice_item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceItem->load('invoice_list', 'publisher');
+        $invoiceItem->load('invoice_list', 'publisher', 'created_by');
 
         return view('frontend.invoiceItems.show', compact('invoiceItem'));
     }

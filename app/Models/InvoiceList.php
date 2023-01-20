@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\MultiTenantModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class InvoiceList extends Model
 {
+    use MultiTenantModelTrait;
     use HasFactory;
 
     public const INSTITUTION_TYPE_RADIO = [
@@ -35,6 +37,7 @@ class InvoiceList extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'created_by_id',
     ];
 
     public function invoiceListInvoiceItems()
@@ -45,6 +48,11 @@ class InvoiceList extends Model
     public function member()
     {
         return $this->belongsTo(Member::class, 'member_id');
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

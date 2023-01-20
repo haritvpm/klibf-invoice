@@ -20,7 +20,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceLists = InvoiceList::with(['member'])
+        $invoiceLists = InvoiceList::with(['member', 'created_by'])
                             ->withSum('invoiceListInvoiceItems', 'amount')
                             ->get();
 
@@ -89,7 +89,7 @@ class InvoiceListController extends Controller
         $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'). ' Member', '');
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $invoiceList->load('member');
+        $invoiceList->load('member', 'created_by');
         $invoiceList->load('invoiceListInvoiceItems');
 
         return view('frontend.invoiceLists.edit', compact('invoiceList', 'members', 'publishers'));
@@ -131,7 +131,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceList->load('member', 'invoiceListInvoiceItems');
+        $invoiceList->load('member', 'created_by', 'invoiceListInvoiceItems');
         $invoiceListInvoiceItems = $invoiceList->invoiceListInvoiceItems;
 
         $totalsum = $invoiceListInvoiceItems->sum('amount');

@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\MultiTenantModelTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class InvoiceItem extends Model
 {
+    use MultiTenantModelTrait;
     use HasFactory;
 
     public $table = 'invoice_items';
@@ -31,7 +33,13 @@ class InvoiceItem extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'created_by_id',
     ];
+
+    public function invoice_list()
+    {
+        return $this->belongsTo(InvoiceList::class, 'invoice_list_id');
+    }
 
     public function publisher()
     {
@@ -48,9 +56,9 @@ class InvoiceItem extends Model
         $this->attributes['bill_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function invoice_list()
+    public function created_by()
     {
-        return $this->belongsTo(InvoiceList::class, 'invoice_list_id');
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)
