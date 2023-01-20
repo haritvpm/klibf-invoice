@@ -36,11 +36,17 @@
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
                         </th> -->
                         <th>
-                            {{ trans('cruds.invoiceItem.fields.amount') }}
+                            {{ trans('cruds.invoiceItem.fields.gross') }}
                         </th>
                         <th>
-                            &nbsp;
+                            {{ trans('cruds.invoiceItem.fields.discount') }}
                         </th>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.amount') }}
+                        </th>
+                       <!--  <th>
+                            &nbsp;
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +75,12 @@
                                 {{ $invoiceItem->invoice_list->number ?? '' }}
                             </td> -->
                             <td>
+                                {{ $invoiceItem->gross ?? '' }}
+                            </td>
+                            <td>
+                                {{ $invoiceItem->discount ?? '' }}
+                            </td>
+                            <td>
                                 {{ $invoiceItem->amount ?? '' }}
                             </td>
                             <!-- <td>
@@ -76,7 +88,7 @@
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
                             </td> -->
-                            <td>
+                           <!--  <td>
                                 @can('invoice_item_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('frontend.invoice-items.show', $invoiceItem->id) }}">
                                         {{ trans('global.view') }}
@@ -97,7 +109,7 @@
                                     </form>
                                 @endcan
 
-                            </td>
+                            </td> -->
 
                         </tr>
                     @endforeach

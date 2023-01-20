@@ -97,7 +97,7 @@
     </div>
 </div>
 
-@can('invoice_item_create')
+<!-- @can('invoice_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('frontend.invoice-items.create', ['list-id'=>$invoiceList]) }}">
@@ -105,7 +105,7 @@
             </a>
         </div>
     </div>
-@endcan
+@endcan -->
     
  @includeIf('frontend.invoiceLists.relationships.invoiceListInvoiceItems', ['invoiceItems' => $invoiceList->invoiceListInvoiceItems])
      

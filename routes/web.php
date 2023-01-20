@@ -42,6 +42,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('invoice-lists', 'InvoiceListController');
 
 
+    // Backup routes
+    Route::resource('backups', 'BackupController');
+    Route::get('backup/create', 'BackupController@create');
+    Route::get('backup/download/{file_name}', 'BackupController@download');
+    Route::get('backup/delete/{file_name}', 'BackupController@delete');
+
+
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

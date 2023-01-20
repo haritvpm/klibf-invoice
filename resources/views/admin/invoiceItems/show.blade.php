@@ -31,14 +31,7 @@
                             {{ $invoiceItem->publisher->name ?? '' }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.invoiceItem.fields.amount') }}
-                        </th>
-                        <td>
-                            {{ $invoiceItem->amount }}
-                        </td>
-                    </tr>
+                   
                     <tr>
                         <th>
                             {{ trans('cruds.invoiceItem.fields.bill_number') }}
@@ -53,6 +46,30 @@
                         </th>
                         <td>
                             {{ $invoiceItem->bill_date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.gross') }}
+                        </th>
+                        <td>
+                            {{ $invoiceItem->gross }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.discount') }}
+                        </th>
+                        <td>
+                            {{ $invoiceItem->discount }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.amount') }}
+                        </th>
+                        <td>
+                            {{ $invoiceItem->amount }}
                         </td>
                     </tr>
                     <tr>

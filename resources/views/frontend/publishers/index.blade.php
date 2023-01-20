@@ -32,6 +32,18 @@
                                     <th>
                                         {{ trans('cruds.publisher.fields.name') }}
                                     </th>
+				     <th>
+                                        {{ trans('cruds.publisher.fields.address') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.publisher.fields.account_no') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.publisher.fields.ifsc') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.publisher.fields.bank_name') }}
+                                    </th>
                                   <!--   <th>
                                         &nbsp;
                                     </th> -->
@@ -45,6 +57,18 @@
                                         </td>
                                         <td>
                                             {{ $publisher->name ?? '' }}
+                                        </td>
+					 <td>
+                                            {{ $publisher->address ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $publisher->account_no ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $publisher->ifsc ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $publisher->bank_name ?? '' }}
                                         </td>
                                        <!--  <td>
                                             @can('publisher_show')

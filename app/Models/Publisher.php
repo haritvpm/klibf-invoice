@@ -17,9 +17,12 @@ class Publisher extends Model
         'updated_at',
         'deleted_at',
     ];
-
     protected $fillable = [
         'name',
+        'address',
+        'account_no',
+        'ifsc',
+        'bank_name',
         'created_at',
         'updated_at',
         'deleted_at',

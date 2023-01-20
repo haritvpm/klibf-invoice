@@ -23,16 +23,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceItem.fields.publisher_helper') }}</span>
             </div>
-            <div class="form-group">
-                <label class="required" for="amount">{{ trans('cruds.invoiceItem.fields.amount') }}</label>
-                <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01" required>
-                @if($errors->has('amount'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('amount') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.invoiceItem.fields.amount_helper') }}</span>
-            </div>
+           
             <div class="form-group">
                 <label class="required" for="bill_number">{{ trans('cruds.invoiceItem.fields.bill_number') }}</label>
                 <input class="form-control {{ $errors->has('bill_number') ? 'is-invalid' : '' }}" type="text" name="bill_number" id="bill_number" value="{{ old('bill_number', '') }}" required>
@@ -53,6 +44,39 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceItem.fields.bill_date_helper') }}</span>
             </div>
+
+            <div class="form-group">
+                <label for="gross">{{ trans('cruds.invoiceItem.fields.gross') }}</label>
+                <input class="form-control {{ $errors->has('gross') ? 'is-invalid' : '' }}" type="number" name="gross" id="gross" value="{{ old('gross', '') }}" step="0.01">
+                @if($errors->has('gross'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('gross') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.invoiceItem.fields.gross_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="discount">{{ trans('cruds.invoiceItem.fields.discount') }}</label>
+                <input class="form-control {{ $errors->has('discount') ? 'is-invalid' : '' }}" type="number" name="discount" id="discount" value="{{ old('discount', '') }}" step="0.01">
+                @if($errors->has('discount'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('discount') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.invoiceItem.fields.discount_helper') }}</span>
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="amount">{{ trans('cruds.invoiceItem.fields.amount') }}</label>
+                <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01" required>
+                @if($errors->has('amount'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('amount') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.invoiceItem.fields.amount_helper') }}</span>
+            </div>
+
             <div class="form-group">
                 <label class="required" for="invoice_list_id">{{ trans('cruds.invoiceItem.fields.invoice_list') }}</label>
                 <select class="form-control select2 {{ $errors->has('invoice_list') ? 'is-invalid' : '' }}" name="invoice_list_id" id="invoice_list_id" required>

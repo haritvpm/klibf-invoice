@@ -109,6 +109,15 @@
             </li>
         @endcan
     
+        <li class="c-sidebar-nav-item">
+                <a  href="{{ route("admin.backups.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/backups") || request()->is("admin/backups/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-archive c-sidebar-nav-icon">
+
+                    </i>
+                    Backups
+                </a>
+            </li>
+       
      
     </ul>
 

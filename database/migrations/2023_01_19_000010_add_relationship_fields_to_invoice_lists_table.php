@@ -10,7 +10,7 @@ class AddRelationshipFieldsToInvoiceListsTable extends Migration
     {
         Schema::table('invoice_lists', function (Blueprint $table) {
             $table->unsignedBigInteger('member_id')->nullable();
-            $table->foreign('member_id', 'member_fk_7889329')->references('id')->on('members');
+            $table->foreign('member_id', 'member_fk_7896098')->references('id')->on('members');
         });
     }
 }
