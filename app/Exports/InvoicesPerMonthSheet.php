@@ -36,11 +36,14 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['sl.'] = $inv_index;
                     $detail['mla'] = $member->name;
                     $detail['constituency'] = $member->constituency;
-                    $detail['school/college'] =  $invoiceList->institution_type == 'school' ||  $invoiceList->institution_type == 'college' ? $invoiceList->institution_name : '' ;
+                    $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
+                    $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
                     $detail['publisher'] =  $invoice->publisher->name ;
                     $detail['bill_number'] =  $invoice->bill_number ;
                     $detail['bill_date'] =  $invoice->bill_date ;
+                    $detail['gross'] =  $invoice->gross ;
+                    $detail['discount'] =  $invoice->discount ;
                     $detail['amount'] =  $invoice->amount ;
                                                        
                     array_push($report,$detail ) ;
@@ -125,7 +128,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member->name;
             $detail['constituency'] = $member->constituency;
-            $detail['amount'] = number_format($mla_amount) ;
+            $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 
           }
@@ -140,6 +143,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         $report = [];
         
         $pub_amounts = array();
+        $pub_gross = array();
+        $pub_discount = array();
 
         foreach($members as  $member) {
          
@@ -150,8 +155,12 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
               
                     if(array_key_exists( $invoice->publisher->name,$pub_amounts)){
                         $pub_amounts[ $invoice->publisher->name] += $invoice->amount;
+                        $pub_gross[ $invoice->publisher->name] += $invoice->gross;
+                        $pub_discount[ $invoice->publisher->name] += $invoice->discount;
                     } else {
                         $pub_amounts[ $invoice->publisher->name] =  $invoice->amount;
+                        $pub_gross[ $invoice->publisher->name] = $invoice->gross;
+                        $pub_discount[ $invoice->publisher->name] = $invoice->discount;
                     }
             
                 }
@@ -165,6 +174,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             
          //   $detail['sl.'] = $index++;
             $detail['publisher'] =  $key ;
+            $detail['gross'] =  $pub_gross[$key];
+            $detail['discount'] =  $pub_discount[$key];
             $detail['amount'] =  $pub_amount;
 
             array_push($report,$detail ) ;
@@ -201,10 +212,10 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return ["Sl.No.", "MLA", "Constituency", 'Publisher', 'Amount'];
 
         if($this->title == 'Publisher-Amount')  
-            return [ 'Publisher',  'Amount'];
+            return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.", "MLA", "Constituency",'School/College',  'Library', 'Publisher', 'Bill No.', 'Bill Date', 'Amount'];
+        return ["Sl.No.", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount'];
     }
     /**
      * @return string

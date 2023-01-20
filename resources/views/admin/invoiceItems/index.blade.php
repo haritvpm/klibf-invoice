@@ -38,12 +38,19 @@
                         <th>
                             {{ trans('cruds.invoiceItem.fields.invoice_list') }}
                         </th>
-                   <!--      <th>
+                     <!--    <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
-                        </th>
-                        <th>
+                        </th> -->
+                        <!-- <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
                         </th> -->
+                      
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.gross') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.discount') }}
+                        </th>
                         <th>
                             {{ trans('cruds.invoiceItem.fields.amount') }}
                         </th>
@@ -74,14 +81,20 @@
                             <td>
                                 {{ $invoiceItem->invoice_list->institution_name ?? '' }}
                             </td>
-                      <!--       <td>
+                        <!--     <td>
                                 {{ $invoiceItem->invoice_list->number ?? '' }}
-                            </td>
-                            <td>
+                            </td> -->
+                            <!-- <td>
                                 @if($invoiceItem->invoice_list)
                                     {{ $invoiceItem->invoice_list::INSTITUTION_TYPE_RADIO[$invoiceItem->invoice_list->institution_type] ?? '' }}
                                 @endif
                             </td> -->
+                            <td>
+                                {{ $invoiceItem->gross ?? '' }}
+                            </td>
+                            <td>
+                                {{ $invoiceItem->discount ?? '' }}
+                            </td>
                             <td>
                                 {{ $invoiceItem->amount ?? '' }}
                             </td>

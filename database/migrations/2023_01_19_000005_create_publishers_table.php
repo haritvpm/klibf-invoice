@@ -11,6 +11,10 @@ class CreatePublishersTable extends Migration
         Schema::create('publishers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('address')->nullable();
+            $table->string('account_no')->nullable();
+            $table->string('ifsc')->nullable();
+            $table->string('bank_name')->nullable();
             $table->timestamps();
         });
     }

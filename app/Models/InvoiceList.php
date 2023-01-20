@@ -11,11 +11,12 @@ class InvoiceList extends Model
     use HasFactory;
 
     public const INSTITUTION_TYPE_RADIO = [
-        'library' => 'Library',
-        'school'  => 'School',
-        'college' => 'College',
+        'library'     => 'Library',
+        'gov_school'  => 'Govt School',
+        'gov_college' => 'Govt College',
+        'aid_school'  => 'Aided School',
+        'aid_college' => 'Aided College',
     ];
-
     public $table = 'invoice_lists';
 
     protected $dates = [

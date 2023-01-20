@@ -102,6 +102,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $invoiceList->invoiceListInvoiceItems()->delete();
         $invoiceList->delete();
 
         return back();

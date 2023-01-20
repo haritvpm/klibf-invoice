@@ -22,6 +22,22 @@ class StorePublisherRequest extends FormRequest
                 'required',
                 'unique:publishers',
             ],
+            'address' => [
+                'string',
+                'nullable',
+            ],
+            'account_no' => [
+                'string',
+                'nullable',
+            ],
+            'ifsc' => [
+                'string',
+                'nullable',
+            ],
+            'bank_name' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }
