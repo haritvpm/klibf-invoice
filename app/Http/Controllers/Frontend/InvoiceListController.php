@@ -37,7 +37,7 @@ class InvoiceListController extends Controller
         $members = Member::get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
             return [$x->id => $x->name . ' (' .$x->constituency . ')'];
         })
-        ->prepend(trans('global.pleaseSelect'), '');
+        ->prepend(trans('global.pleaseSelect') . ' Member', '');
 
         
         
@@ -86,7 +86,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'). ' Member', '');
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $invoiceList->load('member');
