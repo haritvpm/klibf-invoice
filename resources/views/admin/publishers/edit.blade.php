@@ -21,16 +21,6 @@
                 <span class="help-block">{{ trans('cruds.publisher.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="address">{{ trans('cruds.publisher.fields.address') }}</label>
-                <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address', $publisher->address) }}">
-                @if($errors->has('address'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('address') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.publisher.fields.address_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="account_no">{{ trans('cruds.publisher.fields.account_no') }}</label>
                 <input class="form-control {{ $errors->has('account_no') ? 'is-invalid' : '' }}" type="text" name="account_no" id="account_no" value="{{ old('account_no', $publisher->account_no) }}">
                 @if($errors->has('account_no'))
@@ -59,6 +49,16 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.publisher.fields.bank_name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="address">{{ trans('cruds.publisher.fields.address') }}</label>
+                <textarea class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" name="address" id="address">{{ old('address', $publisher->address) }}</textarea>
+                @if($errors->has('address'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('address') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.publisher.fields.address_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
