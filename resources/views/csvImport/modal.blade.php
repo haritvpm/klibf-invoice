@@ -19,9 +19,9 @@
                                     <input id="csv_file" type="file" class="form-control-file" name="csv_file" required>
 
                                     @if($errors->has('csv_file'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('csv_file') }}</strong>
-                                        </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('csv_file') }}</strong>
+                                    </span>
                                     @endif
                                 </div>
                             </div>
@@ -35,7 +35,15 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="idfield" checked> Update using Id
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
