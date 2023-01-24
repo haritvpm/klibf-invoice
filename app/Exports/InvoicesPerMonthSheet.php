@@ -45,6 +45,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['gross'] =  $invoice->gross ;
                     $detail['discount'] =  $invoice->discount ;
                     $detail['amount'] =  $invoice->amount ;
+                    $detail['discount_percent'] =  number_format(($invoice->discount * 100) / $invoice->gross,1);
                                                        
                     array_push($report,$detail ) ;
 
@@ -215,7 +216,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount'];
+        return ["Sl.No.", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string

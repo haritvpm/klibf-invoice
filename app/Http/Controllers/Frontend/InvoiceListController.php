@@ -25,7 +25,14 @@ class InvoiceListController extends Controller
 
         $invoiceLists = InvoiceList::with(['member', 'created_by'])
                             ->withSum('invoiceListInvoiceItems', 'amount')
+//                            ->withSum('invoiceListInvoiceItems', 'gross')
+  //                          ->withSum('invoiceListInvoiceItems', 'discount')
                             ->get();
+
+    /*    $invoiceLists->transform(function ($item){
+            $item->disount_percent = number_format(($item->invoice_list_invoice_items_sum_discount * 100) / $item->invoice_list_invoice_items_sum_gross, 1);
+                return $item;
+        });*/
 
      
         return view('frontend.invoiceLists.index', compact('invoiceLists'));
