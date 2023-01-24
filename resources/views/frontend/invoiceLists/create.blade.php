@@ -190,18 +190,20 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var i = 1;
-
+        $('select').select2({  theme: 'bootstrap4',});
         total();
 
         $('tbody').delegate('.publisher', 'change', function() {
       
-            var tr = $(this).closest('tr')
-           
+           var tr = $(this).closest('tr')
+           //var tr = $(this).parent().parent();
+           setTimeout(() => {
             tr.find('.bill-number').focus();
+            
+           }, 100);
+           
         })
-        $('tbody').delegate('.publisher', 'change', function() {
-
-        });
+       
 
         $('tbody').delegate('.bill-date', 'keyup', function() {
            
@@ -213,6 +215,7 @@
 
                 tr.find('.gross').focus();
             } 
+
         });
 
         $('tbody').delegate('.amount', 'keyup', function() {
@@ -242,6 +245,7 @@
                 tr.find('.amount').val( '' );
 
             }
+            total();
             
         })
 
@@ -308,7 +312,7 @@
                 '         </tr>\n';
             $('tbody').append(addRow);
 
-            $('#row' + i + '  select').select2();
+            $('#row' + i + '  select').select2({  theme: 'bootstrap4',});
         };
 
         /*  $('.remove').live('click', function () {

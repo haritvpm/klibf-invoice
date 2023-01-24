@@ -28,7 +28,7 @@
     <link href="{{ asset('css/coreui.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/perfect-scrollbar.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/select2-bootstrap4.min.css') }}" rel="stylesheet" />
-    
+
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
 </head>

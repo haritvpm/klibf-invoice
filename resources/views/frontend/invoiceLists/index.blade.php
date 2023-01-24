@@ -81,7 +81,7 @@
                             </td>
                             <td>
                      
-                                {{ $invoiceList->invoice_list_invoice_items_sum_amount ?? '' }}
+                                {{ number_format($invoiceList->invoice_list_invoice_items_sum_amount) ?? '' }}
                             </td>
                             <td>
                                 @can('invoice_list_show')

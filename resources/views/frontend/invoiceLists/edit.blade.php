@@ -130,10 +130,10 @@
                                     </td>
 
 
-                                    <td><input class="form-control gross" type="number" name="gross[]" value="{{$invoiceItem->gross }}" required autocomplete="off"></td>
-                                    <td><input class="form-control discount" type="number" name="discount[]" value="{{$invoiceItem->discount }}" required autocomplete="off"></td>
+                                    <td><input class="form-control gross" type="number" name="gross[]" value="{{ number_format($invoiceItem->gross) }}" required autocomplete="off"></td>
+                                    <td><input class="form-control discount" type="number" name="discount[]" value="{{number_format($invoiceItem->discount) }}" required autocomplete="off"></td>
 
-                                    <td><input class="form-control amount" type="number" name="amount[]" value="{{$invoiceItem->amount }}" required readonly autocomplete="off"></td>
+                                    <td><input class="form-control amount" type="number" name="amount[]" value="{{number_format($invoiceItem->amount) }}" required readonly autocomplete="off"></td>
 
                                     @unless ($loop->first)
                                     <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-remove"></i></button></td>
@@ -183,6 +183,8 @@
     $(document).ready(function() {
         var i = 1;
 
+        $('select').select2({  theme: 'bootstrap4',});
+
         total();
 
         $('tbody').delegate('.bill-date', 'keyup', function() {
@@ -198,12 +200,14 @@
        });
 
         $('tbody').delegate('.publisher', 'change', function() {
-            var tr = $(this).parent().parent();
+            var tr = $(this).closest('tr')
+           //var tr = $(this).parent().parent();
+           setTimeout(() => {
             tr.find('.bill-number').focus();
+            
+           }, 100);
         })
-        $('tbody').delegate('.publisher', 'change', function() {
-
-        });
+      
 
         $('tbody').delegate('.amount', 'keyup', function() {
 
@@ -232,7 +236,7 @@
                 tr.find('.amount').val( '' );
 
             }
-
+            total();
         })
 
         function total() {
@@ -291,7 +295,7 @@
             '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
                 '         </tr>\n';
             $('tbody').append(addRow);
-            $('#row' + i + '  select').select2();
+            $('#row' + i + '  select').select2({theme: 'bootstrap4',});
 
         };
 
