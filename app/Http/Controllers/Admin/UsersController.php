@@ -11,14 +11,18 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Member;
+use App\Http\Controllers\Traits\CsvImportTrait;
 
 class UsersController extends Controller
 {
+    use CsvImportTrait;
+    
     public function index()
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles', 'members'])->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -29,14 +33,16 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        $members = Member::pluck('constituency', 'id');
+
+        return view('admin.users.create', compact('members', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
-
+        $user->members()->sync($request->input('members', []));
         return redirect()->route('admin.users.index');
     }
 
@@ -46,16 +52,18 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user->load('roles');
+        $members = Member::pluck('constituency', 'id');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        $user->load('roles', 'members');
+
+        return view('admin.users.edit', compact('members', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
-
+        $user->members()->sync($request->input('members', []));
         return redirect()->route('admin.users.index');
     }
 
@@ -63,7 +71,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles');
+        $user->load('roles', 'members');
 
         return view('admin.users.show', compact('user'));
     }

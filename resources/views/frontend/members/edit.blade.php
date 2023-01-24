@@ -15,7 +15,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="required" for="name">{{ trans('cruds.member.fields.name') }}</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $member->name) }}" required>
+                            <input readonly class="form-control" type="text" name="name" id="name" value="{{ old('name', $member->name) }}" required>
                             @if($errors->has('name'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('name') }}
@@ -25,13 +25,23 @@
                         </div>
                         <div class="form-group">
                             <label class="required" for="constituency">{{ trans('cruds.member.fields.constituency') }}</label>
-                            <input class="form-control" type="text" name="constituency" id="constituency" value="{{ old('constituency', $member->constituency) }}" required>
+                            <input readonly class="form-control" type="text" name="constituency" id="constituency" value="{{ old('constituency', $member->constituency) }}" required>
                             @if($errors->has('constituency'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('constituency') }}
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.member.fields.constituency_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="as_amount">{{ trans('cruds.member.fields.as_amount') }}</label>
+                            <input class="form-control" type="number" name="as_amount" id="as_amount" value="{{ old('as_amount', $member->as_amount) }}" step="0.01" required>
+                            @if($errors->has('as_amount'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('as_amount') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.member.fields.as_amount_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

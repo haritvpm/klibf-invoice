@@ -2,6 +2,7 @@
 
 // Route::view('/', 'welcome');
 Route::redirect('/', '/login');
+//Route::redirect('/', '/klibf-app/login');
 
 
 Auth::routes(['register' => false]);
@@ -18,6 +19,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+    Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
+    Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
     Route::resource('users', 'UsersController');
 
     // Member

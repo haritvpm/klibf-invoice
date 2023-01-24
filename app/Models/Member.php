@@ -21,6 +21,7 @@ class Member extends Model
     protected $fillable = [
         'name',
         'constituency',
+        'as_amount',
         'created_at',
         'updated_at',
         'deleted_at',

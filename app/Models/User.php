@@ -38,6 +38,7 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
+        'team_details',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -78,5 +79,9 @@ class User extends Authenticatable
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+    public function members()
+    {
+        return $this->belongsToMany(Member::class);
     }
 }

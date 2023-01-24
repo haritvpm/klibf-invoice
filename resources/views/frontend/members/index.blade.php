@@ -35,9 +35,12 @@
                                     <th>
                                         {{ trans('cruds.member.fields.constituency') }}
                                     </th>
-                                    <!-- <th>
+                                    <th>
+                                        {{ trans('cruds.member.fields.as_amount') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
-                                    </th> -->
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,19 +55,22 @@
                                         <td>
                                             {{ $member->constituency ?? '' }}
                                         </td>
-                                        <!-- <td>
-                                            @can('member_show')
+                                        <td>
+                                            {{ $member->as_amount ?? '' }}
+                                        </td>
+                                        <td>
+                                          <!--   @can('member_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.members.show', $member->id) }}">
                                                     {{ trans('global.view') }}
                                                 </a>
                                             @endcan
-
+   -->
                                             @can('member_edit')
                                                 <a class="btn btn-xs btn-info" href="{{ route('frontend.members.edit', $member->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
                                             @endcan
-
+ <!-- 
                                             @can('member_delete')
                                                 <form action="{{ route('frontend.members.destroy', $member->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                     <input type="hidden" name="_method" value="DELETE">
@@ -72,8 +78,8 @@
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                                 </form>
                                             @endcan
-
-                                        </td> -->
+ -->
+                                        </td>
 
                                     </tr>
                                 @endforeach

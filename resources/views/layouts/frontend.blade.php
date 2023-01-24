@@ -57,6 +57,12 @@
                                     @endcan
                                   
                             </li>
+                            <!-- <li class="nav-item">
+
+                            <a class="btn btn-success" href="{{ route('frontend.invoice-lists.create') }}">
+                                            {{ trans('global.add') }} {{ trans('cruds.invoiceList.title_singular') }}
+                                    </a>
+                            </li> -->
                            <!--  <li>
                             @can('invoice_item_access')
                                         <a class="dropdown-item" href="{{ route('frontend.invoice-items.index') }}">

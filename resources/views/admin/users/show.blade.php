@@ -57,6 +57,24 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.team_details') }}
+                        </th>
+                        <td>
+                        {{!! nl2br($user->team_details) !!}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.member') }}
+                        </th>
+                        <td>
+                            @foreach($user->members as $key => $member)
+                                <span class="label label-info">{{ $member->constituency }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

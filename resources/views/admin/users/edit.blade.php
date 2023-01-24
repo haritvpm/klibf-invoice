@@ -59,6 +59,34 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="team_details">{{ trans('cruds.user.fields.team_details') }}</label>
+                <textarea class="form-control {{ $errors->has('team_details') ? 'is-invalid' : '' }}" name="team_details" id="team_details">{{ old('team_details', $user->team_details) }}</textarea>
+                @if($errors->has('team_details'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('team_details') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.team_details_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label  for="members">{{ trans('cruds.user.fields.member') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('members') ? 'is-invalid' : '' }}" name="members[]" id="members" multiple>
+                    @foreach($members as $id => $member)
+                        <option value="{{ $id }}" {{ (in_array($id, old('members', [])) || $user->members->contains($id)) ? 'selected' : '' }}>{{ $member }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('members'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('members') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.member_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

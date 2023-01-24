@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.users.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'User', 'route' => 'admin.users.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -38,6 +42,12 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.team_details') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.member') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -63,6 +73,15 @@
                             <td>
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                              {{!! nl2br($user->team_details) !!}}
+                            
+                            </td>
+                            <td>
+                                @foreach($user->members as $key => $item)
+                                    <span class="badge badge-info">{{ $item->constituency }}</span>
                                 @endforeach
                             </td>
                             <td>

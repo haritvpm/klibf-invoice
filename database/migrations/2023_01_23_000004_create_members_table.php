@@ -12,6 +12,7 @@ class CreateMembersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('constituency')->unique();
+            $table->decimal('as_amount', 15, 2);
             $table->timestamps();
         });
     }

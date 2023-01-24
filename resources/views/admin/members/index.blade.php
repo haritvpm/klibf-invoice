@@ -36,6 +36,9 @@
                             {{ trans('cruds.member.fields.constituency') }}
                         </th>
                         <th>
+                            {{ trans('cruds.member.fields.as_amount') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -54,6 +57,9 @@
                             </td>
                             <td>
                                 {{ $member->constituency ?? '' }}
+                            </td>
+                            <td>
+                                {{ $member->as_amount ?? '' }}
                             </td>
                             <td>
                                 @can('member_show')

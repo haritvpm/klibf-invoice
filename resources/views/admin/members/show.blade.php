@@ -39,6 +39,14 @@
                             {{ $member->constituency }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.member.fields.as_amount') }}
+                        </th>
+                        <td>
+                            {{ $member->as_amount }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

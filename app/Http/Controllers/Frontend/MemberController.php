@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\User;
 
 class MemberController extends Controller
 {
@@ -22,7 +23,8 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::all();
+        $members =  User::find( auth()->user()->id )->members()
+        ->get();
 
         return view('frontend.members.index', compact('members'));
     }

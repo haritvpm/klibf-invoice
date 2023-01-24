@@ -31,6 +31,16 @@
                 <span class="help-block">{{ trans('cruds.member.fields.constituency_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="as_amount">{{ trans('cruds.member.fields.as_amount') }}</label>
+                <input class="form-control {{ $errors->has('as_amount') ? 'is-invalid' : '' }}" type="number" name="as_amount" id="as_amount" value="{{ old('as_amount', $member->as_amount) }}" step="0.01" required>
+                @if($errors->has('as_amount'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('as_amount') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.member.fields.as_amount_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>
