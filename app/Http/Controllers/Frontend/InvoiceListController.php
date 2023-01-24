@@ -61,17 +61,16 @@ class InvoiceListController extends Controller
         $amounts = $request->get('amount');
         
         //check dates
-        /*
+        
         $datemin = Carbon::createFromFormat('d/m/Y', '09/01/2023');
         $datemax = Carbon::createFromFormat('d/m/Y', '15/01/2023');
-
-        $date_ok = true;
+   
         foreach ($bill_dates as $i => $bill_date) {
              $date = Carbon::createFromFormat('d/m/Y', $bill_date);
              if(!$date->betweenIncluded($datemin, $datemax)){
-                return  redirect()->back()->withInput()->withError('Date not within range');;
+                return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
              }
-        }*/
+        }
 
         $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
 
@@ -121,10 +120,7 @@ class InvoiceListController extends Controller
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)
     {
-        $invoiceList->invoiceListInvoiceItems()->delete();
-
-        $invoiceList->update($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
-
+       
         $publisher_ids = $request->get('publisher_id');
         $bill_numbers = $request->get('bill_number');
         $bill_dates = $request->get('bill_date');
@@ -132,6 +128,22 @@ class InvoiceListController extends Controller
         $grosss = $request->get('gross');
         $discounts = $request->get('discount');
 
+
+         //check dates
+        
+         $datemin = Carbon::createFromFormat('d/m/Y', '09/01/2023');
+         $datemax = Carbon::createFromFormat('d/m/Y', '15/01/2023');
+         
+         foreach ($bill_dates as $i => $bill_date) {
+              $date = Carbon::createFromFormat('d/m/Y', $bill_date);
+              if(!$date->betweenIncluded($datemin, $datemax)){
+                 return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
+              }
+         }
+ 
+        $invoiceList->invoiceListInvoiceItems()->delete();
+        $invoiceList->update($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
+ 
         $invoiceitems = [];
       
         foreach ($publisher_ids as $i => $publisher_id) {

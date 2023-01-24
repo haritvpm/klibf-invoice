@@ -7,7 +7,7 @@
             <div class="card">
 
                 <div class="card-body ">
-
+                <h5 class="card-subtitle mb-2 text-muted">KLIBF Invoice List # {{ $invoiceList->id  }}</h5>
 
                     <div class="table-responsive">
 
@@ -16,35 +16,35 @@
                             <tbody>
 
                                 {{-- <tr>
-         <th colspan="2">
+         <td colspan="2">
              {{ trans('cruds.invoiceList.fields.id') }}
-                                </th>
+                                </td>
                                 <td colspan="5">
                                     {{ $invoiceList->id }}
                                 </td>
                                 </tr> --}}
 
                                 <tr>
-                                    <th colspan="2">
+                                    <td colspan="2">
                                         {{ trans('cruds.invoiceList.fields.member') }}
-                                    </th>
-                                    <td colspan="5">
+                                    </td>
+                                    <th colspan="5">
                                         {{ $invoiceList->member->name ?? '' }},
                                         {{ $invoiceList->member->constituency ?? '' }}
-                                    </td>
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">
+                                    <td colspan="2">
                                         {{ trans('cruds.invoiceList.fields.institution_type') }}
-                                    </th>
+                                    </td>
                                     <td colspan="5">
                                         {{ App\Models\InvoiceList::INSTITUTION_TYPE_RADIO[$invoiceList->institution_type] ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th colspan="2">
+                                    <td colspan="2">
                                         {{ trans('cruds.invoiceList.fields.institution_name') }}
-                                    </th>
+                                    </td>
                                     <td colspan="5">
                                         {{ $invoiceList->institution_name }}
                                     </td>
@@ -122,7 +122,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group d-print-none">
                         <a class="btn btn-default" href="{{ route('frontend.invoice-lists.index') }}">
                             {{ trans('global.back_to_list') }}
                         </a>

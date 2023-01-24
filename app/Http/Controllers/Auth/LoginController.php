@@ -43,6 +43,6 @@ class LoginController extends Controller
             return '/admin';
         }
 
-        return '/home';
+        return '/invoice-lists';
     }
 }

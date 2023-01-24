@@ -16,7 +16,7 @@
 
                     <!-- {{ __('You are logged in!') }} -->
 
-                    <a class="btn btn-primary" href="{{ route('frontend.members.export') }}">
+                    <a class="btn btn-secondary" href="{{ route('frontend.members.export') }}">
                      Download Report
                     </a>
                 </div>

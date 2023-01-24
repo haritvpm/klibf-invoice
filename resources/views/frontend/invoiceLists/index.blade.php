@@ -6,7 +6,7 @@
 @can('invoice_list_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('frontend.invoice-lists.create') }}">
+            <a class="btn btn-primary" href="{{ route('frontend.invoice-lists.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.invoiceList.title_singular') }}
             </a>
         </div>
@@ -85,13 +85,13 @@
                             </td>
                             <td>
                                 @can('invoice_list_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('frontend.invoice-lists.show', $invoiceList->id) }}">
+                                    <a class="btn btn-info " href="{{ route('frontend.invoice-lists.show', $invoiceList->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('invoice_list_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
+                                    <a class="btn btn-dark" href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
@@ -159,6 +159,9 @@
     orderCellsTop: true,
     order: [[ 0, 'desc' ]],
     pageLength: 100,
+    columnDefs: [
+    { searchable: false, targets: 4 } //ignore sum.  search by id only if a number
+  ]
   });
   let table = $('.datatable-InvoiceList:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){

@@ -66,7 +66,7 @@
 
                             <div class="form-group col-md-9">
                                 <label class="required" for="institution_name">{{ trans('cruds.invoiceList.fields.institution_name') }}</label>
-                                <input class="form-control {{ $errors->has('institution_name') ? 'is-invalid' : '' }}" type="text" name="institution_name" id="institution_name" value="{{ old('institution_name', '') }}" required>
+                                <input class="form-control {{ $errors->has('institution_name') ? 'is-invalid' : '' }}" type="text" name="institution_name" id="institution_name" value="{{ old('institution_name', '') }}" required autocomplete="off" >
                                 @if($errors->has('institution_name'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('institution_name') }}
@@ -142,7 +142,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5"> <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button> </td>
+                                    <td colspan="5"> 
+                                        <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i>
+                                        <button type="button" class="ml-2 pr-3 btn btn-sm btn-primary addRow3"><i class="fa fa-plus">3</i>
+                                    </button> </td>
 
 
                                     <td><b class="total-label">Total</b></td>
@@ -169,8 +172,8 @@
 
 
                         <div class="form-group">
-                            <button class="btn btn-danger" type="submit" name="action" value="save"> {{ trans('global.save') }}</button>
-                            <button class="btn btn-success" type="submit" name="action" value="saveandnew"> {{ trans('global.save') }} and New</button>
+                            <button class="btn btn-success" type="submit" name="action" value="save"> {{ trans('global.save') }}</button>
+                            <button class="btn btn-danger " type="submit" name="action" value="saveandnew"> {{ trans('global.save') }} and New</button>
                         </div>
                     </form>
                 </div>
@@ -191,7 +194,9 @@
         total();
 
         $('tbody').delegate('.publisher', 'change', function() {
-            var tr = $(this).parent().parent();
+      
+            var tr = $(this).closest('tr')
+           
             tr.find('.bill-number').focus();
         })
         $('tbody').delegate('.publisher', 'change', function() {
@@ -262,6 +267,11 @@
 
         $('.addRow').on('click', function() {
             addRow();
+            total();
+        });
+        
+        $('.addRow3').on('click', function() {
+            addRow();  addRow();  addRow();
             total();
         });
 
