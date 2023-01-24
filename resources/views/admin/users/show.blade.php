@@ -62,7 +62,7 @@
                             {{ trans('cruds.user.fields.team_details') }}
                         </th>
                         <td>
-                        {{!! nl2br($user->team_details) !!}}
+                        {!! nl2br($user->team_details) !!}
                         </td>
                     </tr>
                     <tr>

@@ -76,7 +76,7 @@
                                 @endforeach
                             </td>
                             <td>
-                              {{!! nl2br($user->team_details) !!}}
+                              {!! nl2br($user->team_details) !!}
                             
                             </td>
                             <td>

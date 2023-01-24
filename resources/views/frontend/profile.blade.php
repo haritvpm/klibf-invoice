@@ -29,6 +29,17 @@
                                 </div>
                             @endif
                         </div>
+                   
+                                    <div class="form-group">
+                                        <label class ='required' for="team_details">{{ trans('cruds.user.fields.team_details') }}</label>
+                                        <textarea class="form-control {{ $errors->has('team_details') ? 'is-invalid' : '' }}" name="team_details" id="team_details" required>{{ old('team_details', auth()->user()->team_details) }}</textarea>
+                                        @if($errors->has('team_details'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('team_details') }}
+                                            </div>
+                                        @endif
+                                        <span class="help-block">{{ trans('cruds.user.fields.team_details_helper') }}</span>
+                                    </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
@@ -67,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+<!--     <div class="row mt-4">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -86,6 +97,6 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 </div>
 @endsection
