@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-@can('invoice_item_create')
+<!-- @can('invoice_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-dark" href="{{ route('admin.invoice-items.create') }}">
@@ -8,7 +8,7 @@
             </a>
         </div>
     </div>
-@endcan
+@endcan -->
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.invoiceItem.title_singular') }} {{ trans('global.list') }}
@@ -37,6 +37,9 @@
                         </th>
                         <th>
                             {{ trans('cruds.invoiceItem.fields.invoice_list') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.invoiceItem.fields.invoice_list') }} ID
                         </th>
                      <!--    <th>
                             {{ trans('cruds.invoiceList.fields.number') }}
@@ -81,6 +84,9 @@
                             <td>
                                 {{ $invoiceItem->invoice_list->institution_name ?? '' }}
                             </td>
+                            <td>
+                                {{ $invoiceItem->invoice_list->id ?? '' }}
+                            </td>
                         <!--     <td>
                                 {{ $invoiceItem->invoice_list->number ?? '' }}
                             </td> -->
@@ -110,14 +116,14 @@
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
-
+<!-- 
                                 @can('invoice_item_delete')
                                     <form action="{{ route('admin.invoice-items.destroy', $invoiceItem->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                     </form>
-                                @endcan
+                                @endcan -->
 
                             </td>
 

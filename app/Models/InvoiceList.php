@@ -37,6 +37,7 @@ class InvoiceList extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'bookfest_id',
         'created_by_id',
     ];
 
@@ -50,6 +51,10 @@ class InvoiceList extends Model
         return $this->belongsTo(Member::class, 'member_id');
     }
 
+    public function bookfest()
+    {
+        return $this->belongsTo(BookFest::class, 'bookfest_id');
+    }
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by_id');

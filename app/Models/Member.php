@@ -21,7 +21,6 @@ class Member extends Model
     protected $fillable = [
         'name',
         'constituency',
-        'as_amount',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -30,6 +29,11 @@ class Member extends Model
     public function memberInvoiceLists()
     {
         return $this->hasMany(InvoiceList::class, 'member_id', 'id');
+    }
+
+    public function memberSanctionedAmounts()
+    {
+        return $this->hasMany(SanctionedAmount::class, 'member_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

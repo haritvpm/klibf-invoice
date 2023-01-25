@@ -54,7 +54,7 @@ class MembersExport implements FromCollection
             $detail['publisher'] =  '';
             $detail['bill_number'] =  '';
             $detail['bill_date'] =  '';
-            $detail['amount'] = number_format($mla_amount) ;
+            $detail['amount'] = $mla_amount ;
                                                                     
             array_push($report,$detail ) ;
 

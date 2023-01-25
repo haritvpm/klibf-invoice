@@ -44,12 +44,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('invoice-lists/destroy', 'InvoiceListController@massDestroy')->name('invoice-lists.massDestroy');
     Route::resource('invoice-lists', 'InvoiceListController');
 
+    // Book Fest
+    Route::resource('book-fests', 'BookFestController', ['except' => ['destroy']]);
+
+    // Financial Year
+    Route::delete('financial-years/destroy', 'FinancialYearController@massDestroy')->name('financial-years.massDestroy');
+    Route::resource('financial-years', 'FinancialYearController');
+
+    // Sanctioned Amount
+    Route::delete('sanctioned-amounts/destroy', 'SanctionedAmountController@massDestroy')->name('sanctioned-amounts.massDestroy');
+    Route::resource('sanctioned-amounts', 'SanctionedAmountController');
+
 
     // Backup routes
     Route::resource('backups', 'BackupController');
     Route::get('backup/create', 'BackupController@create');
     Route::get('backup/download/{file_name}', 'BackupController@download');
     Route::get('backup/delete/{file_name}', 'BackupController@delete');
+    
+    
 
 
 });
@@ -94,6 +107,17 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Invoice Item
     Route::delete('invoice-items/destroy', 'InvoiceItemController@massDestroy')->name('invoice-items.massDestroy');
     Route::resource('invoice-items', 'InvoiceItemController');
+
+    // Book Fest
+    // Route::resource('book-fests', 'BookFestController', ['except' => ['destroy']]);
+
+    // Financial Year
+    // Route::delete('financial-years/destroy', 'FinancialYearController@massDestroy')->name('financial-years.massDestroy');
+    // Route::resource('financial-years', 'FinancialYearController');
+
+    // Sanctioned Amount
+    Route::delete('sanctioned-amounts/destroy', 'SanctionedAmountController@massDestroy')->name('sanctioned-amounts.massDestroy');
+    Route::resource('sanctioned-amounts', 'SanctionedAmountController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

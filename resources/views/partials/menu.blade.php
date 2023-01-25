@@ -54,6 +54,7 @@
                             </a>
                         </li>
                     @endcan
+   
                     @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
                         <li class="c-sidebar-nav-item">
@@ -68,6 +69,18 @@
                 </ul>
             </li>
         @endcan
+        @can('book_fest_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.book-fests.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/book-fests") || request()->is("admin/book-fests/*") ? "c-active" : "" }}">
+                    <i class="fa-fw far fa-calendar-alt c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.bookFest.title') }}
+                </a>
+            </li>
+        @endcan
+      
+
         @can('member_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.members.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/members") || request()->is("admin/members/*") ? "c-active" : "" }}">
@@ -75,6 +88,26 @@
 
                     </i>
                     {{ trans('cruds.member.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('financial_year_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.financial-years.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/financial-years") || request()->is("admin/financial-years/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.financialYear.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('sanctioned_amount_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.sanctioned-amounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sanctioned-amounts") || request()->is("admin/sanctioned-amounts/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.sanctionedAmount.title') }}
                 </a>
             </li>
         @endcan

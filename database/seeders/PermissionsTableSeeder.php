@@ -116,46 +116,102 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 27,
-                'title' => 'invoice_item_create',
-            ],
-            [
-                'id'    => 28,
-                'title' => 'invoice_item_edit',
-            ],
-            [
-                'id'    => 29,
-                'title' => 'invoice_item_show',
-            ],
-            [
-                'id'    => 30,
-                'title' => 'invoice_item_delete',
-            ],
-            [
-                'id'    => 31,
-                'title' => 'invoice_item_access',
-            ],
-            [
-                'id'    => 32,
                 'title' => 'invoice_list_create',
             ],
             [
-                'id'    => 33,
+                'id'    => 28,
                 'title' => 'invoice_list_edit',
             ],
             [
-                'id'    => 34,
+                'id'    => 29,
                 'title' => 'invoice_list_show',
             ],
             [
-                'id'    => 35,
+                'id'    => 30,
                 'title' => 'invoice_list_delete',
             ],
             [
-                'id'    => 36,
+                'id'    => 31,
                 'title' => 'invoice_list_access',
             ],
             [
+                'id'    => 32,
+                'title' => 'invoice_item_create',
+            ],
+            [
+                'id'    => 33,
+                'title' => 'invoice_item_edit',
+            ],
+            [
+                'id'    => 34,
+                'title' => 'invoice_item_show',
+            ],
+            [
+                'id'    => 35,
+                'title' => 'invoice_item_delete',
+            ],
+            [
+                'id'    => 36,
+                'title' => 'invoice_item_access',
+            ],
+            [
                 'id'    => 37,
+                'title' => 'book_fest_create',
+            ],
+            [
+                'id'    => 38,
+                'title' => 'book_fest_edit',
+            ],
+            [
+                'id'    => 39,
+                'title' => 'book_fest_show',
+            ],
+            [
+                'id'    => 40,
+                'title' => 'book_fest_access',
+            ],
+            [
+                'id'    => 41,
+                'title' => 'financial_year_create',
+            ],
+            [
+                'id'    => 42,
+                'title' => 'financial_year_edit',
+            ],
+            [
+                'id'    => 43,
+                'title' => 'financial_year_show',
+            ],
+            [
+                'id'    => 44,
+                'title' => 'financial_year_delete',
+            ],
+            [
+                'id'    => 45,
+                'title' => 'financial_year_access',
+            ],
+            [
+                'id'    => 46,
+                'title' => 'sanctioned_amount_create',
+            ],
+            [
+                'id'    => 47,
+                'title' => 'sanctioned_amount_edit',
+            ],
+            [
+                'id'    => 48,
+                'title' => 'sanctioned_amount_show',
+            ],
+            [
+                'id'    => 49,
+                'title' => 'sanctioned_amount_delete',
+            ],
+            [
+                'id'    => 50,
+                'title' => 'sanctioned_amount_access',
+            ],
+            [
+                'id'    => 51,
                 'title' => 'profile_password_edit',
             ],
         ];

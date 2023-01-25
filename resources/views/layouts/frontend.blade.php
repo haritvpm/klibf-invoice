@@ -126,7 +126,11 @@
                                             {{ trans('cruds.publisher.title') }}
                                         </a>
                                     @endcan
-                                   
+                                    @can('sanctioned_amount_access')
+                                        <a class="dropdown-item" href="{{ route('frontend.sanctioned-amounts.index') }}">
+                                            {{ trans('cruds.sanctionedAmount.title') }}
+                                        </a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('frontend.profile.index') }}">{{ __('My profile') }}</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

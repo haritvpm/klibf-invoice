@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Publisher;
 use App\Models\InvoiceItem;
 use Carbon\Carbon;
-
 use App\Models\User;
+use App\Models\BookFest;
 
 class InvoiceListController extends Controller
 {
@@ -23,7 +23,11 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        
+
         $invoiceLists = InvoiceList::with(['member', 'created_by'])
+                            ->where( 'bookfest_id', $bookfest?->id )
                             ->withSum('invoiceListInvoiceItems', 'amount')
 //                            ->withSum('invoiceListInvoiceItems', 'gross')
   //                          ->withSum('invoiceListInvoiceItems', 'discount')
@@ -35,7 +39,7 @@ class InvoiceListController extends Controller
         });*/
 
      
-        return view('frontend.invoiceLists.index', compact('invoiceLists'));
+        return view('frontend.invoiceLists.index', compact('invoiceLists', 'bookfest'));
     }
 
     public function create()
@@ -78,8 +82,13 @@ class InvoiceListController extends Controller
                 return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
              }
         }
-
-        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        if(!$bookfest){
+            return  back()->withInput()->withErrors(['No active bookfest found']);;
+        }
+//dd($bookfest->id);
+        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id' )
+            + [ 'bookfest_id' => $bookfest->id] );
 
         $invoiceitems = [];
       
@@ -146,8 +155,9 @@ class InvoiceListController extends Controller
               if(!$date->betweenIncluded($datemin, $datemax)){
                  return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
               }
-         }
- 
+        }
+
+      
         $invoiceList->invoiceListInvoiceItems()->delete();
         $invoiceList->update($request->only( 'number', 'institution_type', 'institution_name', 'member_id' ));
  

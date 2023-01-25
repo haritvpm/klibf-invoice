@@ -7,9 +7,12 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Publisher
     Route::apiResource('publishers', 'PublisherApiController');
 
+    // Invoice List
+    Route::apiResource('invoice-lists', 'InvoiceListApiController');
+
     // Invoice Item
     Route::apiResource('invoice-items', 'InvoiceItemApiController');
 
-    // Invoice List
-    Route::apiResource('invoice-lists', 'InvoiceListApiController');
+    // Book Fest
+    Route::apiResource('book-fests', 'BookFestApiController', ['except' => ['destroy']]);
 });

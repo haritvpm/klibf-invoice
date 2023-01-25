@@ -9,7 +9,7 @@
     }
 
 </style>
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
 
@@ -133,9 +133,9 @@
                                     </td>
 
 
-                                    <td><input class="form-control gross" type="number" name="gross[]" value="{{ old('gross[]') }}"  required autocomplete="off"></td>
-                                    <td><input class="form-control discount" type="number" name="discount[]" value="{{ old('discount[]') }}"   required autocomplete="off"></td>
-                                    <td><input  class="form-control amount " type="number" name="amount[]" value="{{ old('amount[]') }}" required  autocomplete="off"></td>
+                                    <td><input class="form-control gross" type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" value="{{ old('gross[]') }}"  required  autocomplete="off"></td>
+                                    <td><input class="form-control discount" type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" value="{{ old('discount[]') }}"   required autocomplete="off"></td>
+                                    <td><input  class="form-control amount " type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{ old('amount[]') }}" required  autocomplete="off"></td>
 
                                     <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
                                 </tr>
@@ -188,6 +188,7 @@
 @parent
 
 <script type="text/javascript">
+    
     $(document).ready(function() {
         var i = 1;
         $('select').select2({  theme: 'bootstrap4',});
@@ -218,7 +219,7 @@
 
         });
 
-        $('tbody').delegate('.amount', 'keyup', function() {
+        $('tbody').delegate('.amount', 'change', function() {
 
             var tr = $(this).parent().parent();
             var g = parseInt(tr.find('.gross').val());
@@ -235,7 +236,7 @@
         });
 
         
-        $('tbody').delegate('.gross, .discount', 'keyup', function() {
+        $('tbody').delegate('.gross, .discount', 'change', function() {
             var tr = $(this).parent().parent();
             var g = parseInt(tr.find('.gross').val());
             var d = parseInt(tr.find('.discount').val());
@@ -305,9 +306,9 @@
             '\n' +
             '            \n' +
             '            </td>\n' +
-            '           <td><input type="number" name="gross[]" class="form-control gross" required autocomplete="off"></td>\n' +
-            '           <td><input type="number" name="discount[]" class="form-control discount" required autocomplete="off"></td>\n' +
-            '           <td><input type="number" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
+            '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" class="form-control gross" required autocomplete="off"></td>\n' +
+            '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" class="form-control discount" required autocomplete="off"></td>\n' +
+            '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
             '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
                 '         </tr>\n';
             $('tbody').append(addRow);

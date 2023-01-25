@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
+use App\Models\BookFest;
 
 class MemberController extends Controller
 {
@@ -83,6 +84,11 @@ class MemberController extends Controller
     }
     public function export() 
     {
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        if(!$bookfest){
+            return  back()->withErrors(['No active bookfest found']);;
+        }
+
        // return Excel::download(new MembersExport, 'klibf.xlsx');
         return (new InvoicesExport())->download('klibf.xlsx');
     }

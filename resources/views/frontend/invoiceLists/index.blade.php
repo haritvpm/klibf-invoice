@@ -1,17 +1,25 @@
 @extends('layouts.frontend')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
-@can('invoice_list_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-primary" href="{{ route('frontend.invoice-lists.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.invoiceList.title_singular') }}
-            </a>
-        </div>
-    </div>
-@endcan
+
+        @if ($bookfest)
+          @can('invoice_list_create')
+                <div style="margin-bottom: 10px;" class="row">
+                    <div class="col-lg-12">
+                        <a class="btn btn-primary" href="{{ route('frontend.invoice-lists.create') }}">
+                            {{ trans('global.add') }} {{ trans('cruds.invoiceList.title_singular') }}
+                        </a>
+                    </div>
+                </div>
+            @endcan
+        @else
+        No active bookfest<hr/>
+        @endif
+
+
+@if ($bookfest)
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.invoiceList.title_singular')  }}
@@ -81,7 +89,7 @@
                             </td>
                             <td>
                      
-                                {{ number_format($invoiceList->invoice_list_invoice_items_sum_amount) ?? '' }}
+                                {{ $invoiceList->invoice_list_invoice_items_sum_amount ?? '' }}
                             </td>
                             <td>
                                 @can('invoice_list_show')
@@ -113,7 +121,7 @@
         </div>
     </div>
 </div>
-
+@endif
 
 </div>
     </div>

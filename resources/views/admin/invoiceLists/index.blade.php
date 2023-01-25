@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-@can('invoice_list_create')
+<!-- @can('invoice_list_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('admin.invoice-lists.create') }}">
@@ -8,7 +8,7 @@
             </a>
         </div>
     </div>
-@endcan
+@endcan -->
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.invoiceList.title_singular') }} {{ trans('global.list') }}
@@ -25,9 +25,10 @@
                         <th>
                             {{ trans('cruds.invoiceList.fields.id') }}
                         </th>
-                        <!-- <th>
-                            {{ trans('cruds.invoiceList.fields.number') }}
-                        </th> -->
+
+                        <th>
+                           BookFest
+                        </th>
                         <th>
                             {{ trans('cruds.invoiceList.fields.institution_type') }}
                         </th>
@@ -60,9 +61,9 @@
                             <td>
                                 {{ $invoiceList->id ?? '' }}
                             </td>
-                            <!-- <td>
-                                {{ $invoiceList->number ?? '' }}
-                            </td> -->
+                            <td>
+                                {{ $invoiceList->bookfest->title ?? '' }}
+                            </td>
                             <td>
                                 {{ App\Models\InvoiceList::INSTITUTION_TYPE_RADIO[$invoiceList->institution_type] ?? '' }}
                             </td>

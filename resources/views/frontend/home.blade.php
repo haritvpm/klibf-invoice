@@ -15,10 +15,14 @@
                     @endif
 
                     <!-- {{ __('You are logged in!') }} -->
-
+                    @if ($bookfest)
                     <a class="btn btn-secondary" href="{{ route('frontend.members.export') }}">
                      Download Report
                     </a>
+                    @else
+                    No active bookfest    
+                    @endif
+                    
                 </div>
             </div>
         </div>

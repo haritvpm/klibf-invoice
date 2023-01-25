@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\BookFest;
 
 
 class MemberController extends Controller
@@ -63,7 +64,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $member->load('memberInvoiceLists');
+        $member->load('memberInvoiceLists', 'memberSanctionedAmounts');
 
         return view('admin.members.show', compact('member'));
     }
@@ -86,6 +87,11 @@ class MemberController extends Controller
 
     public function export() 
     {
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        if(!$bookfest){
+            return  back()->withErrors(['No active bookfest found']);;
+        }
+
        // return Excel::download(new MembersExport, 'klibf.xlsx');
         return (new InvoicesExport())->download('klibf.xlsx');
     }
