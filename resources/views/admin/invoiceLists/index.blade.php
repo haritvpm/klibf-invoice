@@ -25,6 +25,9 @@
                         <th>
                             {{ trans('cruds.invoiceList.fields.id') }}
                         </th>
+                        <th>
+                           CreatedBy
+                        </th>
 
                         <th>
                            BookFest
@@ -60,6 +63,9 @@
                             </td>
                             <td>
                                 {{ $invoiceList->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $invoiceList->created_by->name ?? '' }}
                             </td>
                             <td>
                                 {{ $invoiceList->bookfest->title ?? '' }}
