@@ -5,14 +5,16 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use App\Models\Member;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\Models\BookFest;
 
 class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 {
     private $title;
- 
-    public function __construct($title)
+    private $bookfest_id;
+    public function __construct($bookfest_id, $title)
     {
         $this->title = $title;
+        $this->bookfest_id = $bookfest_id;
     }
 
     /**
@@ -28,7 +30,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
          
             $inv_index = 0; 
          
-            foreach($member->memberInvoiceLists()->get() as $index => $invoiceList){
+            foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $invoice) {
                     $inv_index++;
@@ -70,7 +72,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
          
             $pub_amounts = array();
             
-             foreach($member->memberInvoiceLists()->get() as $index => $invoiceList){
+             foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
               
@@ -114,8 +116,11 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         foreach($members as  $member) {
          
             $mla_index++;
+            $mla_sanctioned = 0;
             $mla_amount = 0;
-            foreach($member->memberInvoiceLists()->get() as $index => $invoiceList){
+            foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
+
+                $mla_sanctioned += $member->memberSanctionedAmounts()->where('book_fest_id', $this->bookfest_id)->get()->sum('as_amount');
 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
              
@@ -129,6 +134,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member->name;
             $detail['constituency'] = $member->constituency;
+            $detail['sanctioned'] = $mla_sanctioned ;
             $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 
@@ -150,7 +156,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         foreach($members as  $member) {
          
                         
-             foreach($member->memberInvoiceLists()->get() as $index => $invoiceList){
+             foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
               
@@ -191,7 +197,12 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 
     public function collection()
     {
+        $bookfest_id = $this->bookfest_id;
+
         $members = Member::with(['memberInvoiceLists', 'memberInvoiceLists.invoiceListInvoiceItems'])
+                ->wherehas('memberInvoiceLists', function($q) use ($bookfest_id) {
+                    $q->where('bookfest_id',  $bookfest_id  );
+                })
                 ->get()->filter(function ($value) {
                     return $value->memberInvoiceLists()->count() > 0;
                 });
@@ -207,7 +218,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     public function headings(): array
     {
         if($this->title == 'MLA-Amount')
-            return [ "MLA", "Constituency", 'Amount'];
+            return [ "MLA", "Constituency", 'Sanctioned', 'Amount'];
 
         if($this->title == 'MLA-Publisher')  
             return ["Sl.No.", "MLA", "Constituency", 'Publisher', 'Amount'];

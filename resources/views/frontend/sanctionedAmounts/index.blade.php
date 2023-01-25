@@ -34,9 +34,9 @@
                                     <th>
                                         {{ trans('cruds.sanctionedAmount.fields.member') }}
                                     </th>
-                                    <th>
+                                   <!--  <th>
                                         {{ trans('cruds.sanctionedAmount.fields.book_fest') }}
-                                    </th>
+                                    </th> -->
                                     <th>
                                         &nbsp;
                                     </th>
@@ -57,9 +57,9 @@
                                         <td>
                                             {{ $sanctionedAmount->member->name ?? '' }}
                                         </td>
-                                        <td>
+                                     <!--    <td>
                                             {{ $sanctionedAmount->book_fest->title ?? '' }}
-                                        </td>
+                                        </td> -->
                                         <td>
                                             @can('sanctioned_amount_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.sanctioned-amounts.show', $sanctionedAmount->id) }}">

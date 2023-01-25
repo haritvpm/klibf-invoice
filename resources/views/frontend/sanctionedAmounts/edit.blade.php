@@ -51,20 +51,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.sanctionedAmount.fields.member_helper') }}</span>
                         </div>
-                        <div class="form-group">
-                            <label class="required" for="book_fest_id">{{ trans('cruds.sanctionedAmount.fields.book_fest') }}</label>
-                            <select class="form-control select2" name="book_fest_id" id="book_fest_id" required>
-                                @foreach($book_fests as $id => $entry)
-                                    <option value="{{ $id }}" {{ (old('book_fest_id') ? old('book_fest_id') : $sanctionedAmount->book_fest->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('book_fest'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('book_fest') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.sanctionedAmount.fields.book_fest_helper') }}</span>
-                        </div>
+                       
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}

@@ -90,6 +90,6 @@ class MemberController extends Controller
         }
 
        // return Excel::download(new MembersExport, 'klibf.xlsx');
-        return (new InvoicesExport())->download('klibf.xlsx');
+        return (new InvoicesExport($bookfest->id))->download('klibf' . $bookfest->title . '.xlsx');
     }
 }

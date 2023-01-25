@@ -13,14 +13,19 @@ use App\Models\SanctionedAmount;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
+
 
 class SanctionedAmountController extends Controller
 {
     public function index()
     {
         abort_if(Gate::denies('sanctioned_amount_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
 
-        $sanctionedAmounts = SanctionedAmount::with(['fin_year', 'member', 'book_fest', 'created_by'])->get();
+        $sanctionedAmounts = SanctionedAmount::with(['fin_year', 'member', 'book_fest', 'created_by'])
+        ->where( 'book_fest_id', $bookfest?->id )
+        ->get();
 
         return view('frontend.sanctionedAmounts.index', compact('sanctionedAmounts'));
     }
@@ -31,7 +36,15 @@ class SanctionedAmountController extends Controller
 
         $fin_years = FinancialYear::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+   //     $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $members = User::find( auth()->user()->id )->members()
+                        ->get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
+                        return [$x->id => $x->name . ' (' .$x->constituency . ')'];
+                    })
+                    ->prepend(trans('global.pleaseSelect') . ' Member', '');
+
+
 
         $book_fests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -45,7 +58,7 @@ class SanctionedAmountController extends Controller
             return  back()->withInput()->withErrors(['No active bookfest found']);;
         }
         
-        $sanctionedAmount = SanctionedAmount::create($request->all());
+        $sanctionedAmount = SanctionedAmount::create($request->all() + [ 'book_fest_id' => $bookfest->id]);
 
         return redirect()->route('frontend.sanctioned-amounts.index');
     }
@@ -56,7 +69,13 @@ class SanctionedAmountController extends Controller
 
         $fin_years = FinancialYear::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        //$members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $members = User::find( auth()->user()->id )->members()
+                    ->get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
+                    return [$x->id => $x->name . ' (' .$x->constituency . ')'];
+                    })
+                    ->prepend(trans('global.pleaseSelect') . ' Member', '');
+
 
         $book_fests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
