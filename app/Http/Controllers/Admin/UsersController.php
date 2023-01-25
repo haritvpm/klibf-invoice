@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Member;
 use App\Http\Controllers\Traits\CsvImportTrait;
+use App\Models\BookFest;
 
 class UsersController extends Controller
 {
@@ -33,7 +34,10 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $members = Member::pluck('constituency', 'id');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+       
+
+        $members = Member::where('bookfest_id',  $bookfest?->id)->pluck('constituency', 'id');
 
         return view('admin.users.create', compact('members', 'roles'));
     }
@@ -52,7 +56,10 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $members = Member::pluck('constituency', 'id');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        $members = Member::where('bookfest_id',  $bookfest?->id)-> pluck('constituency', 'id');
+
+
 
         $user->load('roles', 'members');
 

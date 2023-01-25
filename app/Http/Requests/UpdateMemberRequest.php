@@ -24,7 +24,6 @@ class UpdateMemberRequest extends FormRequest
             'constituency' => [
                 'string',
                 'required',
-                'unique:members,constituency,' . request()->route('member')->id,
             ],
         ];
     }

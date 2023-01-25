@@ -20,7 +20,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceLists = InvoiceList::with(['member', 'created_by'])->get();
+        $invoiceLists = InvoiceList::with(['member', 'bookfest', 'created_by'])->get();
 
         return view('admin.invoiceLists.index', compact('invoiceLists'));
     }
@@ -95,7 +95,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceList->load('member', 'created_by', 'invoiceListInvoiceItems');
+        $invoiceList->load('member', 'bookfest', 'created_by', 'invoiceListInvoiceItems');
 
         return view('admin.invoiceLists.show', compact('invoiceList'));
     }

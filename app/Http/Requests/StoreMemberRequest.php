@@ -24,7 +24,6 @@ class StoreMemberRequest extends FormRequest
             'constituency' => [
                 'string',
                 'required',
-                'unique:members',
             ],
         ];
     }

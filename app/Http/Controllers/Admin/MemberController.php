@@ -24,7 +24,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::all();
+        $members = Member::with(['bookfest'])->get();
 
            
        
@@ -36,7 +36,9 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.members.create');
+        $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.members.create', compact('bookfests'));
     }
 
     public function store(StoreMemberRequest $request)
@@ -50,7 +52,11 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.members.edit', compact('member'));
+        $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $member->load('bookfest');
+
+        return view('admin.members.edit', compact('bookfests', 'member'));
     }
 
     public function update(UpdateMemberRequest $request, Member $member)
@@ -64,7 +70,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $member->load('memberInvoiceLists', 'memberSanctionedAmounts');
+        $member->load('bookfest', 'memberInvoiceLists', 'memberSanctionedAmounts');
 
         return view('admin.members.show', compact('member'));
     }

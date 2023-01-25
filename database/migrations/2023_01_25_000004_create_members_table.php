@@ -11,7 +11,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('constituency')->unique();
+            $table->string('constituency');
             $table->timestamps();
         });
     }

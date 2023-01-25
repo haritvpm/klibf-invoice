@@ -62,7 +62,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $member->load('memberInvoiceLists');
+        $member->load('bookfest', 'memberInvoiceLists', 'memberSanctionedAmounts');
 
         return view('frontend.members.show', compact('member'));
     }

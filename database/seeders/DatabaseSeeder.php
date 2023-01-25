@@ -9,6 +9,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            BookfestSeeder::class,
+
             MembersTableSeeder::class,
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
@@ -16,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             MemberUserSeeder::class,
+
         ]);
     }
 }

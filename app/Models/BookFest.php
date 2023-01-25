@@ -36,6 +36,11 @@ class BookFest extends Model
         'deleted_at',
     ];
 
+    public function bookfestMembers()
+    {
+        return $this->hasMany(Member::class, 'bookfest_id', 'id');
+    }
+
     public function getFromAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

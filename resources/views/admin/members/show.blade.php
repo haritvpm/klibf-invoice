@@ -39,6 +39,14 @@
                             {{ $member->constituency }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.member.fields.bookfest') }}
+                        </th>
+                        <td>
+                            {{ $member->bookfest->title ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
