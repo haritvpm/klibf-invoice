@@ -21,10 +21,6 @@ class UpdateMemberRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'constituency' => [
-                'string',
-                'required',
-            ],
         ];
     }
 }

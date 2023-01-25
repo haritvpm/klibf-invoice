@@ -91,7 +91,7 @@ class PublishersTableSeeder extends Seeder
   ],
  [
     'id' => 19,
-    'name' => '"GREEN BOOKS  "'
+    'name' => 'GREEN BOOKS'
   ],
  [
     'id' => 20,

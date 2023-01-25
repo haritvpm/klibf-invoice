@@ -47,13 +47,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Book Fest
     Route::resource('book-fests', 'BookFestController', ['except' => ['destroy']]);
 
-    // Financial Year
-    Route::delete('financial-years/destroy', 'FinancialYearController@massDestroy')->name('financial-years.massDestroy');
-    Route::resource('financial-years', 'FinancialYearController');
-
-    // Sanctioned Amount
-    Route::delete('sanctioned-amounts/destroy', 'SanctionedAmountController@massDestroy')->name('sanctioned-amounts.massDestroy');
-    Route::resource('sanctioned-amounts', 'SanctionedAmountController');
+        // Constituency
+    Route::delete('constituencies/destroy', 'ConstituencyController@massDestroy')->name('constituencies.massDestroy');
+    Route::post('constituencies/parse-csv-import', 'ConstituencyController@parseCsvImport')->name('constituencies.parseCsvImport');
+    Route::post('constituencies/process-csv-import', 'ConstituencyController@processCsvImport')->name('constituencies.processCsvImport');
+    Route::resource('constituencies', 'ConstituencyController');
 
 
     // Backup routes
@@ -111,13 +109,10 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Book Fest
     // Route::resource('book-fests', 'BookFestController', ['except' => ['destroy']]);
 
-    // Financial Year
-    // Route::delete('financial-years/destroy', 'FinancialYearController@massDestroy')->name('financial-years.massDestroy');
-    // Route::resource('financial-years', 'FinancialYearController');
+       // Constituency
+    Route::delete('constituencies/destroy', 'ConstituencyController@massDestroy')->name('constituencies.massDestroy');
+    Route::resource('constituencies', 'ConstituencyController');
 
-    // Sanctioned Amount
-    Route::delete('sanctioned-amounts/destroy', 'SanctionedAmountController@massDestroy')->name('sanctioned-amounts.massDestroy');
-    Route::resource('sanctioned-amounts', 'SanctionedAmountController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

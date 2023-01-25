@@ -33,10 +33,13 @@
                             {{ trans('cruds.member.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.member.fields.bookfest') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.member.fields.constituency') }}
                         </th>
                         <th>
-                            {{ trans('cruds.member.fields.bookfest') }}
+                            {{ trans('cruds.member.fields.as_amount') }}
                         </th>
                         <th>
                             &nbsp;
@@ -56,10 +59,13 @@
                                 {{ $member->name ?? '' }}
                             </td>
                             <td>
-                                {{ $member->constituency ?? '' }}
+                                {{ $member->bookfest->title ?? '' }}
                             </td>
                             <td>
-                                {{ $member->bookfest->title ?? '' }}
+                                {{ $member->constituency->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $member->as_amount ?? '' }}
                             </td>
                             <td>
                                 @can('member_show')

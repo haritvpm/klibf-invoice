@@ -33,10 +33,6 @@ class InvoiceListController extends Controller
   //                          ->withSum('invoiceListInvoiceItems', 'discount')
                             ->get();
 
-    /*    $invoiceLists->transform(function ($item){
-            $item->disount_percent = number_format(($item->invoice_list_invoice_items_sum_discount * 100) / $item->invoice_list_invoice_items_sum_gross, 1);
-                return $item;
-        });*/
 
      
         return view('frontend.invoiceLists.index', compact('invoiceLists', 'bookfest'));
@@ -46,14 +42,17 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-       // $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        
-        $members = User::find( auth()->user()->id )->members()
-            ->get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
-            return [$x->id => $x->name . ' (' .$x->constituency . ')'];
-        })
-        ->prepend(trans('global.pleaseSelect') . ' Member', '');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
 
+        $user_constituencies =  User::find( auth()->user()->id )->constituencies()->pluck('id');
+        $members = Member::whereIn('constituency_id', $user_constituencies)
+        ->where('bookfest_id', $bookfest->id)
+        ->get()
+        ->mapWithKeys(function ($x) {
+            return [$x->id => $x->name . ' (' .$x->constituency->name . ')'];
+        }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
+
+      
         
         
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -121,11 +120,18 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = User::find( auth()->user()->id )->members()
-            ->get(['name','constituency', 'id'])->mapWithKeys(function ($x) {
-            return [$x->id => $x->name . ' (' .$x->constituency . ')'];
-        })
-        ->prepend(trans('global.pleaseSelect') . ' Member', '');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+
+        $user_constituencies =  User::find( auth()->user()->id )->constituencies()->pluck('id');
+        $members = Member::whereIn('constituency_id', $user_constituencies)
+        ->where('bookfest_id', $bookfest->id)
+        ->get()
+        ->mapWithKeys(function ($x) {
+            return [$x->id => $x->name . ' (' .$x->constituency->name . ')'];
+        }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
+
+
+        
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $invoiceList->load('member', 'created_by');

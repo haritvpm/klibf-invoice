@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyMemberRequest;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use App\Models\Constituency;
 use App\Models\Member;
 use Gate;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::with(['bookfest'])->get();
+        $members = Member::with(['bookfest', 'constituency'])->get();
 
            
        
@@ -38,7 +39,9 @@ class MemberController extends Controller
 
         $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.members.create', compact('bookfests'));
+        $constituencies = Constituency::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.members.create', compact('bookfests', 'constituencies'));
     }
 
     public function store(StoreMemberRequest $request)
@@ -54,9 +57,11 @@ class MemberController extends Controller
 
         $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $member->load('bookfest');
+        $constituencies = Constituency::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.members.edit', compact('bookfests', 'member'));
+        $member->load('bookfest', 'constituency');
+
+        return view('admin.members.edit', compact('bookfests', 'constituencies', 'member'));
     }
 
     public function update(UpdateMemberRequest $request, Member $member)
@@ -70,7 +75,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $member->load('bookfest', 'memberInvoiceLists', 'memberSanctionedAmounts');
+        $member->load('bookfest', 'constituency', 'memberInvoiceLists');
 
         return view('admin.members.show', compact('member'));
     }

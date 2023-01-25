@@ -69,22 +69,22 @@
                 <span class="help-block">{{ trans('cruds.user.fields.team_details_helper') }}</span>
             </div>
             <div class="form-group">
-                <label  for="members">{{ trans('cruds.user.fields.member') }}</label>
+                <label for="constituencies">{{ trans('cruds.user.fields.constituency') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
                     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                 </div>
-                <select class="form-control select2 {{ $errors->has('members') ? 'is-invalid' : '' }}" name="members[]" id="members" multiple>
-                    @foreach($members as $id => $member)
-                        <option value="{{ $id }}" {{ (in_array($id, old('members', [])) || $user->members->contains($id)) ? 'selected' : '' }}>{{ $member }}</option>
+                <select class="form-control select2 {{ $errors->has('constituencies') ? 'is-invalid' : '' }}" name="constituencies[]" id="constituencies" multiple>
+                    @foreach($constituencies as $id => $constituency)
+                        <option value="{{ $id }}" {{ (in_array($id, old('constituencies', [])) || $user->constituencies->contains($id)) ? 'selected' : '' }}>{{ $constituency }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('members'))
+                @if($errors->has('constituencies'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('members') }}
+                        {{ $errors->first('constituencies') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.user.fields.member_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.user.fields.constituency_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

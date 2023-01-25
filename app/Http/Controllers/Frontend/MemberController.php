@@ -7,6 +7,8 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyMemberRequest;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use App\Models\BookFest;
+use App\Models\Constituency;
 use App\Models\Member;
 use Gate;
 use Illuminate\Http\Request;
@@ -14,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
-use App\Models\BookFest;
+
 
 class MemberController extends Controller
 {
@@ -23,9 +25,11 @@ class MemberController extends Controller
     public function index()
     {
         abort_if(Gate::denies('member_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
 
-        $members =  User::find( auth()->user()->id )->members()
-        ->get();
+        $user_constituencies =  User::find( auth()->user()->id )->constituencies()->pluck('id');
+        $members = Member::whereIn('constituency_id', $user_constituencies)
+        ->where('bookfest_id', $bookfest->id)->get();
 
         return view('frontend.members.index', compact('members'));
     }
@@ -34,7 +38,11 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.members.create');
+        $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $constituencies = Constituency::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.members.create', compact('bookfests', 'constituencies'));
     }
 
     public function store(StoreMemberRequest $request)
@@ -48,7 +56,13 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.members.edit', compact('member'));
+        $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $constituencies = Constituency::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $member->load('bookfest', 'constituency');
+
+        return view('frontend.members.edit', compact('bookfests', 'constituencies', 'member'));
     }
 
     public function update(UpdateMemberRequest $request, Member $member)
@@ -62,7 +76,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('member_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $member->load('bookfest', 'memberInvoiceLists', 'memberSanctionedAmounts');
+        $member->load('bookfest', 'constituency', 'memberInvoiceLists');
 
         return view('frontend.members.show', compact('member'));
     }

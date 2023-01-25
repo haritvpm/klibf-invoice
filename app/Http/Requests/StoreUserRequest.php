@@ -35,11 +35,10 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
-            'members.*' => [
+            'constituencies.*' => [
                 'integer',
             ],
-            'members' => [
-               
+            'constituencies' => [
                 'array',
             ],
         ];

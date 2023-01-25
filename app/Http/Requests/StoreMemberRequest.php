@@ -21,10 +21,6 @@ class StoreMemberRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'constituency' => [
-                'string',
-                'required',
-            ],
         ];
     }
 }

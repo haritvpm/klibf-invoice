@@ -15,33 +15,33 @@ class MemberUserSeeder extends Seeder
      */
     public function run()
     {
-        User::findOrFail(2)->members()->sync(array(4,80,17,27,72));
-        User::findOrFail(3)->members()->sync(array(123,77,76,111,63));
-        User::findOrFail(4)->members()->sync(array(107,89,7,57,50));
-        User::findOrFail(5)->members()->sync(array(119,84,36,126,48));
-        User::findOrFail(6)->members()->sync(array(56,28,40,125,51));
-        User::findOrFail(7)->members()->sync(array(5,122,3,86,103));
-        User::findOrFail(8)->members()->sync(array(24,64,127,91,105));
-        User::findOrFail(9)->members()->sync(array(11,128,79,66,104));
-        User::findOrFail(10)->members()->sync(array(92,1,55,130,62));
-        User::findOrFail(11)->members()->sync(array(100,22,94,117,74));
-        User::findOrFail(12)->members()->sync(array(93,58,114,82,12));
-        User::findOrFail(13)->members()->sync(array(116,97,49,42,45));
-        User::findOrFail(14)->members()->sync(array(59,2,81,75,140));
-        User::findOrFail(15)->members()->sync(array(60,87,15,30,101));
-        User::findOrFail(16)->members()->sync(array(47,113,137,29,109));
-        User::findOrFail(17)->members()->sync(array(10,98,132,53,46));
-        User::findOrFail(18)->members()->sync(array(43,124,118,106,6));
-        User::findOrFail(19)->members()->sync(array(23,8,13,68,90));
-        User::findOrFail(20)->members()->sync(array(110,131,65,71,14));
-        User::findOrFail(21)->members()->sync(array(136,120,83,38,25));
-        User::findOrFail(22)->members()->sync(array(115,20,96,95,34));
-        User::findOrFail(23)->members()->sync(array(121,108,129,73,112));
-        User::findOrFail(24)->members()->sync(array(67,99,133,61,16));
-        User::findOrFail(25)->members()->sync(array(19,26,54,52,44));
-        User::findOrFail(26)->members()->sync(array(102,37,88,69,70));
-        User::findOrFail(27)->members()->sync(array(32,134,85,138,31));
-        User::findOrFail(28)->members()->sync(array(21,39,135,9,139));
-        User::findOrFail(29)->members()->sync(array(33,18,35,78,41));
+        User::findOrFail(2)->constituencies()->sync(array(1,2,3,4,5));
+        User::findOrFail(3)->constituencies()->sync(array(6,7,8,9,10));
+        User::findOrFail(4)->constituencies()->sync(array(11,12,13,14,15));
+        User::findOrFail(5)->constituencies()->sync(array(16,17,18,19,20));
+        User::findOrFail(6)->constituencies()->sync(array(21,22,23,24,25));
+        User::findOrFail(7)->constituencies()->sync(array(26,27,28,29,30));
+        User::findOrFail(8)->constituencies()->sync(array(31,32,33,34,35));
+        User::findOrFail(9)->constituencies()->sync(array(36,37,38,39,40));
+        User::findOrFail(10)->constituencies()->sync(array(41,42,43,44,45));
+        User::findOrFail(11)->constituencies()->sync(array(46,47,48,49,50));
+        User::findOrFail(12)->constituencies()->sync(array(51,52,53,54,55));
+        User::findOrFail(13)->constituencies()->sync(array(56,57,58,59,60));
+        User::findOrFail(14)->constituencies()->sync(array(61,62,63,64,65));
+        User::findOrFail(15)->constituencies()->sync(array(66,67,68,69,70));
+        User::findOrFail(16)->constituencies()->sync(array(71,72,73,74,75));
+        User::findOrFail(17)->constituencies()->sync(array(76,77,78,79,80));
+        User::findOrFail(18)->constituencies()->sync(array(81,82,83,84,85));
+        User::findOrFail(19)->constituencies()->sync(array(86,87,88,89,90));
+        User::findOrFail(20)->constituencies()->sync(array(91,92,93,94,95));
+        User::findOrFail(21)->constituencies()->sync(array(96,97,98,99,100));
+        User::findOrFail(22)->constituencies()->sync(array(101,102,103,104,105));
+        User::findOrFail(23)->constituencies()->sync(array(106,107,108,109,110));
+        User::findOrFail(24)->constituencies()->sync(array(111,112,113,114,115));
+        User::findOrFail(25)->constituencies()->sync(array(116,117,118,119,120));
+        User::findOrFail(26)->constituencies()->sync(array(121,122,123,124,125));
+        User::findOrFail(27)->constituencies()->sync(array(126,127,128,129,130));
+        User::findOrFail(28)->constituencies()->sync(array(131,132,133,134,135));
+        User::findOrFail(29)->constituencies()->sync(array(136,137,138,139,140));
     }
 }

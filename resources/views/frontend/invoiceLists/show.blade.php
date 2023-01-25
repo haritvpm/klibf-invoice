@@ -30,7 +30,7 @@
                                     </td>
                                     <th colspan="5">
                                         {{ $invoiceList->member->name ?? '' }},
-                                        {{ $invoiceList->member->constituency ?? '' }}
+                                        {{ $invoiceList->member->constituency->name ?? '' }}
                                     </th>
                                 </tr>
                                 <tr>

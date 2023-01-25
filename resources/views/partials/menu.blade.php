@@ -91,27 +91,17 @@
                 </a>
             </li>
         @endcan
-        @can('financial_year_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.financial-years.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/financial-years") || request()->is("admin/financial-years/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.financialYear.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('sanctioned_amount_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.sanctioned-amounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sanctioned-amounts") || request()->is("admin/sanctioned-amounts/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.sanctionedAmount.title') }}
-                </a>
-            </li>
-        @endcan
         @can('publisher_access')
+        @can('constituency_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.constituencies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/constituencies") || request()->is("admin/constituencies/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-map-marker-alt c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.constituency.title') }}
+                </a>
+            </li>
+        @endcan
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.publishers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/publishers") || request()->is("admin/publishers/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-book c-sidebar-nav-icon">

@@ -32,11 +32,10 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'array',
             ],
-            'members.*' => [
+            'constituencies.*' => [
                 'integer',
             ],
-            'members' => [
-              
+            'constituencies' => [
                 'array',
             ],
         ];

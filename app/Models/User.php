@@ -76,12 +76,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function constituencies()
+    {
+        return $this->belongsToMany(Constituency::class);
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-    public function members()
-    {
-        return $this->belongsToMany(Member::class);
     }
 }

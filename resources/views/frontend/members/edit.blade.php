@@ -23,15 +23,21 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.member.fields.name_helper') }}</span>
                         </div>
+                     
                         <div class="form-group">
-                            <label class="required" for="constituency">{{ trans('cruds.member.fields.constituency') }}</label>
-                            <input readonly class="form-control" type="text" name="constituency" id="constituency" value="{{ old('constituency', $member->constituency) }}" required>
-                            @if($errors->has('constituency'))
+                            <label for="constituency_id">{{ trans('cruds.member.fields.constituency') }}</label>
+                            
+                            <input disabled class="form-control" type="text" name="name" id="name" value="{{$member->constituency->name}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="as_amount">{{ trans('cruds.member.fields.as_amount') }}</label>
+                            <input class="form-control" type="number" name="as_amount" id="as_amount" value="{{ old('as_amount', $member->as_amount) }}" step="0.01">
+                            @if($errors->has('as_amount'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('constituency') }}
+                                    {{ $errors->first('as_amount') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.member.fields.constituency_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.member.fields.as_amount_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

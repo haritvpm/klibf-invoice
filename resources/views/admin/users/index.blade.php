@@ -45,7 +45,7 @@
                             {{ trans('cruds.user.fields.team_details') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.member') }}
+                            {{ trans('cruds.user.fields.constituency') }}
                         </th>
                         <th>
                             &nbsp;
@@ -80,8 +80,8 @@
                             
                             </td>
                             <td>
-                                @foreach($user->members as $key => $item)
-                                    <span class="badge badge-info">{{ $item->constituency }}</span>
+                                @foreach($user->constituencies as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>

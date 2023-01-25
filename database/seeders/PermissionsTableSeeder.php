@@ -172,46 +172,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 41,
-                'title' => 'financial_year_create',
+                'title' => 'constituency_create',
             ],
             [
                 'id'    => 42,
-                'title' => 'financial_year_edit',
+                'title' => 'constituency_edit',
             ],
             [
                 'id'    => 43,
-                'title' => 'financial_year_show',
+                'title' => 'constituency_show',
             ],
             [
                 'id'    => 44,
-                'title' => 'financial_year_delete',
+                'title' => 'constituency_delete',
             ],
             [
                 'id'    => 45,
-                'title' => 'financial_year_access',
+                'title' => 'constituency_access',
             ],
             [
                 'id'    => 46,
-                'title' => 'sanctioned_amount_create',
-            ],
-            [
-                'id'    => 47,
-                'title' => 'sanctioned_amount_edit',
-            ],
-            [
-                'id'    => 48,
-                'title' => 'sanctioned_amount_show',
-            ],
-            [
-                'id'    => 49,
-                'title' => 'sanctioned_amount_delete',
-            ],
-            [
-                'id'    => 50,
-                'title' => 'sanctioned_amount_access',
-            ],
-            [
-                'id'    => 51,
                 'title' => 'profile_password_edit',
             ],
         ];

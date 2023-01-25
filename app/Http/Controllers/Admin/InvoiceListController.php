@@ -79,7 +79,7 @@ class InvoiceListController extends Controller
         $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $invoiceList->load('member', 'created_by');
+        $invoiceList->load('member', 'bookfest', 'created_by');
 
         return view('admin.invoiceLists.edit', compact('invoiceList', 'members', 'publishers'));
     }

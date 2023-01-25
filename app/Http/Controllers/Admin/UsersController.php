@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Constituency;
 use App\Models\Role;
 use App\Models\User;
 use Gate;
@@ -23,7 +24,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles', 'members'])->get();
+        $users = User::with(['roles', 'constituencies'])->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -34,19 +35,17 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $bookfest = BookFest::where('status', 'active')->latest()->first();
-       
+        $constituencies = Constituency::pluck('name', 'id');
 
-        $members = Member::where('bookfest_id',  $bookfest?->id)->pluck('constituency', 'id');
-
-        return view('admin.users.create', compact('members', 'roles'));
+        return view('admin.users.create', compact('constituencies', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
-        $user->members()->sync($request->input('members', []));
+        $user->constituencies()->sync($request->input('constituencies', []));
+
         return redirect()->route('admin.users.index');
     }
 
@@ -56,21 +55,19 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $bookfest = BookFest::where('status', 'active')->latest()->first();
-        $members = Member::where('bookfest_id',  $bookfest?->id)-> pluck('constituency', 'id');
+        $constituencies = Constituency::pluck('name', 'id');
 
+        $user->load('roles', 'constituencies');
 
-
-        $user->load('roles', 'members');
-
-        return view('admin.users.edit', compact('members', 'roles', 'user'));
+        return view('admin.users.edit', compact('constituencies', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
-        $user->members()->sync($request->input('members', []));
+        $user->constituencies()->sync($request->input('constituencies', []));
+
         return redirect()->route('admin.users.index');
     }
 
@@ -78,7 +75,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'members');
+        $user->load('roles', 'constituencies');
 
         return view('admin.users.show', compact('user'));
     }

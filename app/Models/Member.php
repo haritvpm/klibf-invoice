@@ -20,8 +20,9 @@ class Member extends Model
 
     protected $fillable = [
         'name',
-        'constituency',
         'bookfest_id',
+        'constituency_id',
+        'as_amount',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -32,14 +33,14 @@ class Member extends Model
         return $this->hasMany(InvoiceList::class, 'member_id', 'id');
     }
 
-    public function memberSanctionedAmounts()
-    {
-        return $this->hasMany(SanctionedAmount::class, 'member_id', 'id');
-    }
-
     public function bookfest()
     {
         return $this->belongsTo(BookFest::class, 'bookfest_id');
+    }
+
+    public function constituency()
+    {
+        return $this->belongsTo(Constituency::class, 'constituency_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

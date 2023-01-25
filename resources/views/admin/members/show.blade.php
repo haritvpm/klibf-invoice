@@ -33,18 +33,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.member.fields.constituency') }}
-                        </th>
-                        <td>
-                            {{ $member->constituency }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.member.fields.bookfest') }}
                         </th>
                         <td>
                             {{ $member->bookfest->title ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.member.fields.constituency') }}
+                        </th>
+                        <td>
+                            {{ $member->constituency->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.member.fields.as_amount') }}
+                        </th>
+                        <td>
+                            {{ $member->as_amount }}
                         </td>
                     </tr>
                 </tbody>
@@ -68,18 +76,10 @@
                 {{ trans('cruds.invoiceList.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#member_sanctioned_amounts" role="tab" data-toggle="tab">
-                {{ trans('cruds.sanctionedAmount.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="member_invoice_lists">
             @includeIf('admin.members.relationships.memberInvoiceLists', ['invoiceLists' => $member->memberInvoiceLists])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="member_sanctioned_amounts">
-            @includeIf('admin.members.relationships.memberSanctionedAmounts', ['sanctionedAmounts' => $member->memberSanctionedAmounts])
         </div>
     </div>
 </div>

@@ -67,11 +67,11 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.user.fields.member') }}
+                            {{ trans('cruds.user.fields.constituency') }}
                         </th>
                         <td>
-                            @foreach($user->members as $key => $member)
-                                <span class="label label-info">{{ $member->constituency }}</span>
+                            @foreach($user->constituencies as $key => $constituency)
+                                <span class="label label-info">{{ $constituency->name }}</span>
                             @endforeach
                         </td>
                     </tr>

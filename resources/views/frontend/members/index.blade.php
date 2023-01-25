@@ -26,14 +26,20 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-Member">
                             <thead>
                                 <tr>
-                                    <th>
+                                   <!--  <th>
                                         {{ trans('cruds.member.fields.id') }}
-                                    </th>
+                                    </th> -->
                                     <th>
                                         {{ trans('cruds.member.fields.name') }}
                                     </th>
+                                    <!-- <th>
+                                        {{ trans('cruds.member.fields.bookfest') }}
+                                    </th> -->
                                     <th>
                                         {{ trans('cruds.member.fields.constituency') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.member.fields.as_amount') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -43,16 +49,21 @@
                             <tbody>
                                 @foreach($members as $key => $member)
                                     <tr data-entry-id="{{ $member->id }}">
-                                        <td>
+                                        <!-- <td>
                                             {{ $member->id ?? '' }}
-                                        </td>
+                                        </td> -->
                                         <td>
                                             {{ $member->name ?? '' }}
                                         </td>
+                                     <!--    <td>
+                                            {{ $member->bookfest->title ?? '' }}
+                                        </td> -->
                                         <td>
-                                            {{ $member->constituency ?? '' }}
+                                            {{ $member->constituency->name ?? '' }}
                                         </td>
-                                       
+                                        <td>
+                                            {{ $member->as_amount ?? '' }}
+                                        </td>
                                         <td>
                                           <!--   @can('member_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.members.show', $member->id) }}">
@@ -60,11 +71,11 @@
                                                 </a>
                                             @endcan
    -->
-                                          <!--   @can('member_edit')
+                                            @can('member_edit')
                                                 <a class="btn btn-xs btn-info" href="{{ route('frontend.members.edit', $member->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
-                                            @endcan -->
+                                            @endcan
  <!-- 
                                             @can('member_delete')
                                                 <form action="{{ route('frontend.members.destroy', $member->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
