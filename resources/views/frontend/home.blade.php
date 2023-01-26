@@ -23,7 +23,7 @@
 @section('content')
 <div class="container-fluid ">
     <div class ="row " >
-        <div class ="col-md-12 justify-content-center align-items-center"  >
+        <div class ="col-md-12 "  >
                
                      <div id="myChart"></div>   
                
@@ -34,19 +34,24 @@
 
 <script type="text/javascript">
   
-      var labels =  {{ Js::from($constituencies) }};
-      var users =  {{ Js::from($memberFunds) }};
-
-      bb.generate({
+  var labels =  {{ Js::from($constituencies) }};
+  var users =  {{ Js::from($memberFunds) }};
+  const zeroes = new Array(users.length).fill(0);
+  var chart = bb.generate({
     bindto: "#myChart",
+   
+    title: {
+      text: "Amount per Constituencies"
+    },
     data: {
         columns: [
-            ["Amount", ...users],
+            ["Amount", ...zeroes],
            
         ],
         types: {
              //   data1: "line",
-             Amount: "area-spline"
+              Amount: "area-spline"
+            //  Amount: "area-step"
         },
         colors: {
           Amount: "green"
@@ -65,9 +70,26 @@
               }
             },
            
-          },
+    },
+    legend: {
+      show: false
+    },
+    area: {
+     linearGradient: true
+    },
+    boost: {
+      useWorker: true
+    },
 });
-   
+
+ setTimeout(function() {
+    chart.load({
+      columns: [
+            ["Amount", ...users],
+           
+        ],
+      });
+    }, 300); 
 </script>
 
 @endsection
