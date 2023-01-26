@@ -26,9 +26,9 @@
                         <table class=" table  table-hover datatable datatable-Publisher">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <!-- <th>
                                         {{ trans('cruds.publisher.fields.id') }}
-                                    </th>
+                                    </th> -->
                                     <th>
                                         {{ trans('cruds.publisher.fields.name') }}
                                     </th>
@@ -52,9 +52,9 @@
                             <tbody>
                                 @foreach($publishers as $key => $publisher)
                                     <tr data-entry-id="{{ $publisher->id }}">
-                                        <td>
+                                       <!--  <td>
                                             {{ $publisher->id ?? '' }}
-                                        </td>
+                                        </td> -->
                                         <td>
                                             {{ $publisher->name ?? '' }}
                                         </td>

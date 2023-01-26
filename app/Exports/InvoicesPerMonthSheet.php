@@ -36,6 +36,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $inv_index++;
                     $detail = array();
                     $detail['sl.'] = $inv_index;
+                    $detail['Team'] =  $invoiceList->created_by->name;
                     $detail['mla'] = $member_fund->mla->name;
                     $detail['constituency'] = $member_fund->constituency->name;
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
@@ -226,7 +227,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
+        return ["Sl.No.","Team", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string
