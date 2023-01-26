@@ -72,7 +72,7 @@
                                             @endcan
    -->
                                             @can('member_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.members.edit', $member->id) }}">
+                                                <a class="btn btn-xs btn-dark" href="{{ route('frontend.members.edit', $member->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
                                             @endcan
@@ -136,7 +136,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
+    order: [[ 0, 'asc' ]],
     pageLength: 100,
   });
   let table = $('.datatable-Member:not(.ajaxTable)').DataTable({ buttons: dtButtons })

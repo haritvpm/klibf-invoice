@@ -15,7 +15,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="required" for="name">{{ trans('cruds.publisher.fields.name') }}</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $publisher->name) }}" required>
+                            <input readonly class="form-control" type="text" name="name" id="name" value="{{ old('name', $publisher->name) }}" required>
                             @if($errors->has('name'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('name') }}

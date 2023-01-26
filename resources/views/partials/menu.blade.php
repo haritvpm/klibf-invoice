@@ -54,6 +54,17 @@
                             </a>
                         </li>
                     @endcan
+
+                    @can('constituency_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.constituencies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/constituencies") || request()->is("admin/constituencies/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-map-marker-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.constituency.title') }}
+                            </a>
+                        </li>
+                    @endcan
    
                     @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
@@ -92,16 +103,7 @@
             </li>
         @endcan
         @can('publisher_access')
-        @can('constituency_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.constituencies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/constituencies") || request()->is("admin/constituencies/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-map-marker-alt c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.constituency.title') }}
-                </a>
-            </li>
-        @endcan
+      
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.publishers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/publishers") || request()->is("admin/publishers/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-book c-sidebar-nav-icon">

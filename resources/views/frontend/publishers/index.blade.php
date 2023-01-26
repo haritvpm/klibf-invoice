@@ -44,9 +44,9 @@
                                     <th>
                                         {{ trans('cruds.publisher.fields.bank_name') }}
                                     </th>
-                                  <!--   <th>
+                                    <th>
                                         &nbsp;
-                                    </th> -->
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +70,7 @@
                                         <td>
                                             {{ $publisher->bank_name ?? '' }}
                                         </td>
-                                       <!--  <td>
+                                         <td>
                                             @can('publisher_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.publishers.show', $publisher->id) }}">
                                                     {{ trans('global.view') }}
@@ -78,21 +78,21 @@
                                             @endcan
 
                                             @can('publisher_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.publishers.edit', $publisher->id) }}">
+                                                <a class="btn btn-xs btn-dark" href="{{ route('frontend.publishers.edit', $publisher->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
                                             @endcan
-
+<!-- 
                                             @can('publisher_delete')
                                                 <form action="{{ route('frontend.publishers.destroy', $publisher->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
                                                 </form>
-                                            @endcan
+                                            @endcan -->
 
                                         </td>
- -->
+ 
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -142,7 +142,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
+    order: [[ 0, 'asc' ]],
     pageLength: 100,
   });
   let table = $('.datatable-Publisher:not(.ajaxTable)').DataTable({ buttons: dtButtons })

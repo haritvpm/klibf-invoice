@@ -36,8 +36,8 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark " style="background-color: #563D7C;" >
-            <div class="container">
-                <a class="navbar-brand " href="{{ url('/') }}">
+            <div class="container-fluid">
+                <a class="navbar-brand  mr-3" href="{{ url('/') }}" style="color:yellow;">
                     {{ config('app.name', 'Laravel') }}  {{$bookfest?->title}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,8 +51,9 @@
                         @else
                             <li class="nav-item ">
                             @can('invoice_list_access')
-                                        <a class="nav-link " href="{{ route('frontend.invoice-lists.index') }}">
-                                            {{ trans('cruds.invoiceList.title') }}
+
+                                        <a class="nav-link ml-3" href="{{ route('frontend.invoice-lists.index') }}">
+                                        <i class="mr-1 fa-fw fas fa-file-invoice-dollar"></i>{{ trans('cruds.invoiceList.title') }}
                                         </a>
                                     @endcan
                                   
@@ -60,15 +61,15 @@
 
                             <li class="nav-item">
                             @can('member_access')
-                                <a class="nav-link" href="{{ route('frontend.members.index') }}">
-                                    {{ trans('cruds.member.title') }}
+                                <a class="nav-link  ml-3" href="{{ route('frontend.members.index') }}">
+                                <i class="mr-1 fa-fw fas fa-user-friends"></i>{{ trans('cruds.member.title') }}
                                 </a>
                             @endcan
                             </li>
                             <li class="nav-item">
                             @can('publisher_access')
-                                <a class="nav-link" href="{{ route('frontend.publishers.index') }}">
-                                    {{ trans('cruds.publisher.title') }}
+                                <a class="nav-link  ml-3" href="{{ route('frontend.publishers.index') }}">
+                                <i class="mr-1 fa-fw fas fa-book"></i>{{ trans('cruds.publisher.title') }}
                                 </a>
                             @endcan
                             </li>
