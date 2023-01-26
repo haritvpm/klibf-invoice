@@ -43,6 +43,7 @@ class InvoiceListController extends Controller
         abort_if(Gate::denies('invoice_list_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $bookfest = BookFest::where('status', 'active')->latest()->first();
+     
 
         $user_constituencies =  User::find( auth()->user()->id )->constituencies()->pluck('id');
         $members = Member::whereIn('constituency_id', $user_constituencies)
@@ -53,11 +54,12 @@ class InvoiceListController extends Controller
         }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
 
       
-        
-        
+        $datemin =  $bookfest->from;
+        $datemax =  $bookfest->to;
+                
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.invoiceLists.create', compact('members', 'publishers'));
+        return view('frontend.invoiceLists.create', compact('members', 'publishers', 'datemin', 'datemax'));
     }
 
     public function store(StoreInvoiceListRequest $request)
@@ -71,17 +73,17 @@ class InvoiceListController extends Controller
         $amounts = $request->get('amount');
         
         //check dates
-        
-        $datemin = Carbon::createFromFormat('d/m/Y', '09/01/2023');
-        $datemax = Carbon::createFromFormat('d/m/Y', '15/01/2023');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+   
+        $datemin = Carbon::createFromFormat('d/m/Y', $bookfest->from);
+        $datemax = Carbon::createFromFormat('d/m/Y', $bookfest->to);
    
         foreach ($bill_dates as $i => $bill_date) {
              $date = Carbon::createFromFormat('d/m/Y', $bill_date);
              if(!$date->betweenIncluded($datemin, $datemax)){
-                return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
+                return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
              }
         }
-        $bookfest = BookFest::where('status', 'active')->latest()->first();
         if(!$bookfest){
             return  back()->withInput()->withErrors(['No active bookfest found']);;
         }
@@ -152,14 +154,15 @@ class InvoiceListController extends Controller
 
 
          //check dates
-        
-         $datemin = Carbon::createFromFormat('d/m/Y', '09/01/2023');
-         $datemax = Carbon::createFromFormat('d/m/Y', '15/01/2023');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+
+        $datemin = Carbon::createFromFormat('d/m/Y', $bookfest->from);
+        $datemax = Carbon::createFromFormat('d/m/Y', $bookfest->to);
          
          foreach ($bill_dates as $i => $bill_date) {
               $date = Carbon::createFromFormat('d/m/Y', $bill_date);
               if(!$date->betweenIncluded($datemin, $datemax)){
-                 return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within 09/01/2023 and 15/01/2023']);;
+                 return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
               }
         }
 

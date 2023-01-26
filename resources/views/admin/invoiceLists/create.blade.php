@@ -170,7 +170,6 @@
     $(document).ready(function(){
         var i=1;  
 
-
      
 
         $('tbody').delegate('.publisher', 'change', function () {

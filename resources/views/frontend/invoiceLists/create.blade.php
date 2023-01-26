@@ -191,6 +191,10 @@
     
     $(document).ready(function() {
         var i = 1;
+       // var datemin = {!! json_encode($datemin) !!};
+       // var datemax = {!! json_encode($datemax) !!};
+
+
         $('select').select2({  theme: 'bootstrap4',});
         total();
 
