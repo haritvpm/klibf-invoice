@@ -66,10 +66,10 @@
             </div> -->
           
             <div class="form-group">
-                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
-                <select data-live-search="true" class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
+                <label class="required" for="member_fund_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
+                <select data-live-search="true" class="form-control select2 {{ $errors->has('member-fund') ? 'is-invalid' : '' }}" name="member_fund_id" id="member_fund_id" required>
                     @foreach($members as $id => $entry)
-                        <option value="{{ $id }}" {{ old('member_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ old('member_fund_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('member'))

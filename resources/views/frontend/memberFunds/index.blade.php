@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @can('member_fund_create')
+      <!--       @can('member_fund_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
                         <a class="btn btn-success" href="{{ route('frontend.member-funds.create') }}">
@@ -15,15 +15,15 @@
                         @include('csvImport.modal', ['model' => 'MemberFund', 'route' => 'admin.member-funds.parseCsvImport'])
                     </div>
                 </div>
-            @endcan
+            @endcan -->
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.memberFund.title_singular') }} {{ trans('global.list') }}
                 </div>
 
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-MemberFund">
+                    <div class="">
+                        <table class=" table  table-hover datatable datatable-MemberFund">
                             <thead>
                                 <tr>
                                    <!--  <th>

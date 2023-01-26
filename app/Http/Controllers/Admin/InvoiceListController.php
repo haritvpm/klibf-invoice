@@ -49,7 +49,7 @@ class InvoiceListController extends Controller
     {
        // dd( $request);
 
-        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id',    ));
+        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_fund_id',    ));
        
         $publisher_ids = $request->get('publisher_id');
         $bill_numbers = $request->get('bill_number');

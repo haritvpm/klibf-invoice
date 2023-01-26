@@ -111,7 +111,7 @@ class InvoiceListController extends Controller
        if($request->action == 'saveandnew'){
             return redirect()->route('frontend.invoice-lists.create')
             ->with('message','Invoice for ' . $invoiceList->institution_name  . ' created successfully. ' . 'ID: ' . $invoiceList->id)
-            ->withInput($request->only('member_id'));
+            ->withInput($request->only('member_fund_id'));
        }
 
        return redirect()->route('frontend.invoice-lists.index')
