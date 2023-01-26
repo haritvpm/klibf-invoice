@@ -87,7 +87,7 @@ return [
             'bookfest_helper'     => ' ',
             'constituency'        => 'Constituency',
             'constituency_helper' => ' ',
-            'as_amount'           => 'As Amount',
+            'as_amount'           => 'AS Amount',
             'as_amount_helper'    => ' ',
         ],
     ],

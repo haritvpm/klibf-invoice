@@ -35,9 +35,9 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark " style="background-color: #563D7C;" >
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand " href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}  {{$bookfest?->title}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,31 +46,32 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav  mr-auto">
                         @guest
                         @else
-                            <li class="nav-item">
+                            <li class="nav-item ">
                             @can('invoice_list_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.invoice-lists.index') }}">
+                                        <a class="nav-link " href="{{ route('frontend.invoice-lists.index') }}">
                                             {{ trans('cruds.invoiceList.title') }}
                                         </a>
                                     @endcan
                                   
                             </li>
-                            <!-- <li class="nav-item">
 
-                            <a class="btn btn-success" href="{{ route('frontend.invoice-lists.create') }}">
-                                            {{ trans('global.add') }} {{ trans('cruds.invoiceList.title_singular') }}
-                                    </a>
-                            </li> -->
-                           <!--  <li>
-                            @can('invoice_item_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.invoice-items.index') }}">
-                                            {{ trans('cruds.invoiceItem.title') }}
-                                        </a>
-                                    @endcan
-
-                            </li> -->
+                            <li class="nav-item">
+                            @can('member_access')
+                                <a class="nav-link" href="{{ route('frontend.members.index') }}">
+                                    {{ trans('cruds.member.title') }}
+                                </a>
+                            @endcan
+                            </li>
+                            <li class="nav-item">
+                            @can('publisher_access')
+                                <a class="nav-link" href="{{ route('frontend.publishers.index') }}">
+                                    {{ trans('cruds.publisher.title') }}
+                                </a>
+                            @endcan
+                            </li>
 
                         @endguest
                     </ul>
@@ -101,36 +102,17 @@
                                             {{ trans('cruds.userManagement.title') }}
                                         </a>
                                     @endcan
-                                    @can('permission_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.permissions.index') }}">
-                                            {{ trans('cruds.permission.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('role_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.roles.index') }}">
-                                            {{ trans('cruds.role.title') }}
-                                        </a>
-                                    @endcan
+                                    
+                                  
                                     @can('user_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.users.index') }}">
                                             {{ trans('cruds.user.title') }}
                                         </a>
                                     @endcan
-                                    @can('member_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.members.index') }}">
-                                            {{ trans('cruds.member.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('publisher_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.publishers.index') }}">
-                                            {{ trans('cruds.publisher.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('sanctioned_amount_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.sanctioned-amounts.index') }}">
-                                            {{ trans('cruds.sanctionedAmount.title') }}
-                                        </a>
-                                    @endcan
+                                    <a  class="dropdown-item" href="{{ route('admin.members.export') }}">
+                                        Download Report
+                                    </a>
+                                                    
                                     <a class="dropdown-item" href="{{ route('frontend.profile.index') }}">{{ __('My profile') }}</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

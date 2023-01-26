@@ -37,7 +37,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail = array();
                     $detail['sl.'] = $inv_index;
                     $detail['mla'] = $member->name;
-                    $detail['constituency'] = $member->constituency;
+                    $detail['constituency'] = $member->constituency->name;
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
                     $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
@@ -91,7 +91,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                 
                 $detail['sl.'] = $index++;
                 $detail['mla'] = $member->name;
-                $detail['constituency'] = $member->constituency;
+                $detail['constituency'] = $member->constituency->name;
                 $detail['publisher'] =  $key ;
                 $detail['amount'] =  $pub_amount;
 
@@ -116,12 +116,11 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         foreach($members as  $member) {
          
             $mla_index++;
-            $mla_sanctioned = 0;
+          
             $mla_amount = 0;
             foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
 
-                $mla_sanctioned += $member->memberSanctionedAmounts()->where('book_fest_id', $this->bookfest_id)->get()->sum('as_amount');
-
+             
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
              
                     $mla_amount +=  $invoice->amount;
@@ -133,8 +132,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             $detail = array();
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member->name;
-            $detail['constituency'] = $member->constituency;
-            $detail['sanctioned'] = $mla_sanctioned ;
+            $detail['constituency'] = $member->constituency->name;
+            $detail['sanctioned'] =  $member->as_amount;
             $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 

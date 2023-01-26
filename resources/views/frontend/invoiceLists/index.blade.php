@@ -93,13 +93,13 @@
                             </td>
                             <td>
                                 @can('invoice_list_show')
-                                    <a class="btn btn-info " href="{{ route('frontend.invoice-lists.show', $invoiceList->id) }}">
+                                    <a class="btn btn-dark " href="{{ route('frontend.invoice-lists.show', $invoiceList->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('invoice_list_edit')
-                                    <a class="btn btn-dark" href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
+                                    <a class="btn btn-secondary" href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
