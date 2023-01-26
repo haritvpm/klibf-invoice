@@ -20,21 +20,23 @@ class HomeController extends Controller
         
         $constituencies = $memberFunds->pluck('constituency.name');
 
-                      
-        $memberFunds->transform(function ($memberFund, $key) {
+        $billcount = [];
+        $memberFunds->transform(function ($memberFund, $key) use (&$billcount){
             $total = 0;
-           
+            $bill_count_for_constituency = 0;
             foreach ($memberFund->memberFundInvoiceLists as $key => $invoicelist) {
                
                 $total += $invoicelist->invoiceListInvoiceItems->sum( 'amount');
+
+                $bill_count_for_constituency += $invoicelist->invoiceListInvoiceItems->count();
             }
-          
-            return  $total;
+            array_push($billcount, $bill_count_for_constituency) ;
+            return  $total ;
         } );
         
        
      
 
-        return view('frontend.home', compact('constituencies', 'memberFunds'));
+        return view('frontend.home', compact('constituencies', 'memberFunds' , 'billcount'));
     }
 }
