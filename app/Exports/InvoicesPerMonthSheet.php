@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 use Maatwebsite\Excel\Concerns\WithTitle;
-use App\Models\Member;
+use App\Models\MemberFund;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\BookFest;
@@ -21,23 +21,23 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
      * @return Builder
      */
 
-    public function All($members)
+    public function All($member_funds)
     {
         $report = [];
 
       
-        foreach($members as  $member) {
+        foreach($member_funds as  $member_fund) {
          
             $inv_index = 0; 
          
-            foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
+            foreach($member_fund->memberFundInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $invoice) {
                     $inv_index++;
                     $detail = array();
                     $detail['sl.'] = $inv_index;
-                    $detail['mla'] = $member->name;
-                    $detail['constituency'] = $member->constituency->name;
+                    $detail['mla'] = $member_fund->mla->name;
+                    $detail['constituency'] = $member_fund->constituency->name;
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
                     $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
@@ -63,16 +63,16 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         return Collect($report);
 
     }
-    public function MLAPublisher($members)
+    public function MLAPublisher($member_funds)
     {
         $report = [];
 
       
-        foreach($members as  $member) {
+        foreach($member_funds as  $member_fund) {
          
             $pub_amounts = array();
             
-             foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
+             foreach($member_fund->memberFundInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
               
@@ -90,8 +90,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             foreach($pub_amounts as $key => $pub_amount){
                 
                 $detail['sl.'] = $index++;
-                $detail['mla'] = $member->name;
-                $detail['constituency'] = $member->constituency->name;
+                $detail['mla'] = $member_fund->mla->name;
+                $detail['constituency'] = $member_fund->constituency->name;
                 $detail['publisher'] =  $key ;
                 $detail['amount'] =  $pub_amount;
 
@@ -107,18 +107,18 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     }
 
 
-    public function MLAAmount($members)
+    public function MLAAmount($member_funds)
     {
         $report = [];
 
            
         $mla_index = 0;
-        foreach($members as  $member) {
+        foreach($member_funds as  $member_fund) {
          
             $mla_index++;
           
             $mla_amount = 0;
-            foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
+            foreach($member_fund->memberFundInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
 
              
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
@@ -131,9 +131,9 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 
             $detail = array();
           //  $detail['sl.'] = $mla_index ;
-            $detail['mla'] = $member->name;
-            $detail['constituency'] = $member->constituency->name;
-            $detail['sanctioned'] =  $member->as_amount;
+            $detail['mla'] = $member_fund->mla->name;
+            $detail['constituency'] = $member_fund->constituency->name;
+            $detail['sanctioned'] =  $member_fund->as_amount;
             $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 
@@ -144,7 +144,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 
     }
 
-    public function PublisherAmount($members)
+    public function PublisherAmount($member_funds)
     {
         $report = [];
         
@@ -152,10 +152,10 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         $pub_gross = array();
         $pub_discount = array();
 
-        foreach($members as  $member) {
+        foreach($member_funds as  $member_fund) {
          
                         
-             foreach($member->memberInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
+             foreach($member_fund->memberFundInvoiceLists()->where('bookfest_id', $this->bookfest_id)->get() as $index => $invoiceList){
                 
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $index => $invoice){
               
@@ -198,20 +198,20 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     {
         $bookfest_id = $this->bookfest_id;
 
-        $members = Member::with(['memberInvoiceLists', 'memberInvoiceLists.invoiceListInvoiceItems'])
-                ->wherehas('memberInvoiceLists', function($q) use ($bookfest_id) {
+        $member_funds = MemberFund::with(['memberFundInvoiceLists', 'memberFundInvoiceLists.invoiceListInvoiceItems'])
+                ->wherehas('memberFundInvoiceLists', function($q) use ($bookfest_id) {
                     $q->where('bookfest_id',  $bookfest_id  );
                 })
                 ->get()->filter(function ($value) {
-                    return $value->memberInvoiceLists()->count() > 0;
+                    return $value->memberFundInvoiceLists()->count() > 0;
                 });
 
             
-        if($this->title == 'MLA-Amount') return $this->MLAAmount($members);
-        if($this->title == 'MLA-Publisher') return $this->MLAPublisher($members);
-        if($this->title == 'Publisher-Amount') return $this->PublisherAmount($members);
+        if($this->title == 'MLA-Amount') return $this->MLAAmount($member_funds);
+        if($this->title == 'MLA-Publisher') return $this->MLAPublisher($member_funds);
+        if($this->title == 'Publisher-Amount') return $this->PublisherAmount($member_funds);
         
-        return$this->All($members);
+        return$this->All($member_funds);
     }
 
     public function headings(): array

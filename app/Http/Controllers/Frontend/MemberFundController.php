@@ -15,7 +15,8 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
-
+use App\Exports\InvoicesExport;
+use Maatwebsite\Excel\Facades\Excel;
 class MemberFundController extends Controller
 {
     use CsvImportTrait;
@@ -99,5 +100,16 @@ class MemberFundController extends Controller
         MemberFund::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function export() 
+    {
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        if(!$bookfest){
+            return  back()->withErrors(['No active bookfest found']);;
+        }
+
+       // return Excel::download(new MembersExport, 'klibf.xlsx');
+        return (new InvoicesExport($bookfest->id))->download('klibf' . $bookfest->title . '.xlsx');
     }
 }

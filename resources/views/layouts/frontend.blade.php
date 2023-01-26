@@ -113,7 +113,7 @@
                                             {{ trans('cruds.user.title') }}
                                         </a>
                                     @endcan
-                                    <a  class="dropdown-item" href="{{ route('admin.member-funds.export') }}">
+                                    <a  class="dropdown-item" href="{{ route('frontend.member-funds.export') }}">
                                         Download Report
                                     </a>
                                                     
