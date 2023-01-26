@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
-class MemberUserSeeder extends Seeder
+class ConstituencyUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
