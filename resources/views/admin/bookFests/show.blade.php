@@ -72,14 +72,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#bookfest_members" role="tab" data-toggle="tab">
-                {{ trans('cruds.member.title') }}
+            <a class="nav-link" href="#bookfest_member_funds" role="tab" data-toggle="tab">
+                {{ trans('cruds.memberFund.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="bookfest_members">
-            @includeIf('admin.bookFests.relationships.bookfestMembers', ['members' => $bookFest->bookfestMembers])
+        <div class="tab-pane" role="tabpanel" id="bookfest_member_funds">
+            @includeIf('admin.bookFests.relationships.bookfestMemberFunds', ['memberFunds' => $bookFest->bookfestMemberFunds])
         </div>
     </div>
 </div>

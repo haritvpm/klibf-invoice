@@ -24,9 +24,9 @@
             </div> -->
                         <div class="form-group">
                             <!-- <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label> -->
-                            <select data-live-search="true" class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
-                                @foreach($members as $id => $entry)
-                                <option value="{{ $id }}" {{ (old('member_id') ? old('member_id') : $invoiceList->member->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <select data-live-search="true" class="form-control select2 " name="member_fund_id" id="member_fund_id" required>
+                                @foreach($member_funds as $id => $entry)
+                                <option value="{{ $id }}" {{ (old('member_fund_id') ? old('member_fund_id') : $invoiceList->member_fund->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('member'))

@@ -21,6 +21,16 @@
                 <span class="help-block">{{ trans('cruds.constituency.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="name_mal">{{ trans('cruds.constituency.fields.name_mal') }}</label>
+                <input class="form-control {{ $errors->has('name_mal') ? 'is-invalid' : '' }}" type="text" name="name_mal" id="name_mal" value="{{ old('name_mal', $constituency->name_mal) }}">
+                @if($errors->has('name_mal'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name_mal') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.constituency.fields.name_mal_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

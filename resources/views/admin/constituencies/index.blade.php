@@ -33,6 +33,9 @@
                             {{ trans('cruds.constituency.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.constituency.fields.name_mal') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -48,6 +51,9 @@
                             </td>
                             <td>
                                 {{ $constituency->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $constituency->name_mal ?? '' }}
                             </td>
                             <td>
                                 @can('constituency_show')

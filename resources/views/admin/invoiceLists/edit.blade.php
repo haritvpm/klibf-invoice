@@ -11,14 +11,18 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
-                <input class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" type="number" name="number" id="number" value="{{ old('number', $invoiceList->number) }}" step="1">
-                @if($errors->has('number'))
+                <label class="required" for="member_fund_id">{{ trans('cruds.invoiceList.fields.member_fund') }}</label>
+                <select class="form-control select2 {{ $errors->has('member_fund') ? 'is-invalid' : '' }}" name="member_fund_id" id="member_fund_id" required>
+                    @foreach($member_funds as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('member_fund_id') ? old('member_fund_id') : $invoiceList->member_fund->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('member_fund'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('number') }}
+                        {{ $errors->first('member_fund') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.invoiceList.fields.number_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_fund_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label>
@@ -64,20 +68,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label>
-                <select class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
-                    @foreach($members as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('member_id') ? old('member_id') : $invoiceList->member->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('member'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('member') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
