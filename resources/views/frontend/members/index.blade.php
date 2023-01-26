@@ -22,8 +22,8 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Member">
+                    <div class="">
+                        <table class=" table  table-hover datatable datatable-Member">
                             <thead>
                                 <tr>
                                    <!--  <th>

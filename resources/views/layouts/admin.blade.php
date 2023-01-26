@@ -23,12 +23,13 @@
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" /> -->
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/all.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet" /> -->
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/select.dataTables.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" /> -->
+    <link href="{{ asset('css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
  
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
@@ -131,7 +132,7 @@
 
     <script src="{{ asset('js/coreui.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('js/buttons.flash.min.js') }}"></script>
 

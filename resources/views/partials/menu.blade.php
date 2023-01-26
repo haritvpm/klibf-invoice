@@ -106,7 +106,7 @@
       
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.publishers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/publishers") || request()->is("admin/publishers/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-book-open c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.publisher.title') }}
@@ -126,7 +126,7 @@
         @can('invoice_item_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-dollar c-sidebar-nav-icon">
+                    <i class="fa-fw fas fa-receipt c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.invoiceItem.title') }}

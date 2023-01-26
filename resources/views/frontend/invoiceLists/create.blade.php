@@ -4,10 +4,10 @@
 <style>
     /* .select2-search { background-color: #00f; } */
     /* .select2-search input { background-color: #00f; } */
-    .select2-results {
+  /*   .select2-results {
         background-color: #DAF7A6;
     }
-
+ */
 </style>
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -137,14 +137,14 @@
                                     <td><input class="form-control discount" type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" value="{{ old('discount[]') }}"   required autocomplete="off"></td>
                                     <td><input  class="form-control amount " type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{ old('amount[]') }}" required  autocomplete="off"></td>
 
-                                    <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
+                                    <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-trash"></i></button></td> -->
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5"> 
                                         <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i>
-                                        <button type="button" class="ml-2 pr-3 btn btn-sm btn-primary addRow3"><i class="fa fa-plus">3</i>
+                                        <button type="button" class="ml-2 btn btn-sm btn-primary addRow3"><i class="fa fa-plus"></i>3
                                     </button> </td>
 
 
@@ -195,7 +195,7 @@
        // var datemax = {!! json_encode($datemax) !!};
 
 
-        $('select').select2({  theme: 'bootstrap4',});
+        $('select').select2({  theme: 'bootstrap-5',});
         total();
 
         $('tbody').delegate('.publisher', 'change', function() {
@@ -313,11 +313,11 @@
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" class="form-control gross" required autocomplete="off"></td>\n' +
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" class="form-control discount" required autocomplete="off"></td>\n' +
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
-            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
+            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-trash"></i></button></td>\n' +
                 '         </tr>\n';
             $('tbody').append(addRow);
 
-            $('#row' + i + '  select').select2({  theme: 'bootstrap4',});
+            $('#row' + i + '  select').select2({  theme: 'bootstrap-5',});
         };
 
         /*  $('.remove').live('click', function () {

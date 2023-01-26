@@ -136,7 +136,7 @@
                                     <td><input class="form-control amount" type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{number_format($invoiceItem->amount,0,'.','') }}" required autocomplete="off"></td>
 
                                     @unless ($loop->first)
-                                    <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-remove"></i></button></td>
+                                    <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-trash"></i></button></td>
                                     @endunless
 
                                 </tr>
@@ -183,7 +183,7 @@
     $(document).ready(function() {
         var i = 1;
 
-        $('select').select2({  theme: 'bootstrap4',});
+        $('select').select2({  theme: 'bootstrap-5',});
 
         total();
 
@@ -292,10 +292,10 @@
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" class="form-control gross" required autocomplete="off"></td>\n' +
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" class="form-control discount" required autocomplete="off"></td>\n' +
             '           <td><input type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" class="form-control amount" required autocomplete="off"></td>\n' +
-            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
+            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-trash"></i></button></td>\n' +
                 '         </tr>\n';
             $('tbody').append(addRow);
-            $('#row' + i + '  select').select2({theme: 'bootstrap4',});
+            $('#row' + i + '  select').select2({theme: 'bootstrap-5',});
 
         };
 

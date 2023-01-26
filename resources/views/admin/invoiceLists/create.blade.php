@@ -124,7 +124,7 @@
           
            <td><input  class="form-control amount"  type="text" name="amount[]" required autocomplete="off"></td>
         
-        <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-remove"></i></button></td> -->
+        <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-trash"></i></button></td> -->
          </tr>
        </tbody>
        <tfoot>
@@ -243,7 +243,7 @@
 '            \n' +
 '            </td>\n' +
 '           <td><input type="text" name="amount[]" class="form-control amount" required></td>\n' +
-'<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-remove"></i></button></td>\n' +
+'<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn-sm btn_remove"><i class="fa fa-trash"></i></button></td>\n' +
 '         </tr>\n' ;
             $('tbody').append(addRow);
         };
