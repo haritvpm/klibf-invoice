@@ -15,19 +15,21 @@ class HomeController extends Controller
       
         $memberFunds = MemberFund::with(['bookfest', 'constituency', 'memberFundInvoiceLists'])
                         ->where('bookfest_id', $bookfest->id)
+                        ->orderby('constituency_id')
                         ->get();
         
         $constituencies = $memberFunds->pluck('constituency.name');
 
                       
-        $memberFunds->transform(function ($invoicelists, $key) {
+        $memberFunds->transform(function ($memberFund, $key) {
             $total = 0;
            
-            foreach ($invoicelists->memberFundInvoiceLists as $key => $invoicelist) {
+            foreach ($memberFund->memberFundInvoiceLists as $key => $invoicelist) {
                
                 $total += $invoicelist->invoiceListInvoiceItems->sum( 'amount');
             }
-            return $total;
+          
+            return  $total;
         } );
         
        
