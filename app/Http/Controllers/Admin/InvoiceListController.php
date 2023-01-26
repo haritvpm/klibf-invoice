@@ -7,12 +7,14 @@ use App\Http\Requests\MassDestroyInvoiceListRequest;
 use App\Http\Requests\StoreInvoiceListRequest;
 use App\Http\Requests\UpdateInvoiceListRequest;
 use App\Models\InvoiceList;
-use App\Models\Member;
+use App\Models\MemberFund;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Publisher;
 use App\Models\InvoiceItem;
+use App\Models\BookFest;
+use App\Models\User;
 
 class InvoiceListController extends Controller
 {
@@ -20,7 +22,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceLists = InvoiceList::with(['member', 'bookfest', 'created_by'])->get();
+        $invoiceLists = InvoiceList::with(['member_fund', 'bookfest', 'created_by'])->get();
 
         return view('admin.invoiceLists.index', compact('invoiceLists'));
     }
@@ -47,7 +49,7 @@ class InvoiceListController extends Controller
     {
        // dd( $request);
 
-        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_id',    ));
+        $invoiceList = InvoiceList::create($request->only( 'number', 'institution_type', 'institution_name', 'member_fund_id',    ));
        
         $publisher_ids = $request->get('publisher_id');
         $bill_numbers = $request->get('bill_number');
@@ -76,12 +78,21 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $members = Member::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+  
+        $user_constituencies =  User::find( $invoiceList->created_by->id )->constituencies()->pluck('id');
+        $member_funds = MemberFund::whereIn('constituency_id', $user_constituencies)
+        ->where('bookfest_id', $bookfest->id)
+        ->get()
+        ->mapWithKeys(function ($x) {
+            return [$x->id => $x->mla->name . ' (' .$x->constituency->name . ')'];
+        }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
 
-        $invoiceList->load('member', 'bookfest', 'created_by');
 
-        return view('admin.invoiceLists.edit', compact('invoiceList', 'members', 'publishers'));
+
+        $invoiceList->load('member_fund', 'bookfest', 'created_by');
+
+        return view('admin.invoiceLists.edit', compact('invoiceList', 'member_funds'));
     }
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)
@@ -95,7 +106,7 @@ class InvoiceListController extends Controller
     {
         abort_if(Gate::denies('invoice_list_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoiceList->load('member', 'bookfest', 'created_by', 'invoiceListInvoiceItems');
+        $invoiceList->load('member_fund', 'bookfest', 'created_by', 'invoiceListInvoiceItems');
 
         return view('admin.invoiceLists.show', compact('invoiceList'));
     }

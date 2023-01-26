@@ -50,8 +50,7 @@
                             {{ trans('cruds.invoiceList.fields.remarks') }}
                         </th> -->
                         <th>
-                            {{ trans('cruds.invoiceList.fields.member') }}
-                            <!-- {{ $invoiceList->member->constituency ?? '' }} -->
+                            Member
                         </th>
                         <th>
                             Sum
@@ -84,7 +83,7 @@
                                 {{ $invoiceList->remarks ?? '' }}
                             </td> -->
                             <td>
-                                {{ $invoiceList->member->name ?? '' }} 
+                                {{ $invoiceList->member_fund->mla->name ?? '' }} 
                                 
                             </td>
                             <td>

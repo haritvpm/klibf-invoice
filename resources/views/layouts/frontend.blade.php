@@ -63,8 +63,8 @@
                             </li>
 
                             <li class="nav-item">
-                            @can('member_access')
-                                <a class="nav-link  ml-3" href="{{ route('frontend.members.index') }}">
+                            @can('member_fund_access')
+                                <a class="nav-link  ml-3" href="{{ route('frontend.member-funds.index') }}">
                                 <i class="mr-1 fa-fw fas fa-user-friends"></i>{{ trans('cruds.member.title') }}
                                 </a>
                             @endcan
@@ -113,7 +113,7 @@
                                             {{ trans('cruds.user.title') }}
                                         </a>
                                     @endcan
-                                    <a  class="dropdown-item" href="{{ route('admin.members.export') }}">
+                                    <a  class="dropdown-item" href="{{ route('frontend.member-funds.export') }}">
                                         Download Report
                                     </a>
                                                     

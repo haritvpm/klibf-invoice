@@ -76,122 +76,142 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 17,
-                'title' => 'member_create',
-            ],
-            [
-                'id'    => 18,
-                'title' => 'member_edit',
-            ],
-            [
-                'id'    => 19,
-                'title' => 'member_show',
-            ],
-            [
-                'id'    => 20,
-                'title' => 'member_delete',
-            ],
-            [
-                'id'    => 21,
-                'title' => 'member_access',
-            ],
-            [
-                'id'    => 22,
                 'title' => 'publisher_create',
             ],
             [
-                'id'    => 23,
+                'id'    => 18,
                 'title' => 'publisher_edit',
             ],
             [
-                'id'    => 24,
+                'id'    => 19,
                 'title' => 'publisher_show',
             ],
             [
-                'id'    => 25,
+                'id'    => 20,
                 'title' => 'publisher_delete',
             ],
             [
-                'id'    => 26,
+                'id'    => 21,
                 'title' => 'publisher_access',
             ],
             [
-                'id'    => 27,
+                'id'    => 22,
                 'title' => 'invoice_list_create',
             ],
             [
-                'id'    => 28,
+                'id'    => 23,
                 'title' => 'invoice_list_edit',
             ],
             [
-                'id'    => 29,
+                'id'    => 24,
                 'title' => 'invoice_list_show',
             ],
             [
-                'id'    => 30,
+                'id'    => 25,
                 'title' => 'invoice_list_delete',
             ],
             [
-                'id'    => 31,
+                'id'    => 26,
                 'title' => 'invoice_list_access',
             ],
             [
-                'id'    => 32,
+                'id'    => 27,
                 'title' => 'invoice_item_create',
             ],
             [
-                'id'    => 33,
+                'id'    => 28,
                 'title' => 'invoice_item_edit',
             ],
             [
-                'id'    => 34,
+                'id'    => 29,
                 'title' => 'invoice_item_show',
             ],
             [
-                'id'    => 35,
+                'id'    => 30,
                 'title' => 'invoice_item_delete',
             ],
             [
-                'id'    => 36,
+                'id'    => 31,
                 'title' => 'invoice_item_access',
             ],
             [
-                'id'    => 37,
+                'id'    => 32,
                 'title' => 'book_fest_create',
             ],
             [
-                'id'    => 38,
+                'id'    => 33,
                 'title' => 'book_fest_edit',
             ],
             [
-                'id'    => 39,
+                'id'    => 34,
                 'title' => 'book_fest_show',
             ],
             [
-                'id'    => 40,
+                'id'    => 35,
                 'title' => 'book_fest_access',
             ],
             [
-                'id'    => 41,
+                'id'    => 36,
                 'title' => 'constituency_create',
             ],
             [
-                'id'    => 42,
+                'id'    => 37,
                 'title' => 'constituency_edit',
             ],
             [
-                'id'    => 43,
+                'id'    => 38,
                 'title' => 'constituency_show',
             ],
             [
-                'id'    => 44,
+                'id'    => 39,
                 'title' => 'constituency_delete',
             ],
             [
-                'id'    => 45,
+                'id'    => 40,
                 'title' => 'constituency_access',
             ],
             [
+                'id'    => 41,
+                'title' => 'mla_create',
+            ],
+            [
+                'id'    => 42,
+                'title' => 'mla_edit',
+            ],
+            [
+                'id'    => 43,
+                'title' => 'mla_show',
+            ],
+            [
+                'id'    => 44,
+                'title' => 'mla_delete',
+            ],
+            [
+                'id'    => 45,
+                'title' => 'mla_access',
+            ],
+            [
                 'id'    => 46,
+                'title' => 'member_fund_create',
+            ],
+            [
+                'id'    => 47,
+                'title' => 'member_fund_edit',
+            ],
+            [
+                'id'    => 48,
+                'title' => 'member_fund_show',
+            ],
+            [
+                'id'    => 49,
+                'title' => 'member_fund_delete',
+            ],
+            [
+                'id'    => 50,
+                'title' => 'member_fund_access',
+            ],
+            [
+                'id'    => 51,
                 'title' => 'profile_password_edit',
             ],
         ];

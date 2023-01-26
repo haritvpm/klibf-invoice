@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.invoiceList.fields.number') }}
+                            MLA
                         </th>
                         <td>
-                            {{ $invoiceList->number }}
+                            {{ $invoiceList->member_fund->mla->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -63,14 +63,7 @@
                             {{ $invoiceList->remarks }}
                         </td>
                     </tr> -->
-                    <tr>
-                        <th>
-                            {{ trans('cruds.invoiceList.fields.member') }}
-                        </th>
-                        <td>
-                            {{ $invoiceList->member->name ?? '' }}
-                        </td>
-                    </tr>
+                   
                 </tbody>
             </table>
            <!--  <div class="form-group">

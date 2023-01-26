@@ -65,6 +65,16 @@
                             </a>
                         </li>
                     @endcan
+		     @can('mla_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.mlas.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/mlas") || request()->is("admin/mlas/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-user c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.mla.title') }}
+                            </a>
+                        </li>
+                    @endcan
    
                     @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
@@ -92,13 +102,13 @@
         @endcan
       
 
-        @can('member_access')
+       @can('member_fund_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.members.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/members") || request()->is("admin/members/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-user-friends c-sidebar-nav-icon">
+                <a href="{{ route("admin.member-funds.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/member-funds") || request()->is("admin/member-funds/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.member.title') }}
+                    {{ trans('cruds.memberFund.title') }}
                 </a>
             </li>
         @endcan

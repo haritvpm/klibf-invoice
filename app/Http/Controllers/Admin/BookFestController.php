@@ -78,7 +78,7 @@ class BookFestController extends Controller
     {
         abort_if(Gate::denies('book_fest_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bookFest->load('bookfestMembers');
+        $bookFest->load('bookfestMemberFunds');
 
         return view('admin.bookFests.show', compact('bookFest'));
     }

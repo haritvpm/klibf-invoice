@@ -12,7 +12,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Member;
+
 use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Models\BookFest;
 

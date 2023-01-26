@@ -29,8 +29,8 @@
                                         {{ trans('cruds.invoiceList.fields.member') }}
                                     </td>
                                     <th colspan="5">
-                                        {{ $invoiceList->member->name ?? '' }},
-                                        {{ $invoiceList->member->constituency->name ?? '' }}
+                                        {{ $invoiceList->member_fund->mla->name ?? '' }},
+                                        {{ $invoiceList->member_fund->constituency->name ?? '' }}
                                     </th>
                                 </tr>
                                 <tr>

@@ -20,15 +20,11 @@ class Constituency extends Model
 
     protected $fillable = [
         'name',
+        'name_mal',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-    public function constituencyMembers()
-    {
-        return $this->hasMany(Member::class, 'constituency_id', 'id');
-    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

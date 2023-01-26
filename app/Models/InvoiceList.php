@@ -28,12 +28,11 @@ class InvoiceList extends Model
     ];
 
     protected $fillable = [
-        'number',
+        'member_fund_id',
         'institution_type',
         'institution_name',
         'amount_allotted',
         'remarks',
-        'member_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -46,9 +45,9 @@ class InvoiceList extends Model
         return $this->hasMany(InvoiceItem::class, 'invoice_list_id', 'id');
     }
 
-    public function member()
+    public function member_fund()
     {
-        return $this->belongsTo(Member::class, 'member_id');
+        return $this->belongsTo(MemberFund::class, 'member_fund_id');
     }
 
     public function bookfest()

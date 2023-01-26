@@ -36,9 +36,9 @@ class BookFest extends Model
         'deleted_at',
     ];
 
-    public function bookfestMembers()
+    public function bookfestMemberFunds()
     {
-        return $this->hasMany(Member::class, 'bookfest_id', 'id');
+        return $this->hasMany(MemberFund::class, 'bookfest_id', 'id');
     }
 
     public function getFromAttribute($value)

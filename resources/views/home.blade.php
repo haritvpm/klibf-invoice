@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <a class="btn btn-primary" href="{{ route('admin.members.export') }}">
+                    <a class="btn btn-primary" href="{{ route('admin.member-funds.export') }}">
                      Download Report
                     </a>
 

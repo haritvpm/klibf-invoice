@@ -31,6 +31,14 @@
                             {{ $constituency->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.constituency.fields.name_mal') }}
+                        </th>
+                        <td>
+                            {{ $constituency->name_mal }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -42,22 +50,6 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#constituency_members" role="tab" data-toggle="tab">
-                {{ trans('cruds.member.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="constituency_members">
-            @includeIf('admin.constituencies.relationships.constituencyMembers', ['members' => $constituency->constituencyMembers])
-        </div>
-    </div>
-</div>
+
 
 @endsection

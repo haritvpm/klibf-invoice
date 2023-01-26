@@ -57,8 +57,7 @@ class ConstituencyController extends Controller
     {
         abort_if(Gate::denies('constituency_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $constituency->load('constituencyMembers');
-
+    
         return view('admin.constituencies.show', compact('constituency'));
     }
 

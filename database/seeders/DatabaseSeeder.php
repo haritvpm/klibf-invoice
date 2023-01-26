@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BookfestSeeder::class,
             ConstituencyTableSeeder::class,
-            MembersTableSeeder::class,
+            MLATableSeeder::class,
+            MemberFundTableSeeder::class,
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
             PermissionRoleTableSeeder::class,

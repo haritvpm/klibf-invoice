@@ -16,7 +16,7 @@
 
                     <!-- {{ __('You are logged in!') }} -->
                     @if ($bookfest)
-                    <a class="btn btn-info" href="{{ route('frontend.members.export') }}">
+                    <a class="btn btn-info" href="{{ route('frontend.member-funds.export') }}">
                      Download  Report 
                     </a>
                     @else

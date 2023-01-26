@@ -17,11 +17,9 @@ class UpdateInvoiceListRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => [
-                'nullable',
+            'member_fund_id' => [
+                'required',
                 'integer',
-                'min:-2147483648',
-                'max:2147483647',
             ],
             'institution_type' => [
                 'required',
@@ -30,10 +28,7 @@ class UpdateInvoiceListRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'member_id' => [
-                'required',
-                'integer',
-            ],
+           
         ];
     }
 }

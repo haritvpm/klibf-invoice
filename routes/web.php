@@ -23,12 +23,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
     Route::resource('users', 'UsersController');
 
-    // Member
-    Route::delete('members/destroy', 'MemberController@massDestroy')->name('members.massDestroy');
-    Route::post('members/parse-csv-import', 'MemberController@parseCsvImport')->name('members.parseCsvImport');
-    Route::post('members/process-csv-import', 'MemberController@processCsvImport')->name('members.processCsvImport');
-    Route::get('members/export', 'MemberController@export', 'export')->name('members.export');;
-    Route::resource('members', 'MemberController');
+
 
     // Publisher
     Route::delete('publishers/destroy', 'PublisherController@massDestroy')->name('publishers.massDestroy');
@@ -52,6 +47,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('constituencies/parse-csv-import', 'ConstituencyController@parseCsvImport')->name('constituencies.parseCsvImport');
     Route::post('constituencies/process-csv-import', 'ConstituencyController@processCsvImport')->name('constituencies.processCsvImport');
     Route::resource('constituencies', 'ConstituencyController');
+
+    // Mla
+    Route::delete('mlas/destroy', 'MlaController@massDestroy')->name('mlas.massDestroy');
+    Route::post('mlas/parse-csv-import', 'MlaController@parseCsvImport')->name('mlas.parseCsvImport');
+    Route::post('mlas/process-csv-import', 'MlaController@processCsvImport')->name('mlas.processCsvImport');
+    Route::resource('mlas', 'MlaController');
+
+    // Member Fund
+    Route::get('member-funds/export', 'MemberFundController@export')->name('member-funds.export');
+    Route::delete('member-funds/destroy', 'MemberFundController@massDestroy')->name('member-funds.massDestroy');
+    Route::post('member-funds/parse-csv-import', 'MemberFundController@parseCsvImport')->name('member-funds.parseCsvImport');
+    Route::post('member-funds/process-csv-import', 'MemberFundController@processCsvImport')->name('member-funds.processCsvImport');
+    Route::resource('member-funds', 'MemberFundController');
 
 
     // Backup routes
@@ -89,11 +97,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
 
-    // Member
-    Route::get('members/export', 'MemberController@export', 'export')->name('members.export');;
-    Route::delete('members/destroy', 'MemberController@massDestroy')->name('members.massDestroy');
-    Route::resource('members', 'MemberController');
-
+   
     // Publisher
     Route::delete('publishers/destroy', 'PublisherController@massDestroy')->name('publishers.massDestroy');
     Route::resource('publishers', 'PublisherController');
@@ -113,7 +117,15 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('constituencies/destroy', 'ConstituencyController@massDestroy')->name('constituencies.massDestroy');
     Route::resource('constituencies', 'ConstituencyController');
 
+    // Mla
+    Route::delete('mlas/destroy', 'MlaController@massDestroy')->name('mlas.massDestroy');
+    Route::resource('mlas', 'MlaController');
 
+    // Member Fund
+    Route::get('member-funds/export', 'MemberFundController@export')->name('member-funds.export');
+
+    Route::delete('member-funds/destroy', 'MemberFundController@massDestroy')->name('member-funds.massDestroy');
+    Route::resource('member-funds', 'MemberFundController');
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
     Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');

@@ -23,14 +23,14 @@
                         @csrf
                         <div class="form-group">
                             <!-- <label class="required" for="member_id">{{ trans('cruds.invoiceList.fields.member') }}</label> -->
-                            <select data-live-search="true" class="form-control select2 {{ $errors->has('member') ? 'is-invalid' : '' }}" name="member_id" id="member_id" required>
-                                @foreach($members as $id => $entry)
-                                <option value="{{ $id }}" {{ old('member_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <select data-live-search="true" class="form-control select2" name="member_fund_id" id="member_fund_id" required>
+                                @foreach($member_funds as $id => $entry)
+                                <option value="{{ $id }}" {{ old('member_fund_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('member'))
+                            @if($errors->has('member_fund'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('member') }}
+                                {{ $errors->first('member_fund') }}
                             </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
