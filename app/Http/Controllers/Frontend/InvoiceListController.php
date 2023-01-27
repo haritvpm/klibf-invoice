@@ -54,12 +54,19 @@ class InvoiceListController extends Controller
         }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
 
       
-        $datemin =  $bookfest->from;
-        $datemax =  $bookfest->to;
+        $start_date = Carbon::createFromFormat('d/m/Y', $bookfest->from);
+        $end_date = Carbon::createFromFormat('d/m/Y', $bookfest->to);
+
+        $dates = array();
+
+        for($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
+            $dates[$date->format('d')] = $date->format('d/m/Y');
+        }
+
                 
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.invoiceLists.create', compact('member_funds', 'publishers', 'datemin', 'datemax'));
+        return view('frontend.invoiceLists.create', compact('member_funds', 'publishers', 'dates'));
     }
 
     public function store(StoreInvoiceListRequest $request)
@@ -133,6 +140,14 @@ class InvoiceListController extends Controller
             return [$x->id => $x->mla->name . ' (' .$x->constituency->name . ')'];
         }) ->prepend(trans('global.pleaseSelect') . ' Member', '');;
 
+        $start_date = Carbon::createFromFormat('d/m/Y', $bookfest->from);
+        $end_date = Carbon::createFromFormat('d/m/Y', $bookfest->to);
+
+        $dates = array();
+
+        for($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
+            $dates[$date->format('d')] = $date->format('d/m/Y');
+        }
 
         
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -140,7 +155,7 @@ class InvoiceListController extends Controller
         $invoiceList->load('member_fund', 'created_by');
         $invoiceList->load('invoiceListInvoiceItems');
 
-        return view('frontend.invoiceLists.edit', compact('invoiceList', 'member_funds', 'publishers'));
+        return view('frontend.invoiceLists.edit', compact('invoiceList', 'member_funds', 'publishers', 'dates'));
     }
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)

@@ -191,9 +191,9 @@
     
     $(document).ready(function() {
         var i = 1;
-       // var datemin = {!! json_encode($datemin) !!};
-       // var datemax = {!! json_encode($datemax) !!};
-
+       var dates = {!! json_encode($dates) !!};
+     
+        //alert( JSON.stringify( dates ) );
 
         $('select').select2({  theme: 'bootstrap-5',});
         total();
@@ -211,7 +211,7 @@
        
 
         $('tbody').delegate('.bill-date', 'keyup', function() {
-           
+          /*  
             if ($(this).val() >= 9 && $(this).val() <= 15) {
                 let d = $(this).val().toString();
                 if (d.length === 1) d = "0" + d;
@@ -219,7 +219,19 @@
                 var tr = $(this).parent().parent();
 
                 tr.find('.gross').focus();
-            } 
+            }  */
+
+            for (const key in dates) {
+                //need atleast two digits or if it is from 1 to 10,
+                //we will not be able to type 10
+                if ( $(this).val() == key) {
+                    
+                    $(this).val( dates[key])
+                    var tr = $(this).parent().parent();
+                    tr.find('.gross').focus();
+                    break;
+              } 
+            }
 
         });
 
