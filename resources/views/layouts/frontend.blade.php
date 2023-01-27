@@ -19,7 +19,8 @@
     <link href="{{ asset('css/bootstrap5.min.css') }}" rel="stylesheet" />
     <!-- <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet" /> -->
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" /> -->
     <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/select.dataTables.min.css') }}" rel="stylesheet" />
     <!-- <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" /> -->
@@ -170,8 +171,9 @@
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/perfect-scrollbar.min.js') }}"></script>
 
-    <script src="{{ asset('js/coreui.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/coreui.min.js') }}"></script> -->
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script> -->
     <script src="{{ asset('js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('js/buttons.flash.min.js') }}"></script>
