@@ -78,7 +78,7 @@
                                             @endcan
 
                                             @can('publisher_edit')
-                                                <a class="btn btn-xs btn-dark" href="{{ route('frontend.publishers.edit', $publisher->id) }}">
+                                                <a class="btn btn-xs btn-info" href="{{ route('frontend.publishers.edit', $publisher->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
                                             @endcan

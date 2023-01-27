@@ -67,7 +67,7 @@
         },
        /*  colors: {
           Amount: "green",
-          Bills: "red",
+          Bills: "yellow",
         }, */
         axes: {
           Amount: "y",

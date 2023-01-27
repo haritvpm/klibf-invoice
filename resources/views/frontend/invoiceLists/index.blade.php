@@ -98,7 +98,7 @@
                                 @endcan
 
                                 @can('invoice_list_edit')
-                                    <a class="btn btn-xs  btn-dark " href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
+                                    <a class="btn btn-xs  btn-info " href="{{ route('frontend.invoice-lists.edit', $invoiceList->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan

@@ -9,6 +9,7 @@ use App\Models\User;
 use DB;
 
 
+
 class HomeController extends Controller
 {
     public function index()
