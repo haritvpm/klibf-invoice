@@ -60,6 +60,21 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_helper') }}</span>
                         </div>
+			    <div class="form-group  mt-2">
+                            <label>{{ trans('cruds.memberFund.fields.financial_year') }}</label>
+                            <select class="form-control" name="financial_year" id="financial_year">
+                                <option value disabled {{ old('financial_year', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\MemberFund::FINANCIAL_YEAR_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('financial_year', $memberFund->financial_year) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('financial_year'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('financial_year') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.memberFund.fields.financial_year_helper') }}</span>
+                        </div>
                         <div class="form-group  mt-2">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}

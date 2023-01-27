@@ -55,6 +55,14 @@
                             {{ $memberFund->as_amount }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.memberFund.fields.financial_year') }}
+                        </th>
+                        <td>
+                            {{ App\Models\MemberFund::FINANCIAL_YEAR_SELECT[$memberFund->financial_year] ?? '' }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

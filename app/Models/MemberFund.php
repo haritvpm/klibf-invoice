@@ -10,6 +10,11 @@ class MemberFund extends Model
 {
     use HasFactory;
 
+    public const FINANCIAL_YEAR_SELECT = [
+        '2022-23' => '2022-23',
+        '2023-24' => '2023-24',
+    ];
+
     public $table = 'member_funds';
 
     protected $dates = [
@@ -23,6 +28,7 @@ class MemberFund extends Model
         'constituency_id',
         'mla_id',
         'as_amount',
+        'financial_year',
         'created_at',
         'updated_at',
         'deleted_at',

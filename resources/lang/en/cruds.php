@@ -231,6 +231,8 @@ return [
             'updated_at_helper'   => ' ',
             'deleted_at'          => 'Deleted at',
             'deleted_at_helper'   => ' ',
+	    'financial_year'        => 'Financial Year',
+            'financial_year_helper' => ' ',
         ],
     ],
     'member' => [
