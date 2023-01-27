@@ -32,7 +32,7 @@
                    
                                     <div class="form-group">
                                         <label class ='required' for="team_details">{{ trans('cruds.user.fields.team_details') }}</label>
-                                        <textarea class="form-control {{ $errors->has('team_details') ? 'is-invalid' : '' }}" name="team_details" id="team_details" required>{{ old('team_details', auth()->user()->team_details) }}</textarea>
+                                        <textarea rows="5" class="form-control {{ $errors->has('team_details') ? 'is-invalid' : '' }}" name="team_details" id="team_details" required>{{ old('team_details', auth()->user()->team_details) }}</textarea>
                                         @if($errors->has('team_details'))
                                             <div class="invalid-feedback">
                                                 {{ $errors->first('team_details') }}
@@ -40,7 +40,7 @@
                                         @endif
                                         <span class="help-block">{{ trans('cruds.user.fields.team_details_helper') }}</span>
                                     </div>
-                        <div class="form-group">
+                        <div class="form-group  mt-2">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>
@@ -50,14 +50,14 @@
             </div>
         </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ trans('global.change_password') }}
                 </div>
                 <div class="card-body">
-                    <form class="form-inline" method="POST" action="{{ route("frontend.profile.password") }}">
+                    <form  method="POST" action="{{ route("frontend.profile.password") }}">
                         @csrf
                         <div class="ml-2 form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                             <label class="required" for="password">New {{ trans('cruds.user.fields.password') }}</label>
@@ -66,11 +66,11 @@
                                 <span class="help-block" role="alert">{{ $errors->first('password') }}</span>
                             @endif
                         </div>
-                        <div class="ml-2 form-group">
+                        <div class="ml-2 form-group ">
                             <label class="required" for="password_confirmation">Repeat New {{ trans('cruds.user.fields.password') }}</label>
                             <input class="ml-2 form-control" type="password" name="password_confirmation" id="password_confirmation" required>
                         </div>
-                        <div class="ml-2 form-group">
+                        <div class="ml-2 form-group   mt-2">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

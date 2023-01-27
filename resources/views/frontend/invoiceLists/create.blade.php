@@ -35,7 +35,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <!--   <div class="form-group col-md-2">
                 <label for="number">{{ trans('cruds.invoiceList.fields.number') }}</label>
                 <input class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" type="number" name="number" id="number" value="{{ old('number', '') }}" step="1">
@@ -89,7 +89,7 @@
 
 
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered  mt-3">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
@@ -136,15 +136,15 @@
                                     <td><input class="form-control gross" type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" value="{{ old('gross[]') }}"  required  autocomplete="off"></td>
                                     <td><input class="form-control discount" type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" value="{{ old('discount[]') }}"   required autocomplete="off"></td>
                                     <td><input  class="form-control amount " type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{ old('amount[]') }}" required  autocomplete="off"></td>
-
+                                    <td></td>
                                     <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-trash"></i></button></td> -->
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5"> 
-                                        <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i>
-                                        <button type="button" class="ml-2 btn btn-sm btn-primary addRow3"><i class="fa fa-plus"></i>3
+                                        <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="ml-3 btn btn-sm btn-primary addRow3"><i class="fa fa-plus"></i>3
                                     </button> </td>
 
 

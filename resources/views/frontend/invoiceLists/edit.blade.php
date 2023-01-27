@@ -36,7 +36,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.invoiceList.fields.member_helper') }}</span>
                         </div>
-                        <div class="row">
+                        <div class="row   mt-3">
 
                             <div class="form-group col-md-3">
                                 <!-- <label class="required">{{ trans('cruds.invoiceList.fields.institution_type') }}</label> -->
@@ -87,7 +87,7 @@
                 <span class="help-block">{{ trans('cruds.invoiceList.fields.remarks_helper') }}</span>
             </div> -->
 
-                        <table class="table table-bordered">
+                        <table class="table table-bordered   mt-3">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
@@ -135,9 +135,11 @@
 
                                     <td><input class="form-control amount" type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{number_format($invoiceItem->amount,0,'.','') }}" required autocomplete="off"></td>
 
-                                    @unless ($loop->first)
+                                    @if ($loop->first)
+                                    <td></td>
+                                    @else
                                     <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-trash"></i></button></td>
-                                    @endunless
+                                    @endif
 
                                 </tr>
                                 @endforeach

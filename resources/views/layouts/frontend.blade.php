@@ -27,9 +27,9 @@
  
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/coreui.min.css') }}" rel="stylesheet" />
+    <!-- <link href="{{ asset('css/coreui.min.css') }}" rel="stylesheet" /> -->
     <link href="{{ asset('css/perfect-scrollbar.min.css') }}" rel="stylesheet" />
-    <!-- <link href="{{ asset('css/select2-bootstrap4.min.css') }}" rel="stylesheet" /> -->
+  
     <link href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}" rel="stylesheet" />
     
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
@@ -38,9 +38,9 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark " style="background-color: #563D7C;" >
-            <div class="container-fluid">
-                <a class="navbar-brand  mr-3" href="{{ url('/') }}" style="color:yellow;">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" >
+            <div class="container">
+                <a class="navbar-brand  me-3" href="{{ url('/') }}" style="color:yellow;">
                     {{ config('app.name', 'Laravel') }}  {{$bookfest?->title}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,14 +49,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav  mr-auto">
+                    <ul class="navbar-nav  me-auto">
                         @guest
                         @else
                             <li class="nav-item ">
                             @can('invoice_list_access')
 
-                                        <a class="nav-link ml-3" href="{{ route('frontend.invoice-lists.index') }}">
-                                        <i class="mr-1 fa-fw fas fa-file-invoice-dollar"></i>{{ trans('cruds.invoiceList.title') }}
+                                        <a class="nav-link ms-1" href="{{ route('frontend.invoice-lists.index') }}">
+                                        <i class="me-0 fa-fw fas fa-file-invoice-dollar"></i>{{ trans('cruds.invoiceList.title') }}
                                         </a>
                                     @endcan
                                   
@@ -64,15 +64,15 @@
 
                             <li class="nav-item">
                             @can('member_fund_access')
-                                <a class="nav-link  ml-3" href="{{ route('frontend.member-funds.index') }}">
-                                <i class="mr-1 fa-fw fas fa-user-friends"></i>{{ trans('cruds.member.title') }}
+                                <a class="nav-link  ms-1" href="{{ route('frontend.member-funds.index') }}">
+                                <i class="me-1 fa-fw fas fa-user-friends"></i>{{ trans('cruds.member.title') }}
                                 </a>
                             @endcan
                             </li>
                             <li class="nav-item">
                             @can('publisher_access')
-                                <a class="nav-link  ml-3" href="{{ route('frontend.publishers.index') }}">
-                                <i class="mr-1 fa-fw fas fa-book-open"></i>{{ trans('cruds.publisher.title') }}
+                                <a class="nav-link  ms-1" href="{{ route('frontend.publishers.index') }}">
+                                <i class="me-1 fa-fw fas fa-book-open"></i>{{ trans('cruds.publisher.title') }}
                                 </a>
                             @endcan
                             </li>
@@ -81,7 +81,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -94,11 +94,11 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
 
                                 <!--     @can('user_management_access')

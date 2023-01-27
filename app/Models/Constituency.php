@@ -5,6 +5,7 @@ namespace App\Models;
 use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Constituency extends Model
 {
@@ -29,5 +30,10 @@ class Constituency extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

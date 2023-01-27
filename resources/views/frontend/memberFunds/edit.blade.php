@@ -39,7 +39,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.memberFund.fields.constituency_helper') }}</span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  mt-2">
                             <label class="required" for="mla_id">{{ trans('cruds.memberFund.fields.mla') }}</label>
                             <input readonly class="form-control" type="text" name="name" id="name" value="{{ $memberFund->mla->name }}" required>
 
@@ -50,7 +50,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.memberFund.fields.mla_helper') }}</span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  mt-2">
                             <label for="as_amount">{{ trans('cruds.memberFund.fields.as_amount') }}</label>
                             <input class="form-control" type="number" name="as_amount" id="as_amount" value="{{ old('as_amount', $memberFund->as_amount) }}" step="0.01">
                             @if($errors->has('as_amount'))
@@ -60,7 +60,7 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_helper') }}</span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  mt-2">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>
