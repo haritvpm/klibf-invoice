@@ -18,10 +18,13 @@ class HomeController extends Controller
                         ->orderby('constituency_id')
                         ->get();
         
-        $constituencies = $memberFunds->pluck('constituency.name');
+        //$constituencies = $memberFunds->pluck('constituency.name');
+        $constituencies = [];
 
         $billcount = [];
-        $memberFunds->transform(function ($memberFund, $key) use (&$billcount){
+       
+        $memberFunds->transform(function ($memberFund, $key) use (&$billcount, &$constituencies){
+           
             $total = 0;
             $bill_count_for_constituency = 0;
             foreach ($memberFund->memberFundInvoiceLists as $key => $invoicelist) {
@@ -30,12 +33,19 @@ class HomeController extends Controller
 
                 $bill_count_for_constituency += $invoicelist->invoiceListInvoiceItems->count();
             }
+            
             array_push($billcount, $bill_count_for_constituency) ;
+
+           
+            array_push($constituencies, $memberFund->constituency->name  . ' - Team' . floor(($memberFund->constituency->id-1)/5)+1  ) ;
+           
+     
             return  $total ;
         } );
         
        
      
+       
 
         return view('frontend.home', compact('constituencies', 'memberFunds' , 'billcount'));
     }

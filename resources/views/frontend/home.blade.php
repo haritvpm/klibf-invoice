@@ -77,6 +77,7 @@
     },
     axis: {
             x: {
+             
               type: "category",
              
               categories: labels,
@@ -89,8 +90,16 @@
               },
               // height: 130
             },
-            y2: {
+            y: {
+              label: 'amount',
               show: true
+            },
+            y2: {
+              label: 'bills',
+              show: true,
+              tick: {
+                stepSize: 10,
+              }
             }
            
     },

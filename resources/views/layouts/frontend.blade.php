@@ -101,18 +101,18 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
 
-                                    @can('user_management_access')
+                                <!--     @can('user_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.userManagement.title') }}
                                         </a>
-                                    @endcan
+                                    @endcan -->
                                     
                                   
-                                    @can('user_access')
+                                <!--     @can('user_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.users.index') }}">
                                             {{ trans('cruds.user.title') }}
                                         </a>
-                                    @endcan
+                                    @endcan -->
                                     <a  class="dropdown-item" href="{{ route('frontend.member-funds.export') }}">
                                         Download Report
                                     </a>
