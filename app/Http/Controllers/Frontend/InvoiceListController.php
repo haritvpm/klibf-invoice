@@ -71,13 +71,9 @@ class InvoiceListController extends Controller
 
     public function store(StoreInvoiceListRequest $request)
     {
-             
-        $publisher_ids = $request->get('publisher_id');
-        $bill_numbers = $request->get('bill_number');
-        $bill_dates = $request->get('bill_date');
-        $grosss = $request->get('gross');
-        $discounts = $request->get('discount');
-        $amounts = $request->get('amount');
+        $requestData = collect($request->only('publisher_id', 'bill_number', 'bill_date','amount', 'gross', 'discount'))
+                     ->transpose(['publisher_id', 'bill_number', 'bill_date','amount', 'gross', 'discount']);
+
         
         //check dates
         $bookfest = BookFest::where('status', 'active')->latest()->first();
@@ -85,11 +81,36 @@ class InvoiceListController extends Controller
         $datemin = Carbon::createFromFormat('d/m/Y', $bookfest->from);
         $datemax = Carbon::createFromFormat('d/m/Y', $bookfest->to);
    
-        foreach ($bill_dates as $i => $bill_date) {
-             $date = Carbon::createFromFormat('d/m/Y', $bill_date);
-             if(!$date->betweenIncluded($datemin, $datemax)){
-                return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
-             }
+        foreach ($requestData as $item) {
+            $date = Carbon::createFromFormat('d/m/Y', $item['bill_date']);
+            if(!$date->betweenIncluded($datemin, $datemax)){
+                return  back()->withInput()->withErrors(['Date ' . $item['bill_date'] . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
+            }
+       
+             //check if we have duplicate items in current form
+             $itemsincurrentform = $requestData->where( 'bill_number', $item['bill_number'] )
+                            ->where( 'publisher_id',  $item['publisher_id'] )
+                            ->where( 'bill_date',  $item['bill_date'] )
+                            ->count();
+            if($itemsincurrentform > 1){
+                return back()->withInput()->withErrors(['Bill No.' .  $item['bill_number'] . ' (' . $item['bill_date'] . ') entered more than once.']);
+            }
+                        
+            
+            //also check for same billno of same publisher for the same date
+            $date = Carbon::createFromFormat('d/m/Y', $item['bill_date'])->format('Y-m-d');
+            $invoiceitem_existing = InvoiceItem::where( 'bill_number', $item['bill_number'] )
+                            ->where( 'publisher_id',  $item['publisher_id'] )
+                            ->whereDate( 'bill_date',  $date  )
+                            ->first();
+       
+
+            if($invoiceitem_existing){
+                return back()->withInput()->withErrors(['Bill No.' .  $item['bill_number'] . ' (' . $item['bill_date'] . ') already entered in list #'. $invoiceitem_existing->invoice_list->id]);
+            }
+
+
+
         }
         if(!$bookfest){
             return  back()->withInput()->withErrors(['No active bookfest found']);;
@@ -99,18 +120,15 @@ class InvoiceListController extends Controller
             + [ 'bookfest_id' => $bookfest->id] );
 
         $invoiceitems = [];
-      
-        foreach ($publisher_ids as $i => $publisher_id) {
+        foreach ($requestData as $item) {
             $invoiceitems[] = new InvoiceItem([
-                'publisher_id' => $publisher_id,
-                'bill_number' => $bill_numbers[$i],
-                'bill_date' => $bill_dates[$i],
-                'gross' => $grosss[$i],
-                'discount' => $discounts[$i],
-                'amount' => $amounts[$i],
+                'publisher_id' => $item['publisher_id'],
+                'bill_number' => $item['bill_number'],
+                'bill_date' => $item['bill_date'],
+                'gross' => $item['gross'],
+                'discount' => $item['discount'],
+                'amount' => $item['amount'],
             ]);
-
-           
         }
 
         $invoiceList->invoiceListInvoiceItems()->saveMany($invoiceitems);
@@ -161,25 +179,46 @@ class InvoiceListController extends Controller
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)
     {
        
-        $publisher_ids = $request->get('publisher_id');
-        $bill_numbers = $request->get('bill_number');
-        $bill_dates = $request->get('bill_date');
-        $amounts = $request->get('amount');
-        $grosss = $request->get('gross');
-        $discounts = $request->get('discount');
 
-
+        $requestData = collect($request->only('publisher_id', 'bill_number', 'bill_date','amount', 'gross', 'discount'))
+                        ->transpose(['publisher_id', 'bill_number', 'bill_date','amount', 'gross', 'discount']);
+                       
+     
          //check dates
         $bookfest = BookFest::where('status', 'active')->latest()->first();
 
         $datemin = Carbon::createFromFormat('d/m/Y', $bookfest->from);
         $datemax = Carbon::createFromFormat('d/m/Y', $bookfest->to);
          
-         foreach ($bill_dates as $i => $bill_date) {
-              $date = Carbon::createFromFormat('d/m/Y', $bill_date);
-              if(!$date->betweenIncluded($datemin, $datemax)){
-                 return  back()->withInput()->withErrors(['Date ' . $bill_date . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
-              }
+        foreach ($requestData as $item) {
+          
+            $date = Carbon::createFromFormat('d/m/Y', $item['bill_date']);
+            if(!$date->betweenIncluded($datemin, $datemax)){
+                return  back()->withInput()->withErrors(['Date ' . $item['bill_date'] . ' not within '. $bookfest->from . ' and '. $bookfest->to]);;
+            }
+
+            //check if we have duplicate items in current form
+            $itemsincurrentform = $requestData->where( 'bill_number', $item['bill_number'] )
+                                            ->where( 'publisher_id',  $item['publisher_id'] )
+                                            ->where( 'bill_date',  $item['bill_date'] )
+                                            ->count();
+            if($itemsincurrentform > 1){
+                return back()->withInput()->withErrors(['Bill No.' .  $item['bill_number'] . ' (' . $item['bill_date'] . ') entered more than once.']);
+            }
+                                            
+            
+            //also check for same billno of same publisher for the same date
+            $date = Carbon::createFromFormat('d/m/Y', $item['bill_date'])->format('Y-m-d');
+            $invoiceitem_existing = InvoiceItem::where( 'bill_number', $item['bill_number'] )
+                            ->where( 'publisher_id',  $item['publisher_id'] )
+                            ->whereDate( 'bill_date',  $date  )
+                            ->where( 'invoice_list_id', '<>',$invoiceList->id  ) //exclude us.
+                            ->first();
+       
+
+            if($invoiceitem_existing){
+                return back()->withInput()->withErrors(['Bill No.' .  $item['bill_number'] . ' (' . $item['bill_date'] . ') already entered in list #'. $invoiceitem_existing->invoice_list->id]);
+            }
         }
 
       
@@ -188,14 +227,14 @@ class InvoiceListController extends Controller
  
         $invoiceitems = [];
       
-        foreach ($publisher_ids as $i => $publisher_id) {
+        foreach ($requestData as $item) {
             $invoiceitems[] = new InvoiceItem([
-                'publisher_id' => $publisher_id,
-                'bill_number' => $bill_numbers[$i],
-                'bill_date' => $bill_dates[$i],
-                'gross' => $grosss[$i],
-                'discount' => $discounts[$i],
-                'amount' => $amounts[$i],
+                'publisher_id' => $item['publisher_id'],
+                'bill_number' => $item['bill_number'],
+                'bill_date' => $item['bill_date'],
+                'gross' => $item['gross'],
+                'discount' => $item['discount'],
+                'amount' => $item['amount'],
             ]);
         }
 

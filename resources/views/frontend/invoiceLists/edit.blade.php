@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ trans('global.edit') }} {{ trans('cruds.invoiceList.title_singular') }}
+                    {{ trans('global.edit') }} {{ trans('cruds.invoiceList.title_singular') }} # {{$invoiceList->id}}
                 </div>
 
                 <div class="card-body">

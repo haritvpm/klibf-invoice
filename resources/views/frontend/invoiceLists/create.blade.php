@@ -12,8 +12,8 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
-
-            <div class="card">
+      
+             <div class="card">
                 <div class="card-header">
                     {{ trans('global.create') }} {{ trans('cruds.invoiceList.title_singular') }}
                 </div>
@@ -75,20 +75,7 @@
                                 <span class="help-block">{{ trans('cruds.invoiceList.fields.institution_name_helper') }}</span>
                             </div>
                         </div>
-                        <!--  <div class="form-group">
-                <label for="amount_allotted">{{ trans('cruds.invoiceList.fields.amount_allotted') }}</label>
-                <input class="form-control {{ $errors->has('amount_allotted') ? 'is-invalid' : '' }}" type="number" name="amount_allotted" id="amount_allotted" value="{{ old('amount_allotted', '') }}" step="0.01">
-                @if($errors->has('amount_allotted'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('amount_allotted') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.invoiceList.fields.amount_allotted_helper') }}</span>
-            </div> -->
-
-
-
-
+                        
                         <table class="table table-bordered  mt-3">
                             <thead>
                                 <tr>
@@ -103,35 +90,61 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if( old('bill_number'))
+
+                                @foreach(old('publisher_id') as $pub_id)
+
+
+                                <tr id="rowinitial-{{$loop->index}}" class="dynamic-added">
+                                    <td>
+                                        <div class="slno mt-1"></div>
+                                    </td>
+                                    <td>
+                                        <select data-live-search="true" class="form-control publisher select2" name="publisher_id[]" required>
+                                            @foreach($publishers as $id => $entry)
+                                            <option value="{{ $id }}" {{  $pub_id == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control bill-number  type="text" name="bill_number[]" value="{{ old('bill_number.'.$loop->index)}}" required autocomplete="off">
+                                    </td>
+                                    <td>
+                                        <input class="form-control bill-date type="text" name="bill_date[]" value="{{ old('bill_date.'.$loop->index)}}" required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">
+                                    </td>
+
+                                    <td><input class="form-control gross" type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" value="{{ old('gross.'.$loop->index)}}" required autocomplete="off"></td>
+                                    <td><input class="form-control discount" type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" value="{{ old('discount.'.$loop->index)}}" required autocomplete="off"></td>
+                                    <td><input class="form-control amount" type="text" inputmode="numeric" pattern="[0-9]*" name="amount[]" value="{{ old('amount.'.$loop->index)}}" required autocomplete="off"></td>
+                                    @if ($loop->first)
+                                    <td></td>
+                                    @else
+                                    <td><button type="button" name="remove" id="initial-{{$loop->index}}" class="btn btn-sm btn-danger btn_remove"><i class="fa fa-trash"></i></button></td>
+                                    @endif
+
+                                </tr>
+                                @endforeach
+
+                                @else
                                 <tr>
                                     <td>
                                         <div class="slno  mt-1"></div>
                                     </td>
                                     <td>
-
                                         <select data-live-search="true" class="form-control publisher select2" name="publisher_id[]" required>
                                             @foreach($publishers as $id => $entry)
                                             <option value="{{ $id }}" {{ old('publisher_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                             @endforeach
                                         </select>
-
-
                                     </td>
-
-
                                     <td>
                                         <input class="form-control bill-number {{ $errors->has('bill_number') ? 'is-invalid' : '' }}" type="text" name="bill_number[]" value="{{ old('bill_number[]', '') }}" required autocomplete="off">
-
                                     </td>
-
                                     <td>
                                         <input class="form-control bill-date  {{ $errors->has('bill_date') ? 'is-invalid' : '' }}" 
                                         type="text" name="bill_date[]" value="{{ old('bill_date[]') }}" 
-                                 
                                         required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$"   autocomplete="off" >
-
                                     </td>
-
 
                                     <td><input class="form-control gross" type="text" inputmode="numeric" pattern="[0-9]*" name="gross[]" value="{{ old('gross[]') }}"  required  autocomplete="off"></td>
                                     <td><input class="form-control discount" type="text" inputmode="numeric" pattern="[0-9]*" name="discount[]" value="{{ old('discount[]') }}"   required autocomplete="off"></td>
@@ -139,6 +152,7 @@
                                     <td></td>
                                     <!-- <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-trash"></i></button></td> -->
                                 </tr>
+                                @endif
                             </tbody>
                             <tfoot>
                                 <tr>
