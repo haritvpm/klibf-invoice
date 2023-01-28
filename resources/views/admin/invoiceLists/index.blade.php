@@ -83,10 +83,10 @@
                                 {{ $invoiceList->remarks ?? '' }}
                             </td> -->
                             <td>
-                                {{ $invoiceList->member->name ?? '' }}
+                                {{ $invoiceList->member_fund->mla->name ?? '' }}
                             </td>
                             <td>
-                                {{ $invoiceList->member->constituency->name ?? '' }}
+                                {{ $invoiceList->member_fund->constituency->name ?? '' }}
                             </td>
                             <td>
                                 @can('invoice_list_show')

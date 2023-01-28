@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 
 class MemberFundController extends Controller
@@ -41,7 +42,16 @@ class MemberFundController extends Controller
 
         $mlas = Mla::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.memberFunds.create', compact('bookfests', 'constituencies', 'mlas'));
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $nextyear = Carbon::now()->addYear();
+       
+        $finyears = [];
+        $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+      
+
+        return view('admin.memberFunds.create', compact('bookfests', 'constituencies', 'mlas','finyears' ));
     }
 
     public function store(StoreMemberFundRequest $request)
@@ -63,7 +73,15 @@ class MemberFundController extends Controller
 
         $memberFund->load('bookfest', 'constituency', 'mla');
 
-        return view('admin.memberFunds.edit', compact('bookfests', 'constituencies', 'memberFund', 'mlas'));
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $nextyear = Carbon::now()->addYear();
+       
+        $finyears = [];
+        $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+
+        return view('admin.memberFunds.edit', compact('bookfests', 'constituencies', 'memberFund', 'mlas', 'finyears'));
     }
 
     public function update(UpdateMemberFundRequest $request, MemberFund $memberFund)

@@ -66,8 +66,8 @@
                 <label>{{ trans('cruds.memberFund.fields.financial_year') }}</label>
                 <select class="form-control {{ $errors->has('financial_year') ? 'is-invalid' : '' }}" name="financial_year" id="financial_year">
                     <option value disabled {{ old('financial_year', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\MemberFund::FINANCIAL_YEAR_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('financial_year', $memberFund->financial_year) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($finyears as $financial_year)
+                        <option value="{{ $financial_year }}" {{ old('financial_year', $memberFund->financial_year) === (string) $financial_year ? 'selected' : '' }}>{{ $financial_year }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('financial_year'))

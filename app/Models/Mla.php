@@ -10,6 +10,13 @@ class Mla extends Model
 {
     use HasFactory;
 
+    public const TITLE_SELECT = [
+        'dr'   => 'Dr',
+        'prof' => 'Prof',
+        'sri'  => 'Sri',
+        'smt'  => 'Smt',
+    ];
+
     public $table = 'mlas';
 
     protected $dates = [
@@ -19,8 +26,10 @@ class Mla extends Model
     ];
 
     protected $fillable = [
+        'title',
         'name',
         'name_mal',
+        'remarks',
         'created_at',
         'updated_at',
         'deleted_at',

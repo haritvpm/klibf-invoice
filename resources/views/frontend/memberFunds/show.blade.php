@@ -63,7 +63,7 @@
                                         {{ trans('cruds.memberFund.fields.financial_year') }}
                                     </th>
                                     <td>
-                                        {{ App\Models\MemberFund::FINANCIAL_YEAR_SELECT[$memberFund->financial_year] ?? '' }}
+                                        {{ $memberFund->financial_year ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

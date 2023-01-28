@@ -25,6 +25,10 @@ class UpdateMlaRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'remarks' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

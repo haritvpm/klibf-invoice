@@ -19,11 +19,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" /> -->
 
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap5.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/coreui.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/all.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 
  
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />

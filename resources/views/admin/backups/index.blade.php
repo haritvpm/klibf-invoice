@@ -44,10 +44,9 @@ function humanFilesize($bytes, $decimals = 2) {
                             <td class="text-right">
                                 <a class="btn btn-sm btn-default"
                                    href="{{ url('admin/backup/download/'.$backup['file_name']) }}"><i
-                                        class="fa fa-cloud-download"></i> Download</a>
+                                        class="fa fa-download me-1"></i>Download</a>
                                 <a class="btn btn-sm btn-danger" data-button-type="delete"
-                                   href="{{ url('admin/backup/delete/'.$backup['file_name']) }}"><i class="fa fa-trash-o"></i>
-                                    Delete</a>
+                                   href="{{ url('admin/backup/delete/'.$backup['file_name']) }}"><i class="fa fa-trash me-1"></i>Delete</a>
                             </td>
                         </tr>
                     @endforeach

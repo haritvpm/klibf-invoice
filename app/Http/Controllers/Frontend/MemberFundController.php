@@ -48,7 +48,16 @@ class MemberFundController extends Controller
 
         $mlas = Mla::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.memberFunds.create', compact('bookfests', 'constituencies', 'mlas'));
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $nextyear = Carbon::now()->addYear();
+       
+        $finyears = [];
+        $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+      
+
+        return view('frontend.memberFunds.create', compact('bookfests', 'constituencies', 'mlas', 'finyears'));
     }
 
     public function store(StoreMemberFundRequest $request)

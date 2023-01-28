@@ -30,10 +30,16 @@
                             {{ trans('cruds.mla.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.mla.fields.title') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.mla.fields.name') }}
                         </th>
                         <th>
                             {{ trans('cruds.mla.fields.name_mal') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.mla.fields.remarks') }}
                         </th>
                         <th>
                             &nbsp;
@@ -50,10 +56,16 @@
                                 {{ $mla->id ?? '' }}
                             </td>
                             <td>
+                                {{ App\Models\Mla::TITLE_SELECT[$mla->title] ?? '' }}
+                            </td>
+                            <td>
                                 {{ $mla->name ?? '' }}
                             </td>
                             <td>
                                 {{ $mla->name_mal ?? '' }}
+                            </td>
+                            <td>
+                                {{ $mla->remarks ?? '' }}
                             </td>
                             <td>
                                 @can('mla_show')

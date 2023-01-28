@@ -209,6 +209,10 @@ return [
             'deleted_at_helper' => ' ',
             'name_mal'          => 'Name Mal',
             'name_mal_helper'   => ' ',
+            'title'             => 'Title',
+            'title_helper'      => ' ',
+            'remarks'           => 'Remarks',
+            'remarks_helper'    => ' ',
         ],
     ],
     'memberFund' => [

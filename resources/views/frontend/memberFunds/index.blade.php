@@ -68,7 +68,7 @@
                                             {{ $memberFund->as_amount ?? '' }}
                                         </td>
                                         <td>
-                                            {{ App\Models\MemberFund::FINANCIAL_YEAR_SELECT[$memberFund->financial_year] ?? '' }}
+                                            {{ $memberFund->financial_year ?? '' }}
                                         </td>
                                         <td>
                                           <!--   @can('member_fund_show')
