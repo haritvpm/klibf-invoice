@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use App\Exports\InvoicesExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+
+
 class MemberFundController extends Controller
 {
     use CsvImportTrait;
@@ -28,9 +31,9 @@ class MemberFundController extends Controller
 
         $user_constituencies =  User::find( auth()->user()->id )->constituencies()->pluck('id');
         $memberFunds = MemberFund::with(['bookfest', 'constituency', 'mla'])
-        ->where('bookfest_id', $bookfest->id)
-        ->wherein('constituency_id',$user_constituencies)
-        ->get();
+            ->where('bookfest_id', $bookfest->id)
+            ->wherein('constituency_id',$user_constituencies)
+            ->get();
 
         return view('frontend.memberFunds.index', compact('memberFunds'));
     }
@@ -67,7 +70,16 @@ class MemberFundController extends Controller
 
         $memberFund->load('bookfest', 'constituency', 'mla');
 
-        return view('frontend.memberFunds.edit', compact('bookfests', 'constituencies', 'memberFund', 'mlas'));
+
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $nextyear = Carbon::now()->addYear();
+       
+        $finyears = [];
+        $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+      
+        return view('frontend.memberFunds.edit', compact('bookfests', 'constituencies', 'memberFund', 'mlas', 'finyears'));
     }
 
     public function update(UpdateMemberFundRequest $request, MemberFund $memberFund)

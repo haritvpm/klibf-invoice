@@ -71,11 +71,11 @@
                                             {{ App\Models\MemberFund::FINANCIAL_YEAR_SELECT[$memberFund->financial_year] ?? '' }}
                                         </td>
                                         <td>
-                                            @can('member_fund_show')
+                                          <!--   @can('member_fund_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('frontend.member-funds.show', $memberFund->id) }}">
                                                     {{ trans('global.view') }}
                                                 </a>
-                                            @endcan
+                                            @endcan -->
 
                                             @can('member_fund_edit')
                                                 <a class="btn btn-xs btn-info" href="{{ route('frontend.member-funds.edit', $memberFund->id) }}">

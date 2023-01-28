@@ -39,6 +39,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['Team'] =  $invoiceList->created_by->name;
                     $detail['mla'] = $member_fund->mla->name;
                     $detail['constituency'] = $member_fund->constituency->name;
+                    $detail['FinYear'] = $member_fund->financial_year;
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
                     $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
@@ -93,6 +94,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                 $detail['sl.'] = $index++;
                 $detail['mla'] = $member_fund->mla->name;
                 $detail['constituency'] = $member_fund->constituency->name;
+                $detail['FinYear'] = $member_fund->financial_year;
                 $detail['publisher'] =  $key ;
                 $detail['amount'] =  $pub_amount;
 
@@ -221,13 +223,13 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return [ "MLA", "Constituency", 'Sanctioned', 'Amount'];
 
         if($this->title == 'MLA-Publisher')  
-            return ["Sl.No.", "MLA", "Constituency", 'Publisher', 'Amount'];
+            return ["Sl.No.", "MLA", "Constituency", "FinYear", 'Publisher', 'Amount'];
 
         if($this->title == 'Publisher-Amount')  
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.","Team", "MLA", "Constituency",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
+        return ["Sl.No.","Team", "MLA", "Constituency","FinYear",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string
