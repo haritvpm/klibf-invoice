@@ -1,9 +1,9 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
     <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
+        <span class="c-sidebar-brand-full h4" href="#">
             {{ trans('panel.site_title') }}  {{$bookfest?->title}}
-        </a>
+        </span>
     </div>
 
     <ul class="c-sidebar-nav">
