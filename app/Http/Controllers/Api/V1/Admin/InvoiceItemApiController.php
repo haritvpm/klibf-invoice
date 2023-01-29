@@ -17,7 +17,7 @@ class InvoiceItemApiController extends Controller
     {
         abort_if(Gate::denies('invoice_item_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new InvoiceItemResource(InvoiceItem::with(['publisher', 'invoice_list'])->get());
+        return new InvoiceItemResource(InvoiceItem::with(['invoice_list', 'publisher', 'created_by'])->get());
     }
 
     public function store(StoreInvoiceItemRequest $request)
@@ -33,7 +33,7 @@ class InvoiceItemApiController extends Controller
     {
         abort_if(Gate::denies('invoice_item_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new InvoiceItemResource($invoiceItem->load(['publisher', 'invoice_list']));
+        return new InvoiceItemResource($invoiceItem->load(['invoice_list', 'publisher', 'created_by']));
     }
 
     public function update(UpdateInvoiceItemRequest $request, InvoiceItem $invoiceItem)

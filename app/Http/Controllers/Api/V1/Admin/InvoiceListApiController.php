@@ -17,7 +17,7 @@ class InvoiceListApiController extends Controller
     {
         abort_if(Gate::denies('invoice_list_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new InvoiceListResource(InvoiceList::with(['member'])->get());
+        return new InvoiceListResource(InvoiceList::with(['member_fund', 'bookfest', 'created_by'])->get());
     }
 
     public function store(StoreInvoiceListRequest $request)
@@ -33,7 +33,7 @@ class InvoiceListApiController extends Controller
     {
         abort_if(Gate::denies('invoice_list_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new InvoiceListResource($invoiceList->load(['member']));
+        return new InvoiceListResource($invoiceList->load(['member_fund', 'bookfest', 'created_by']));
     }
 
     public function update(UpdateInvoiceListRequest $request, InvoiceList $invoiceList)
