@@ -91,6 +91,8 @@ return [
             'bank_name_helper'  => ' ',
             'address'           => 'Address',
             'address_helper'    => ' ',
+            'gstin'             => 'GSTIN',
+            'gstin_helper'      => ' ',
         ],
     ],
     'invoiceList' => [
@@ -227,7 +229,7 @@ return [
             'constituency_helper' => ' ',
             'mla'                 => 'MLA',
             'mla_helper'          => ' ',
-            'as_amount'           => 'AS Amount',
+            'as_amount'             => 'AS Amount (Current FinYear)',
             'as_amount_helper'    => ' ',
             'created_at'          => 'Created at',
             'created_at_helper'   => ' ',
@@ -235,8 +237,8 @@ return [
             'updated_at_helper'   => ' ',
             'deleted_at'          => 'Deleted at',
             'deleted_at_helper'   => ' ',
-	    'financial_year'        => 'Financial Year',
-            'financial_year_helper' => ' ',
+	      'as_amount_next'        => 'As Amount (Next FinYear)',
+            'as_amount_next_helper' => ' ',
         ],
     ],
     'member' => [

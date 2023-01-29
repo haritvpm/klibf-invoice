@@ -23,7 +23,7 @@ class MemberFund extends Model
         'constituency_id',
         'mla_id',
         'as_amount',
-        'financial_year',
+        'as_amount_next',
         'created_at',
         'updated_at',
         'deleted_at',

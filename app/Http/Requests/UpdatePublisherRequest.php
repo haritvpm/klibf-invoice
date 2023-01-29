@@ -38,6 +38,11 @@ class UpdatePublisherRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'gstin' => [
+                'string',
+                'min:15',
+                'nullable',
+            ],
         ];
     }
 }

@@ -64,6 +64,16 @@
                             <span class="help-block">{{ trans('cruds.publisher.fields.address_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="gstin">{{ trans('cruds.publisher.fields.gstin') }}</label>
+                            <input class="form-control" type="text" name="gstin" id="gstin" value="{{ old('gstin', '') }}">
+                            @if($errors->has('gstin'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('gstin') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.publisher.fields.gstin_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

@@ -66,6 +66,14 @@
                                         {{ $publisher->bank_name }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.publisher.fields.gstin') }}
+                                    </th>
+                                    <td>
+                                        {{ $publisher->gstin }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

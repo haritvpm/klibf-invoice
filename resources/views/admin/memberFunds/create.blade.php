@@ -62,19 +62,14 @@
                 <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.memberFund.fields.financial_year') }}</label>
-                <select class="form-control {{ $errors->has('financial_year') ? 'is-invalid' : '' }}" name="financial_year" id="financial_year">
-                    <option value disabled {{ old('financial_year', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach($finyears as $financial_year)
-                        <option value="{{ $financial_year }}" {{ old('financial_year', '') === (string) $financial_year ? 'selected' : '' }}>{{ $financial_year }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('financial_year'))
+                <label for="as_amount_next">{{ trans('cruds.memberFund.fields.as_amount_next') }}</label>
+                <input class="form-control {{ $errors->has('as_amount_next') ? 'is-invalid' : '' }}" type="number" name="as_amount_next" id="as_amount_next" value="{{ old('as_amount_next', '0') }}" step="0.01">
+                @if($errors->has('as_amount_next'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('financial_year') }}
+                        {{ $errors->first('as_amount_next') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.memberFund.fields.financial_year_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_next_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

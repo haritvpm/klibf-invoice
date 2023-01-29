@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('member_funds', function (Blueprint $table) {
-            $table->string('financial_year')->nullable();
+        Schema::table('publishers', function (Blueprint $table) {
+              $table->string('gstin')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('member_funds', function (Blueprint $table) {
+        Schema::table('publishers', function (Blueprint $table) {
             //
         });
     }

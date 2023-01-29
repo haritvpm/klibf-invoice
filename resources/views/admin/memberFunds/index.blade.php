@@ -42,7 +42,7 @@
                             {{ trans('cruds.memberFund.fields.as_amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.financial_year') }}
+                            {{ trans('cruds.memberFund.fields.as_amount_next') }}
                         </th>
                         <th>
                             &nbsp;
@@ -71,7 +71,7 @@
                                 {{ $memberFund->as_amount ?? '' }}
                             </td>
                             <td>
-                                {{$memberFund->financial_year ?? '' }}
+                                {{ $memberFund->as_amount_next ?? '' }}
                             </td>
                             <td>
                                 @can('member_fund_show')

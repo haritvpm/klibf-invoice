@@ -32,7 +32,7 @@
                                     <th>
                                         {{ trans('cruds.publisher.fields.name') }}
                                     </th>
-				     <th>
+				                    <th>
                                         {{ trans('cruds.publisher.fields.address') }}
                                     </th>
                                     <th>
@@ -43,6 +43,10 @@
                                     </th>
                                     <th>
                                         {{ trans('cruds.publisher.fields.bank_name') }}
+                                    </th>
+                                   
+                                    <th>
+                                        {{ trans('cruds.publisher.fields.gstin') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -69,6 +73,8 @@
                                         </td>
                                         <td>
                                             {{ $publisher->bank_name ?? '' }}
+                                        <td>
+                                            {{ $publisher->gstin ?? '' }}
                                         </td>
                                          <td>
                                             @can('publisher_show')

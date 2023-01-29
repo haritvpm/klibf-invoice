@@ -35,11 +35,13 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                 foreach($invoiceList->invoiceListInvoiceItems()->get() as $invoice) {
                     $inv_index++;
                     $detail = array();
+                    $detail['bookfest'] = $invoiceList->bookfest->title;
                     $detail['sl.'] = $inv_index;
                     $detail['Team'] =  $invoiceList->created_by->name;
                     $detail['mla'] = $member_fund->mla->name;
                     $detail['constituency'] = $member_fund->constituency->name;
-                    $detail['FinYear'] = $member_fund->financial_year;
+                    $detail['sanctioned(cfy)'] = $member_fund->as_amount;
+                    $detail['sanctioned(nfy)'] = $member_fund->as_amount_next;
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
                     $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
@@ -94,7 +96,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                 $detail['sl.'] = $index++;
                 $detail['mla'] = $member_fund->mla->name;
                 $detail['constituency'] = $member_fund->constituency->name;
-                $detail['FinYear'] = $member_fund->financial_year;
+                $detail['as_amount'] = $member_fund->as_amount;
+                $detail['as_amount_next'] = $member_fund->as_amount_next;
                 $detail['publisher'] =  $key ;
                 $detail['amount'] =  $pub_amount;
 
@@ -136,7 +139,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member_fund->mla->name;
             $detail['constituency'] = $member_fund->constituency->name;
-            $detail['sanctioned'] =  $member_fund->as_amount;
+            $detail['sanctioned_cfy'] =  $member_fund->as_amount;
+            $detail['sanctioned_nfy'] =  $member_fund->as_amount_next;
             $detail['amount'] = $mla_amount ;
             array_push($report,$detail ) ;
 
@@ -220,16 +224,16 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     public function headings(): array
     {
         if($this->title == 'MLA-Amount')
-            return [ "MLA", "Constituency", 'Sanctioned', 'Amount'];
+            return [ "MLA", "Constituency", "Sanctioned(Current-FY)","Sanctioned(Next-FY)", 'Amount'];
 
         if($this->title == 'MLA-Publisher')  
-            return ["Sl.No.", "MLA", "Constituency", "FinYear", 'Publisher', 'Amount'];
+            return ["Sl.No.", "MLA", "Constituency", "Sanctioned(Current-FY)","Sanctioned(Next-FY)", 'Publisher', 'Amount'];
 
         if($this->title == 'Publisher-Amount')  
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["Sl.No.","Team", "MLA", "Constituency","FinYear",'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
+        return ["BookFest","Sl.No.","Team", "MLA", "Constituency","Sanctioned(Current-FY)","Sanctioned(Next-FY)", 'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string
