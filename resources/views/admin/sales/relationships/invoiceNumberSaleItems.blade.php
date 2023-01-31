@@ -1,51 +1,43 @@
-@extends('layouts.admin')
-@section('content')
-@can('member_fund_create')
+@can('sale_item_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.member-funds.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.memberFund.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.sale-items.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.saleItem.title_singular') }}
             </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'MemberFund', 'route' => 'admin.member-funds.parseCsvImport'])
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.memberFund.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.saleItem.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-MemberFund">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-invoiceNumberSaleItems">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.id') }}
+                            {{ trans('cruds.saleItem.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.bookfest') }}
+                            {{ trans('cruds.saleItem.fields.product') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.constituency') }}
+                            {{ trans('cruds.saleItem.fields.invoice_number') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.mla') }}
+                            {{ trans('cruds.sale.fields.invoice_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount') }}
+                            {{ trans('cruds.saleItem.fields.quantity') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_prev') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_next') }}
+                            {{ trans('cruds.saleItem.fields.discount') }}
                         </th>
                         <th>
                             &nbsp;
@@ -53,47 +45,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($memberFunds as $key => $memberFund)
-                        <tr data-entry-id="{{ $memberFund->id }}">
+                    @foreach($saleItems as $key => $saleItem)
+                        <tr data-entry-id="{{ $saleItem->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $memberFund->id ?? '' }}
+                                {{ $saleItem->id ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->bookfest->title ?? '' }}
+                                {{ $saleItem->product->name ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->constituency->name ?? '' }}
+                                {{ $saleItem->invoice_number->invoice_number ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->mla->name ?? '' }}
+                                {{ $saleItem->invoice_number->invoice_date ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount ?? '' }}
+                                {{ $saleItem->quantity ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount_prev ?? '' }}
+                                {{ $saleItem->discount ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount_next ?? '' }}
-                            </td>
-                            <td>
-                                @can('member_fund_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.member-funds.show', $memberFund->id) }}">
+                                @can('sale_item_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.sale-items.show', $saleItem->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('member_fund_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.member-funds.edit', $memberFund->id) }}">
+                                @can('sale_item_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.sale-items.edit', $saleItem->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('member_fund_delete')
-                                    <form action="{{ route('admin.member-funds.destroy', $memberFund->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('sale_item_delete')
+                                    <form action="{{ route('admin.sale-items.destroy', $saleItem->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -110,19 +99,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('member_fund_delete')
+@can('sale_item_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.member-funds.massDestroy') }}",
+    url: "{{ route('admin.sale-items.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -153,7 +139,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-MemberFund:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-invoiceNumberSaleItems:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

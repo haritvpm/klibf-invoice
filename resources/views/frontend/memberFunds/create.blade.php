@@ -66,6 +66,16 @@
                             <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="as_amount_prev">{{ trans('cruds.memberFund.fields.as_amount_prev') }}</label>
+                            <input class="form-control" type="number" name="as_amount_prev" id="as_amount_prev" value="{{ old('as_amount_prev', '0') }}" step="0.01">
+                            @if($errors->has('as_amount_prev'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('as_amount_prev') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.memberFund.fields.as_amount_prev_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="as_amount_next">{{ trans('cruds.memberFund.fields.as_amount_next') }}</label>
                             <input class="form-control" type="number" name="as_amount_next" id="as_amount_next" value="{{ old('as_amount_next', '0') }}" step="0.01">
                             @if($errors->has('as_amount_next'))

@@ -71,6 +71,30 @@
                             {{ $publisher->gstin }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.publisher.fields.contact_person') }}
+                        </th>
+                        <td>
+                            {{ $publisher->contact_person }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.publisher.fields.contact_email') }}
+                        </th>
+                        <td>
+                            {{ $publisher->contact_email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.publisher.fields.contact_whatsapp') }}
+                        </th>
+                        <td>
+                            {{ $publisher->contact_whatsapp }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

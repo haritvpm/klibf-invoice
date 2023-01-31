@@ -18,6 +18,6 @@ class Controller extends BaseController
         $bookfest = BookFest::where('status', 'active')->latest()->first();
        
         // Sharing is caring
-        View::share('bookfest', $bookfest);
+        View::share('active_bookfest', $bookfest);
     }
 }

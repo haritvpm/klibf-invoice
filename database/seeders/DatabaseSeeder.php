@@ -9,17 +9,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            BookfestSeeder::class,
-            ConstituencyTableSeeder::class,
-            MLATableSeeder::class,
-            MemberFundTableSeeder::class,
+            //BookfestSeeder::class,
+            //ConstituencyTableSeeder::class,
+            //MLATableSeeder::class,
+           // MemberFundTableSeeder::class,
             PermissionsTableSeeder::class,
-            RolesTableSeeder::class,
+           // RolesTableSeeder::class,
             PermissionRoleTableSeeder::class,
-            UsersTableSeeder::class,
-            RoleUserTableSeeder::class,
-            ConstituencyUserSeeder::class,
-            PublishersTableSeeder::class,
+           // UsersTableSeeder::class,
+           // RoleUserTableSeeder::class,
+           // ConstituencyUserSeeder::class,
+            //PublishersTableSeeder::class,
 
         ]);
     }

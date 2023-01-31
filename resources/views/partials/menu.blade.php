@@ -2,7 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <span class="c-sidebar-brand-full h4" href="#">
-            {{ trans('panel.site_title') }}  {{$bookfest?->title}}
+            {{ trans('panel.site_title') }}  {{$active_bookfest?->title}}
         </span>
     </div>
 
@@ -141,6 +141,49 @@
                     </i>
                     {{ trans('cruds.invoiceItem.title') }}
                 </a>
+            </li>
+        @endcan
+  @can('account_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/sales*") ? "c-show" : "" }} {{ request()->is("admin/sale-items*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.account.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                 
+                    @can('sale_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.sales.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sales") || request()->is("admin/sales/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.sale.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                  <!--   @can('sale_item_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.sale-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sale-items") || request()->is("admin/sale-items/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.saleItem.title') }}
+                            </a>
+                        </li>
+                    @endcan -->
+                    @can('product_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.products.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/products") || request()->is("admin/products/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.product.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
             </li>
         @endcan
     

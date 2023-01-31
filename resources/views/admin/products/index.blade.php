@@ -1,51 +1,54 @@
 @extends('layouts.admin')
 @section('content')
-@can('member_fund_create')
+@can('product_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.member-funds.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.memberFund.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.products.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
             </a>
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
-            @include('csvImport.modal', ['model' => 'MemberFund', 'route' => 'admin.member-funds.parseCsvImport'])
+            @include('csvImport.modal', ['model' => 'Product', 'route' => 'admin.products.parseCsvImport'])
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.memberFund.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-MemberFund">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Product">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.id') }}
+                            {{ trans('cruds.product.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.bookfest') }}
+                            {{ trans('cruds.product.fields.bookfest') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.constituency') }}
+                            {{ trans('cruds.product.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.mla') }}
+                            {{ trans('cruds.product.fields.description') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount') }}
+                            {{ trans('cruds.product.fields.hsn') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_prev') }}
+                            {{ trans('cruds.product.fields.price') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_next') }}
+                            {{ trans('cruds.product.fields.taxpercent_cgst') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.product.fields.taxpercent_sgst') }}
                         </th>
                         <th>
                             &nbsp;
@@ -53,47 +56,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($memberFunds as $key => $memberFund)
-                        <tr data-entry-id="{{ $memberFund->id }}">
+                    @foreach($products as $key => $product)
+                        <tr data-entry-id="{{ $product->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $memberFund->id ?? '' }}
+                                {{ $product->id ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->bookfest->title ?? '' }}
+                                @foreach($product->bookfests as $key => $item)
+                                    <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
                             </td>
                             <td>
-                                {{ $memberFund->constituency->name ?? '' }}
+                                {{ $product->name ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->mla->name ?? '' }}
+                                {{ $product->description ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount ?? '' }}
+                                {{ $product->hsn ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount_prev ?? '' }}
+                                {{ $product->price ?? '' }}
                             </td>
                             <td>
-                                {{ $memberFund->as_amount_next ?? '' }}
+                                {{ $product->taxpercent_cgst ?? '' }}
                             </td>
                             <td>
-                                @can('member_fund_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.member-funds.show', $memberFund->id) }}">
+                                {{ $product->taxpercent_sgst ?? '' }}
+                            </td>
+                            <td>
+                                @can('product_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.products.show', $product->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('member_fund_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.member-funds.edit', $memberFund->id) }}">
+                                @can('product_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.products.edit', $product->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('member_fund_delete')
-                                    <form action="{{ route('admin.member-funds.destroy', $memberFund->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('product_delete')
+                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -118,11 +126,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('member_fund_delete')
+@can('product_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.member-funds.massDestroy') }}",
+    url: "{{ route('admin.products.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -153,7 +161,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-MemberFund:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-Product:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

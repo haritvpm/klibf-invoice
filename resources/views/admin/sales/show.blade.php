@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.memberFund.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.sale.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.member-funds.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.sales.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,64 +17,64 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.id') }}
+                            {{ trans('cruds.sale.fields.id') }}
                         </th>
                         <td>
-                            {{ $memberFund->id }}
+                            {{ $sale->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.bookfest') }}
+                            {{ trans('cruds.sale.fields.bookfest') }}
                         </th>
                         <td>
-                            {{ $memberFund->bookfest->title ?? '' }}
+                            {{ $sale->bookfest->title ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.constituency') }}
+                            {{ trans('cruds.sale.fields.publisher') }}
                         </th>
                         <td>
-                            {{ $memberFund->constituency->name ?? '' }}
+                            {{ $sale->publisher->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.mla') }}
+                            {{ trans('cruds.sale.fields.invoice_number') }}
                         </th>
                         <td>
-                            {{ $memberFund->mla->name ?? '' }}
+                            {{ $sale->invoice_number }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount') }}
+                            {{ trans('cruds.sale.fields.invoice_date') }}
                         </th>
                         <td>
-                            {{ $memberFund->as_amount }}
+                            {{ $sale->invoice_date }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_prev') }}
+                            {{ trans('cruds.sale.fields.payment') }}
                         </th>
                         <td>
-                            {{ $memberFund->as_amount_prev }}
+                            {{ App\Models\Sale::PAYMENT_SELECT[$sale->payment] ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_next') }}
+                            {{ trans('cruds.sale.fields.remarks') }}
                         </th>
                         <td>
-                            {{ $memberFund->as_amount_next }}
+                            {{ $sale->remarks }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.member-funds.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.sales.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -88,14 +88,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#member_fund_invoice_lists" role="tab" data-toggle="tab">
-                {{ trans('cruds.invoiceList.title') }}
+            <a class="nav-link" href="#invoice_number_sale_items" role="tab" data-toggle="tab">
+                {{ trans('cruds.saleItem.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="member_fund_invoice_lists">
-            @includeIf('admin.memberFunds.relationships.memberFundInvoiceLists', ['invoiceLists' => $memberFund->memberFundInvoiceLists])
+        <div class="tab-pane" role="tabpanel" id="invoice_number_sale_items">
+            @includeIf('admin.sales.relationships.invoiceNumberSaleItems', ['saleItems' => $sale->invoiceNumberSaleItems])
         </div>
     </div>
 </div>

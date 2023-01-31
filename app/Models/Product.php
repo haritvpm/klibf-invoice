@@ -6,35 +6,33 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Publisher extends Model
+class Product extends Model
 {
     use HasFactory;
 
-    public $table = 'publishers';
+    public $table = 'products';
 
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
     protected $fillable = [
         'name',
-        'account_no',
-        'ifsc',
-        'bank_name',
-        'address',
-        'gstin',
-        'contact_person',
-        'contact_email',
-        'contact_whatsapp',
+        'description',
+        'hsn',
+        'price',
+        'taxpercent_cgst',
+        'taxpercent_sgst',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function publisherInvoiceItems()
+    public function bookfests()
     {
-        return $this->hasMany(InvoiceItem::class, 'publisher_id', 'id');
+        return $this->belongsToMany(BookFest::class);
     }
 
     protected function serializeDate(DateTimeInterface $date)

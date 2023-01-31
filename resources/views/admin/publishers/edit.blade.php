@@ -71,6 +71,36 @@
                 <span class="help-block">{{ trans('cruds.publisher.fields.gstin_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="contact_person">{{ trans('cruds.publisher.fields.contact_person') }}</label>
+                <input class="form-control {{ $errors->has('contact_person') ? 'is-invalid' : '' }}" type="text" name="contact_person" id="contact_person" value="{{ old('contact_person', $publisher->contact_person) }}">
+                @if($errors->has('contact_person'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contact_person') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.publisher.fields.contact_person_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="contact_email">{{ trans('cruds.publisher.fields.contact_email') }}</label>
+                <input class="form-control {{ $errors->has('contact_email') ? 'is-invalid' : '' }}" type="email" name="contact_email" id="contact_email" value="{{ old('contact_email', $publisher->contact_email) }}">
+                @if($errors->has('contact_email'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contact_email') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.publisher.fields.contact_email_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="contact_whatsapp">{{ trans('cruds.publisher.fields.contact_whatsapp') }}</label>
+                <input class="form-control {{ $errors->has('contact_whatsapp') ? 'is-invalid' : '' }}" type="text" name="contact_whatsapp" id="contact_whatsapp" value="{{ old('contact_whatsapp', $publisher->contact_whatsapp) }}">
+                @if($errors->has('contact_whatsapp'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contact_whatsapp') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.publisher.fields.contact_whatsapp_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

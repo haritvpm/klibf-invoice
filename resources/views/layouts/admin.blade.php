@@ -37,6 +37,8 @@
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/perfect-scrollbar.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}" rel="stylesheet" />
+
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
 </head>

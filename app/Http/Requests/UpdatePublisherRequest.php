@@ -43,6 +43,15 @@ class UpdatePublisherRequest extends FormRequest
                 'min:15',
                 'nullable',
             ],
+            'contact_person' => [
+                'string',
+                'nullable',
+            ],
+            'contact_whatsapp' => [
+                'string',
+                'min:10',
+                'nullable',
+            ],
         ];
     }
 }

@@ -42,6 +42,9 @@
                                         {{ trans('cruds.memberFund.fields.as_amount') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.memberFund.fields.as_amount_prev') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.memberFund.fields.as_amount_next') }}
                                     </th>
                                     <th>
@@ -66,6 +69,9 @@
                                         </td>
                                         <td>
                                             {{ $memberFund->as_amount ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $memberFund->as_amount_prev ?? '' }}
                                         </td>
                                         <td>
                                             {{ $memberFund->as_amount_next ?? '' }}

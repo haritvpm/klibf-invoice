@@ -48,6 +48,15 @@
                             {{ trans('cruds.publisher.fields.gstin') }}
                         </th>
                         <th>
+                            {{ trans('cruds.publisher.fields.contact_person') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.publisher.fields.contact_email') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.publisher.fields.contact_whatsapp') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -78,6 +87,15 @@
                             </td>
                             <td>
                                 {{ $publisher->gstin ?? '' }}
+                            </td>
+                            <td>
+                                {{ $publisher->contact_person ?? '' }}
+                            </td>
+                            <td>
+                                {{ $publisher->contact_email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $publisher->contact_whatsapp ?? '' }}
                             </td>
                             <td>
                                 @can('publisher_show')

@@ -69,6 +69,26 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('backup/delete/{file_name}', 'BackupController@delete');
     
     
+    
+    
+    // Product
+    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
+    Route::post('products/parse-csv-import', 'ProductController@parseCsvImport')->name('products.parseCsvImport');
+    Route::post('products/process-csv-import', 'ProductController@processCsvImport')->name('products.processCsvImport');
+    Route::resource('products', 'ProductController');
+
+    // Sale
+    Route::delete('sales/destroy', 'SaleController@massDestroy')->name('sales.massDestroy');
+    Route::post('sales/parse-csv-import', 'SaleController@parseCsvImport')->name('sales.parseCsvImport');
+    Route::post('sales/process-csv-import', 'SaleController@processCsvImport')->name('sales.processCsvImport');
+    Route::resource('sales', 'SaleController');
+
+    // Sale Item
+    Route::delete('sale-items/destroy', 'SaleItemController@massDestroy')->name('sale-items.massDestroy');
+    Route::post('sale-items/parse-csv-import', 'SaleItemController@parseCsvImport')->name('sale-items.parseCsvImport');
+    Route::post('sale-items/process-csv-import', 'SaleItemController@processCsvImport')->name('sale-items.processCsvImport');
+    Route::resource('sale-items', 'SaleItemController');
+
 
 
 });
@@ -130,4 +150,20 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
     Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');
     Route::post('frontend/profile/password', 'ProfileController@password')->name('profile.password');
+    
+    
+        // Product
+    Route::delete('products/destroy', 'ProductController@massDestroy')->name('products.massDestroy');
+    Route::resource('products', 'ProductController');
+
+    // Sale
+    Route::delete('sales/destroy', 'SaleController@massDestroy')->name('sales.massDestroy');
+    Route::resource('sales', 'SaleController');
+
+    // Sale Item
+    Route::delete('sale-items/destroy', 'SaleItemController@massDestroy')->name('sale-items.massDestroy');
+    Route::resource('sale-items', 'SaleItemController');
+
+    
+    
 });
