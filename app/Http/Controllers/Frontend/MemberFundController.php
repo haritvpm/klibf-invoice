@@ -35,7 +35,19 @@ class MemberFundController extends Controller
             ->wherein('constituency_id',$user_constituencies)
             ->get();
 
-        return view('frontend.memberFunds.index', compact('memberFunds'));
+            
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $nextyear = Carbon::now()->addYear();
+        $lastlastyear = Carbon::now()->subYears(2);
+
+        $finyears = [];
+        $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $lastlastyear->format('Y') . '-' .$lastyear->format('y');
+        $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+
+
+        return view('frontend.memberFunds.index', compact('memberFunds','finyears'));
     }
 
     public function create()
@@ -51,11 +63,13 @@ class MemberFundController extends Controller
         $curyear = Carbon::now();
         $lastyear = Carbon::now()->subYear();
         $nextyear = Carbon::now()->addYear();
-       
+        $lastlastyear = Carbon::now()->subYears(2);
+
         $finyears = [];
         $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $lastlastyear->format('Y') . '-' .$lastyear->format('y');
         $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
-      
+     
 
         return view('frontend.memberFunds.create', compact('bookfests', 'constituencies', 'mlas', 'finyears'));
     }
@@ -83,10 +97,13 @@ class MemberFundController extends Controller
         $curyear = Carbon::now();
         $lastyear = Carbon::now()->subYear();
         $nextyear = Carbon::now()->addYear();
-       
+        $lastlastyear = Carbon::now()->subYears(2);
+
         $finyears = [];
         $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $finyears[] = $lastlastyear->format('Y') . '-' .$lastyear->format('y');
         $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+     
       
         return view('frontend.memberFunds.edit', compact('bookfests', 'constituencies', 'memberFund', 'mlas', 'finyears'));
     }

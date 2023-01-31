@@ -245,6 +245,8 @@ return [
             'deleted_at_helper'   => ' ',
 	      'as_amount_next'        => 'As Amount (Next FinYear)',
             'as_amount_next_helper' => ' ',
+            'as_amount_prev'        => 'As Amount (Prev FinYear)',
+            'as_amount_prev_helper' => ' ',
         ],
     ],
     'member' => [

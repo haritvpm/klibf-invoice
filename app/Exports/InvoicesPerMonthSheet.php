@@ -6,15 +6,26 @@ use App\Models\MemberFund;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\BookFest;
+use Carbon\Carbon;
 
 class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 {
     private $title;
     private $bookfest_id;
+    private $finyears = [];
     public function __construct($bookfest_id, $title)
     {
         $this->title = $title;
         $this->bookfest_id = $bookfest_id;
+
+        $curyear = Carbon::now();
+        $lastyear = Carbon::now()->subYear();
+        $lastlastyear = Carbon::now()->subYears(2);
+        $nextyear = Carbon::now()->addYear();
+        $this->finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+        $this->finyears[] = $lastlastyear->format('Y') . '-' .$lastyear->format('y');
+        $this->finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+
     }
 
     /**
@@ -40,6 +51,14 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['Team'] =  $invoiceList->created_by->name;
                     $detail['mla'] = $member_fund->mla->name;
                     $detail['constituency'] = $member_fund->constituency->name;
+
+                    $years = [];
+                    if($member_fund->as_amount > 0) $years [] =   $this->finyears[0] ;
+                    if($member_fund->as_amount_prev > 0) $years [] =  $this->finyears[1] ;
+                    if($member_fund->as_amount_next > 0) $years [] =  $this->finyears[2] ;
+        
+                    $detail['as_amount_fy'] = implode( ',', $years);
+
                     $detail['sanctioned(cfy)'] = $member_fund->as_amount;
                     $detail['sanctioned(pfy)'] = $member_fund->as_amount_prev;
                     $detail['sanctioned(nfy)'] = $member_fund->as_amount_next;
@@ -72,7 +91,10 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     {
         $report = [];
 
-      
+     
+       
+     
+
         foreach($member_funds as  $member_fund) {
          
             $pub_amounts = array();
@@ -97,6 +119,14 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                 $detail['sl.'] = $index++;
                 $detail['mla'] = $member_fund->mla->name;
                 $detail['constituency'] = $member_fund->constituency->name;
+                
+                $years = [];
+
+                if($member_fund->as_amount > 0) $years [] =   $this->finyears[0] ;
+                if($member_fund->as_amount_prev > 0) $years [] =  $this->finyears[1] ;
+                if($member_fund->as_amount_next > 0) $years [] =  $this->finyears[2] ;
+
+                $detail['as_amount_fy'] = implode( ',', $years);
                 $detail['as_amount'] = $member_fund->as_amount;
                 $detail['as_amount_prev'] = $member_fund->as_amount_prev;
                 $detail['as_amount_next'] = $member_fund->as_amount_next;
@@ -141,6 +171,15 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
           //  $detail['sl.'] = $mla_index ;
             $detail['mla'] = $member_fund->mla->name;
             $detail['constituency'] = $member_fund->constituency->name;
+
+            $years = [];
+
+            if($member_fund->as_amount > 0) $years [] =   $this->finyears[0] ;
+            if($member_fund->as_amount_prev > 0) $years [] =  $this->finyears[1] ;
+            if($member_fund->as_amount_next > 0) $years [] =  $this->finyears[2] ;
+
+            $detail['as_amount_fy'] = implode( ',', $years);
+
             $detail['sanctioned_cfy'] =  $member_fund->as_amount;
             $detail['sanctioned_pfy'] =  $member_fund->as_amount_prev;
             $detail['sanctioned_nfy'] =  $member_fund->as_amount_next;
@@ -227,16 +266,16 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     public function headings(): array
     {
         if($this->title == 'MLA-Amount')
-            return [ "MLA", "Constituency", "Sanctioned(Current-FY)","Sanctioned(Prev-FY)","Sanctioned(Next-FY)", 'Amount'];
+            return [ "MLA", "Constituency","Sanctioned-FY", "Sanctioned(".$this->finyears[0] .")","Sanctioned(".$this->finyears[1] .")","Sanctioned(".$this->finyears[2] .")", 'Amount'];
 
         if($this->title == 'MLA-Publisher')  
-            return ["Sl.No.", "MLA", "Constituency", "Sanctioned(Current-FY)","Sanctioned(Prev-FY)","Sanctioned(Next-FY)", 'Publisher', 'Amount'];
+            return ["Sl.No.", "MLA", "Constituency", "Sanctioned-FY", "Sanctioned(".$this->finyears[0] .")","Sanctioned(".$this->finyears[1] .")","Sanctioned(".$this->finyears[2] .")", 'Publisher', 'Amount'];
 
         if($this->title == 'Publisher-Amount')  
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["BookFest","Sl.No.","Team", "MLA", "Constituency","Sanctioned(Current-FY)","Sanctioned(Prev-FY)","Sanctioned(Next-FY)", 'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
+        return ["BookFest","Sl.No.","Team", "MLA", "Constituency","Sanctioned-FY","Sanctioned(".$this->finyears[0] .")","Sanctioned(".$this->finyears[1] .")","Sanctioned(".$this->finyears[2] .")", 'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string

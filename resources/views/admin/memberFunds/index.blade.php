@@ -39,13 +39,13 @@
                             {{ trans('cruds.memberFund.fields.mla') }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount') }}
+                        FY {{ $finyears[0] }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_prev') }}
+                        FY {{ $finyears[1] }}
                         </th>
                         <th>
-                            {{ trans('cruds.memberFund.fields.as_amount_next') }}
+                        FY {{ $finyears[2] }}
                         </th>
                         <th>
                             &nbsp;

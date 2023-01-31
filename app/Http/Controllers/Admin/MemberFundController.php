@@ -27,9 +27,23 @@ class MemberFundController extends Controller
     {
         abort_if(Gate::denies('member_fund_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $memberFunds = MemberFund::with(['bookfest', 'constituency', 'mla'])->get();
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
 
-        return view('admin.memberFunds.index', compact('memberFunds'));
+        $memberFunds = MemberFund::with(['bookfest', 'constituency', 'mla'])
+                ->where('bookfest_id',$bookfest?->id )
+                ->get();
+
+    $curyear = Carbon::now();
+    $lastyear = Carbon::now()->subYear();
+    $nextyear = Carbon::now()->addYear();
+    $lastlastyear = Carbon::now()->subYears(2);
+
+    $finyears = [];
+    $finyears[] = $lastyear->format('Y') . '-' .$curyear->format('y');
+    $finyears[] = $lastlastyear->format('Y') . '-' .$lastyear->format('y');
+    $finyears[] = $curyear->format('Y') . '-' .$nextyear->format('y');
+
+        return view('admin.memberFunds.index', compact('memberFunds','finyears'));
     }
 
     public function create()
