@@ -73,7 +73,6 @@
                 </thead>
                 <tbody>
                     
-
                     @foreach($products as $product)
 
                     <tr id="rowinitial-{{$loop->index}}" >
