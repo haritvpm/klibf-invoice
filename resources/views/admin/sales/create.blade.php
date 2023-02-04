@@ -26,7 +26,8 @@
             </div>
             <div class="form-group">
                 <label for="invoice_date">{{ trans('cruds.sale.fields.invoice_date') }}</label>
-                <input class="form-control date {{ $errors->has('invoice_date') ? 'is-invalid' : '' }}" type="text" name="invoice_date" id="invoice_date" value="{{ old('invoice_date', date('d/m/Y')) }}">
+                <input readonly id='invoice_datepicker' class="form-control" type="text" name="invoice_date" id="invoice_date" value="{{ old('invoice_date', date('d/m/Y')) }}" required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">
+                
                 @if($errors->has('invoice_date'))
                     <div class="invalid-feedback">
                         {{ $errors->first('invoice_date') }}
@@ -82,9 +83,9 @@
                         
                         <td >
                             <span class="mt-1 ">{{$product->name}}</span> 
-                            <input class="form-control product" type="hidden"  name="$product_id[]" value="{{$product->id}}" autocomplete="off">
+                            <input class="form-control product" type="hidden"  name="product_id[]" value="{{$product->id}}" autocomplete="off">
                             </td>
-                        <td  class="w-5"><input class="form-control qty" type="text" inputmode="numeric" pattern="[0-9]*" name="qty[]" value="{{ old('qty.'.$loop->index,0)}}" required autocomplete="off"></td>
+                        <td  class="w-5"><input class="form-control quantity" type="text" inputmode="numeric" pattern="[0-9]*" name="quantity[]" value="{{ old('quantity.'.$loop->index,0)}}" required autocomplete="off"></td>
 
                       
 
@@ -114,8 +115,9 @@
        
         $('select').select2({  theme: 'bootstrap-5',});
 
-    });
-
+   });
 </script>
+
+
 
 @endsection

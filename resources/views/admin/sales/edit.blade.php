@@ -10,20 +10,7 @@
         <form method="POST" action="{{ route("admin.sales.update", [$sale->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
-     <!--        <div class="form-group">
-                <label for="bookfest_id">{{ trans('cruds.sale.fields.bookfest') }}</label>
-                <select class="form-control select2 {{ $errors->has('bookfest') ? 'is-invalid' : '' }}" name="bookfest_id" id="bookfest_id">
-                    @foreach($bookfests as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('bookfest_id') ? old('bookfest_id') : $sale->bookfest->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('bookfest'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('bookfest') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.sale.fields.bookfest_helper') }}</span>
-            </div> -->
+
             <div class="form-group">
                 <label class="required" for="publisher_id">{{ trans('cruds.sale.fields.publisher') }}</label>
                 <select class="form-control select2 {{ $errors->has('publisher') ? 'is-invalid' : '' }}" name="publisher_id" id="publisher_id" required>
@@ -39,8 +26,15 @@
                 <span class="help-block">{{ trans('cruds.sale.fields.publisher_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="invoice_number">{{ trans('cruds.sale.fields.invoice_number') }}</label>
+                <input readonly class="form-control" type="text" name="invoice_number" id="invoice_number" value="{{ old('invoice_number', $sale->invoice_number) }}">
+            
+            </div>
+
+            <div class="form-group">
                 <label for="invoice_date">{{ trans('cruds.sale.fields.invoice_date') }}</label>
-                <input class="form-control date {{ $errors->has('invoice_date') ? 'is-invalid' : '' }}" type="text" name="invoice_date" id="invoice_date" value="{{ old('invoice_date', $sale->invoice_date) }}">
+                <input readonly id='invoice_datepicker' class="form-control" type="text" name="invoice_date" id="invoice_date" value="{{ old('invoice_date', $sale->invoice_date) }}"  required pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$">
+
                 @if($errors->has('invoice_date'))
                     <div class="invalid-feedback">
                         {{ $errors->first('invoice_date') }}
@@ -73,14 +67,71 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.sale.fields.remarks_helper') }}</span>
             </div>
+
+            <table class="table table-borderless  mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        
+                        <th scope="col">Item</th>
+                        <th scope="col">Qty</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach($sale->invoiceNumberSaleItems as $saleitem)
+
+                    <tr id="rowinitial-{{$loop->index}}" >
+                        <td>
+                            <div class="slno mt-1">{{$loop->index+1}}</div>
+                        </td>
+                        
+                        <td >
+                            <span class="mt-1 ">{{$saleitem->product->name}}</span> 
+                            <input class="form-control product" type="hidden"  name="product_id[]" value="{{$saleitem->product->id}}" autocomplete="off">
+                            </td>
+                        <td  class="w-5"><input class="form-control quantity" type="text" inputmode="numeric" pattern="[0-9]*" name="quantity[]" value="{{ old('quantity.'.$loop->index,$saleitem->quantity)}}" required autocomplete="off"></td>
+
+                      
+
+                    </tr>
+                    @endforeach
+
+                </tbody>
+                           
+
+            </table>
+
+
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
+                    {{ trans('global.update') }}
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+
+
+
+@endsection
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+    $(document).ready(function() {
+       
+        $('select').select2({  theme: 'bootstrap-5',});
+
+    
+
+    });
+
+</script>
+
 
 
 

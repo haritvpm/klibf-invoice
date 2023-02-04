@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use DB;
 use App\Models\Product;
+use App\Models\SaleItem;
 
 class SaleController extends Controller
 {
@@ -24,9 +25,13 @@ class SaleController extends Controller
     {
         abort_if(Gate::denies('sale_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sales = Sale::with(['bookfest', 'publisher'])->get();
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        $sales = Sale::with(['bookfest', 'publisher', 'invoiceNumberSaleItems'])->get();
+        
+        $product_ids = DB::table('book_fest_product')->where( 'book_fest_id',$bookfest?->id )->pluck('product_id');
+        $products = Product::whereIn('id', $product_ids)->orderby('id')->get();
 
-        return view('admin.sales.index', compact('sales'));
+        return view('admin.sales.index', compact('sales', 'products'));
     }
 
     public function create()
@@ -47,30 +52,84 @@ class SaleController extends Controller
 
     public function store(StoreSaleRequest $request)
     {
-        dd($request->all());
-        $sale = Sale::create($request->all());
+       // dd($request->all());
 
-        return redirect()->route('admin.sales.index');
+        $requestData = collect($request->only('product_id', 'quantity'))
+                        ->transpose(['product_id', 'quantity']);
+
+
+            //check dates
+            $bookfest = BookFest::where('status', 'active')->latest()->first();
+
+
+            if(!$bookfest){
+                return  back()->withInput()->withErrors(['No active bookfest found']);;
+            }
+
+            $invoice_number = Sale::where('bookfest_id', $bookfest->id)->max('invoice_number')+1;
+
+            //dd($bookfest->id);
+            $sale = Sale::create($request->only( 'publisher_id', 'invoice_date','invoice_number', 'payment', 'remarks' )
+                                + [ 'bookfest_id' => $bookfest->id, 
+                                  'invoice_number' =>  $invoice_number,
+                                  ] );
+
+            $items = [];
+            foreach ($requestData as $item) {
+                $items[] = new SaleItem([
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+               
+                ]);
+            }
+
+            $sale->invoiceNumberSaleItems()->saveMany($items);
+
+
+
+        return redirect()->route('admin.sales.index')
+               ->with('message','Sale created successfully. ' . 'Invoice No: ' . $sale->invoice_number);
+
+   
     }
 
     public function edit(Sale $sale)
     {
         abort_if(Gate::denies('sale_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        // $bookfests = BookFest::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $publishers = Publisher::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $sale->load('bookfest', 'publisher');
+        $sale->load('bookfest', 'publisher','invoiceNumberSaleItems');
 
-        return view('admin.sales.edit', compact('bookfests', 'publishers', 'sale'));
+        return view('admin.sales.edit', compact( 'publishers', 'sale'));
     }
 
     public function update(UpdateSaleRequest $request, Sale $sale)
     {
-        $sale->update($request->all());
 
-        return redirect()->route('admin.sales.index');
+
+        $requestData = collect($request->only('product_id', 'quantity'))
+                        ->transpose(['product_id', 'quantity']);
+
+
+        //dd($bookfest->id);
+        $sale->update($request->only( 'publisher_id', 'invoice_number', 'invoice_date', 'payment', 'remarks' )  );
+        $sale->invoiceNumberSaleItems()->delete();
+        $items = [];
+        foreach ($requestData as $item) {
+            $items[] = new SaleItem([
+            'product_id' => $item['product_id'],
+            'quantity' => $item['quantity'],
+            
+            ]);
+        }
+
+        $sale->invoiceNumberSaleItems()->saveMany($items);
+
+        return redirect()->route('admin.sales.index')
+        ->with('message','Sale updated successfully. ' . 'ID: ' . $sale->id);
     }
 
     public function show(Sale $sale)
@@ -85,6 +144,7 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         abort_if(Gate::denies('sale_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $sale->invoiceNumberSaleItems()->delete();
 
         $sale->delete();
 

@@ -13,7 +13,7 @@
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
-            <table class="table table-bordered table-striped">
+            <table class="table table-border">
                 <tbody>
                     <tr>
                         <th>
@@ -73,31 +73,50 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.sales.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
+            
         </div>
+
+
+        <table class="table table-border mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        
+                        <th scope="col">Item</th>
+                        <th scope="col">Qty</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach($sale->invoiceNumberSaleItems as $saleitem)
+
+                    <tr id="rowinitial-{{$loop->index}}" >
+                        <td>
+                            <div class="slno mt-1">{{$loop->index+1}}</div>
+                        </td>
+                        
+                        <td >
+                            {{$saleitem->product->name}}
+                            </td>
+                        <td  class="w-5"> {{ $saleitem->quantity }}  </td>
+
+                      
+
+                    </tr>
+                    @endforeach
+
+                </tbody>
+                           
+
+            </table>
+
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#invoice_number_sale_items" role="tab" data-toggle="tab">
-                {{ trans('cruds.saleItem.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="invoice_number_sale_items">
-            @includeIf('admin.sales.relationships.invoiceNumberSaleItems', ['saleItems' => $sale->invoiceNumberSaleItems])
-        </div>
-    </div>
-</div>
+<!-- <div class="card">
+@includeIf('admin.sales.relationships.invoiceNumberSaleItems', ['saleItems' => $sale->invoiceNumberSaleItems])
+</div> -->
 
 @endsection

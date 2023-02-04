@@ -133,16 +133,7 @@
                 </a>
             </li>
         @endcan
-        @can('invoice_item_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-receipt c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.invoiceItem.title') }}
-                </a>
-            </li>
-        @endcan
+  
   @can('account_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/sales*") ? "c-show" : "" }} {{ request()->is("admin/sale-items*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

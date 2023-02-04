@@ -41,7 +41,7 @@ class Sale extends Model
 
     public function invoiceNumberSaleItems()
     {
-        return $this->hasMany(SaleItem::class, 'invoice_number_id', 'id');
+        return $this->hasMany(SaleItem::class, 'invoice_number_id', 'id')->orderby('id');
     }
 
     public function bookfest()
