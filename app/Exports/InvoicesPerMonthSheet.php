@@ -71,7 +71,10 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['gross'] =  $invoice->gross ;
                     $detail['discount'] =  $invoice->discount ;
                     $detail['amount'] =  $invoice->amount ;
-                    $detail['discount_percent'] =  number_format(($invoice->discount * 100) / $invoice->gross,1);
+                    $detail['discount_percent'] =  '';
+                    if($invoice->gross > 0){
+                        $detail['discount_percent'] =  number_format(($invoice->discount * 100) / $invoice->gross,1);
+                    }
                                                        
                     array_push($report,$detail ) ;
 
