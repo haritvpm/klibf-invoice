@@ -42,11 +42,11 @@
                             {{ trans('cruds.sale.fields.invoice_date') }}
                         </th>
 
-                        @foreach($products as $key => $product)
+                      
                         <th>
-                            {{ $product->name }}
+                           Stalls
                         </th>
-                        @endforeach
+                    
                         <th>
                             {{ trans('cruds.sale.fields.payment') }}
                         </th>
@@ -80,11 +80,13 @@
                                 {{ $sale->invoice_date ?? '' }}
                             </td>
 
-                            @foreach( $sale->invoiceNumberSaleItems as $key => $item)
-                            <th>
-                                {{ $item->quantity }}
-                            </th>
+                            <td>
+                            @foreach( $sale->invoiceNumberSaleItemsNonZero as $key => $item)
+                            
+                            <small>{{ $key+1 . '. '. $item->product->name . ': '  }}</small> <b> {{$item->quantity }} </b><br>
+                           
                             @endforeach
+                            </td>
 
                             <td>
                                 {{ App\Models\Sale::PAYMENT_SELECT[$sale->payment] ?? '' }}

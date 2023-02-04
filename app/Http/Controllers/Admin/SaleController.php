@@ -25,10 +25,12 @@ class SaleController extends Controller
     {
         abort_if(Gate::denies('sale_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $bookfest = BookFest::where('status', 'active')->latest()->first();
-        $sales = Sale::with(['bookfest', 'publisher', 'invoiceNumberSaleItems'])->get();
+        //$bookfest = BookFest::where('status', 'active')->latest()->first();
+        $sales = Sale::with(['bookfest', 'publisher', 'invoiceNumberSaleItemsNonZero'])->get();
         
-        $product_ids = DB::table('book_fest_product')->where( 'book_fest_id',$bookfest?->id )->pluck('product_id');
+        $product_ids = DB::table('book_fest_product')
+        //->where( 'book_fest_id',$bookfest?->id )
+        ->pluck('product_id');
         $products = Product::whereIn('id', $product_ids)->orderby('id')->get();
 
         return view('admin.sales.index', compact('sales', 'products'));

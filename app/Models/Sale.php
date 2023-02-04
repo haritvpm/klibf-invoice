@@ -43,6 +43,10 @@ class Sale extends Model
     {
         return $this->hasMany(SaleItem::class, 'invoice_number_id', 'id')->orderby('id');
     }
+    public function invoiceNumberSaleItemsNonZero()
+    {
+        return $this->hasMany(SaleItem::class, 'invoice_number_id', 'id')->where('quantity','>',0)->orderby('id');
+    }
 
     public function bookfest()
     {
