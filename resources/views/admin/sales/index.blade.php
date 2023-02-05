@@ -10,6 +10,11 @@
                 {{ trans('global.app_csvImport') }}
             </button>
             @include('csvImport.modal', ['model' => 'Sale', 'route' => 'admin.sales.parseCsvImport'])
+
+            <a class="btn btn-primary" href="{{ route('admin.sales.export') }}">
+              Download Sales
+             </a>
+
         </div>
     </div>
 @endcan

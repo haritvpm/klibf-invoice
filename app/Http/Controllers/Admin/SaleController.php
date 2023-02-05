@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 use DB;
 use App\Models\Product;
 use App\Models\SaleItem;
+use App\Exports\StallsExport;
+//use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
 {
@@ -158,5 +160,19 @@ class SaleController extends Controller
         Sale::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function export() 
+    {
+        $bookfest = BookFest::where('status', 'active')->latest()->first();
+        if(!$bookfest){
+            return  back()->withErrors(['No active bookfest found']);;
+        }
+
+        $product_ids = DB::table('book_fest_product')->where( 'book_fest_id',$bookfest?->id )->pluck('product_id');
+        $products = Product::whereIn('id', $product_ids)->orderby('id')->get();
+
+       // return Excel::download(new MembersExport, 'klibf.xlsx');
+        return (new StallsExport($bookfest->id, $products))->download('klibf' . $bookfest->title . '_stalls.xlsx');
     }
 }

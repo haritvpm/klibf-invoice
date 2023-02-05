@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('products', 'ProductController');
 
     // Sale
+    Route::get('sales/export', 'SaleController@export')->name('sales.export');
     Route::delete('sales/destroy', 'SaleController@massDestroy')->name('sales.massDestroy');
     Route::post('sales/parse-csv-import', 'SaleController@parseCsvImport')->name('sales.parseCsvImport');
     Route::post('sales/process-csv-import', 'SaleController@processCsvImport')->name('sales.processCsvImport');
