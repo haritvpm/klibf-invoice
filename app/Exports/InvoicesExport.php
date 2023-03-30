@@ -11,10 +11,12 @@ class InvoicesExport implements WithMultipleSheets
     use Exportable;
 
     protected $bookfest_id;
+    protected $memberFundId;
     
-    public function __construct($bookfest_id)
+    public function __construct($bookfest_id,  $memberFundId)
     {
         $this->bookfest_id = $bookfest_id;
+        $this->memberFundId = $memberFundId;
 
     }
 
@@ -23,10 +25,10 @@ class InvoicesExport implements WithMultipleSheets
      */
     public function sheets(): array
     {
-        $sheets = [ new InvoicesPerMonthSheet($this->bookfest_id, 'All'),
-                    new InvoicesPerMonthSheet($this->bookfest_id, 'MLA-Amount'), 
-                    new InvoicesPerMonthSheet($this->bookfest_id,'MLA-Publisher'),
-                    new InvoicesPerMonthSheet($this->bookfest_id,'Publisher-Amount') ];
+        $sheets = [ new InvoicesPerMonthSheet($this->bookfest_id, $this->memberFundId,'All'),
+                    new InvoicesPerMonthSheet($this->bookfest_id, $this->memberFundId,'MLA-Amount'), 
+                    new InvoicesPerMonthSheet($this->bookfest_id, $this->memberFundId,'MLA-Publisher'),
+                    new InvoicesPerMonthSheet($this->bookfest_id, $this->memberFundId,'Publisher-Amount') ];
                 
         return $sheets;
     }

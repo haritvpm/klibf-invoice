@@ -143,7 +143,7 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::resource('mlas', 'MlaController');
 
     // Member Fund
-    Route::get('member-funds/export', 'MemberFundController@export')->name('member-funds.export');
+    Route::get('member-funds/export/{Id?}', 'MemberFundController@export')->name('member-funds.export');
 
     Route::delete('member-funds/destroy', 'MemberFundController@massDestroy')->name('member-funds.massDestroy');
     Route::resource('member-funds', 'MemberFundController');

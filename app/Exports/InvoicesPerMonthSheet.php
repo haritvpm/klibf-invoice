@@ -13,10 +13,12 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
     private $title;
     private $bookfest_id;
     private $finyears = [];
-    public function __construct($bookfest_id, $title)
+    private $memberFundId;
+    public function __construct($bookfest_id, $memberFundId, $title)
     {
         $this->title = $title;
         $this->bookfest_id = $bookfest_id;
+        $this->memberFundId = $memberFundId;
 
         $curyear = Carbon::now();
         $lastyear = Carbon::now()->subYear();
@@ -245,14 +247,18 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
 
     }
 
-
+    
     public function collection()
     {
         $bookfest_id = $this->bookfest_id;
+        $memberFundId = $this->memberFundId;
 
         $member_funds = MemberFund::with(['memberFundInvoiceLists', 'memberFundInvoiceLists.invoiceListInvoiceItems'])
                 ->wherehas('memberFundInvoiceLists', function($q) use ($bookfest_id) {
                     $q->where('bookfest_id',  $bookfest_id  );
+                })
+                ->when($memberFundId, function($q) use ($memberFundId) {
+                    $q->where('id',  $memberFundId  );
                 })
                 ->get()->filter(function ($value) {
                     return $value->memberFundInvoiceLists()->count() > 0;

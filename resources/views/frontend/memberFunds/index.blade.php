@@ -87,6 +87,10 @@
                                                 <a class="btn btn-xs btn-info" href="{{ route('frontend.member-funds.edit', $memberFund->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
+
+                                                <a  class="btn btn-xs btn-primary" href="{{ route('frontend.member-funds.export', $memberFund->id) }}">
+                                                    Download Report
+                                                </a>
                                             @endcan
 
                                            <!--  @can('member_fund_delete')

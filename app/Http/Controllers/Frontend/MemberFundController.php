@@ -140,7 +140,7 @@ class MemberFundController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function export() 
+    public function export($Id = null) 
     {
         $bookfest = BookFest::where('status', 'active')->latest()->first();
         if(!$bookfest){
@@ -148,6 +148,6 @@ class MemberFundController extends Controller
         }
 
        // return Excel::download(new MembersExport, 'klibf.xlsx');
-        return (new InvoicesExport($bookfest->id))->download('klibf' . $bookfest->title . '.xlsx');
+        return (new InvoicesExport($bookfest->id, $Id))->download('klibf' . $bookfest->title . '.xlsx');
     }
 }
