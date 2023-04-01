@@ -13,7 +13,7 @@ class InvoicesExport implements WithMultipleSheets
     protected $bookfest_id;
     protected $memberFundId;
     
-    public function __construct($bookfest_id,  $memberFundId)
+    public function __construct($bookfest_id,  $memberFundId=null)
     {
         $this->bookfest_id = $bookfest_id;
         $this->memberFundId = $memberFundId;

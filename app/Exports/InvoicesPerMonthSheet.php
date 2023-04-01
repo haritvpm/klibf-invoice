@@ -64,6 +64,8 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
                     $detail['sanctioned(cfy)'] = $member_fund->as_amount;
                     $detail['sanctioned(pfy)'] = $member_fund->as_amount_prev;
                     $detail['sanctioned(nfy)'] = $member_fund->as_amount_next;
+                    $detail['institution_type'] = $invoiceList->institution_type;
+                    
                     $detail['govt school/college'] = $invoiceList->institution_type == 'gov_school' || $invoiceList->institution_type == 'gov_college' ? $invoiceList->institution_name : '' ;
                     $detail['aided school/college'] = $invoiceList->institution_type == 'aid_school' || $invoiceList->institution_type == 'aid_college' ? $invoiceList->institution_name : '' ;
                     $detail['library'] =  $invoiceList->institution_type == 'library' ? $invoiceList->institution_name : '' ;
@@ -254,17 +256,18 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
         $memberFundId = $this->memberFundId;
 
         $member_funds = MemberFund::with(['memberFundInvoiceLists', 'memberFundInvoiceLists.invoiceListInvoiceItems'])
-                ->wherehas('memberFundInvoiceLists', function($q) use ($bookfest_id) {
+                /* ->wherehas('memberFundInvoiceLists', function($q) use ($bookfest_id) {
                     $q->where('bookfest_id',  $bookfest_id  );
-                })
+                }) */
+                ->where('bookfest_id',  $bookfest_id  )
                 ->when($memberFundId, function($q) use ($memberFundId) {
                     $q->where('id',  $memberFundId  );
                 })
-                ->get()->filter(function ($value) {
+                ->get()/*->filter(function ($value) {
                     return $value->memberFundInvoiceLists()->count() > 0;
-                });
+                })*/;
 
-            
+        //   dd($member_funds->pluck('mla.name')) ;
         if($this->title == 'MLA-Amount') return $this->MLAAmount($member_funds);
         if($this->title == 'MLA-Publisher') return $this->MLAPublisher($member_funds);
         if($this->title == 'Publisher-Amount') return $this->PublisherAmount($member_funds);
@@ -284,7 +287,7 @@ class InvoicesPerMonthSheet implements FromCollection, WithTitle, WithHeadings
             return [ 'Publisher', 'Gross' , 'Discount', 'Amount'];
         
      
-        return ["BookFest","Sl.No.","Team", "MLA", "Constituency","Sanctioned-FY","Sanctioned(".$this->finyears[0] .")","Sanctioned(".$this->finyears[1] .")","Sanctioned(".$this->finyears[2] .")", 'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
+        return ["BookFest","Sl.No.","Team", "MLA", "Constituency","Sanctioned-FY","Sanctioned(".$this->finyears[0] .")","Sanctioned(".$this->finyears[1] .")","Sanctioned(".$this->finyears[2] .")",'Type' ,'Govt school/college', 'Aided school/college', 'Library', 'Publisher', 'Bill No.', 'Bill Date','Gross' , 'Discount', 'Amount', 'DiscountPercent'];
     }
     /**
      * @return string

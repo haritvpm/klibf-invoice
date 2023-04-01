@@ -137,6 +137,8 @@ class MemberFundController extends Controller
         }
 
        // return Excel::download(new MembersExport, 'klibf.xlsx');
-        return (new InvoicesExport($bookfest->id))->download('klibf' . $bookfest->title . '.xlsx');
+       $date = Carbon::now()->toDateTimeString();
+
+       return (new InvoicesExport($bookfest->id))->download('klibf' . $bookfest->title. '_'. $date . '.xlsx');
     }
 }
